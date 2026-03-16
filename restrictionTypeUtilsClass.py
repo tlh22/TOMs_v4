@@ -237,8 +237,17 @@ class TOMsLayers(QObject):
         return False
 
     def getTOMsFormPathFromConfigFile(self, configFileObject):
+        # 1) Docker: explicit env var (set in docker-compose)
+        form_path = os.environ.get('TOMs_FORM_PATH')
+        if form_path:
+            return os.path.abspath(form_path)
+        # 2) Docker: derive from TOMs_CONFIG_PATH (.../TOMs/QGIS -> .../TOMs/ui)
+        config_path = os.environ.get('TOMs_CONFIG_PATH')
+        if config_path:
+            return os.path.abspath(os.path.join(os.path.dirname(config_path), 'ui'))
+        # 3) Local: use form_path from TOMs.conf
         form_path = configFileObject.getTOMsConfigElement('TOMsLayers', 'form_path')
-        return form_path
+        return form_path.strip() if form_path else ''
 
     def getLayers(self, configFileObject):
 
@@ -771,7 +780,7 @@ class RestrictionTypeUtilsMixin():
                                          self.readLastUsedDetails("Lines", "RestrictionTypeID", 224))
             #currRestriction.setAttribute("GeomShapeID", 10)   # 10 = Parallel Line
             currRestriction.setAttribute("GeomShapeID", self.readLastUsedDetails("Lines", "GeomShapeID", 10))
-            currRestriction.setAttribute("NoWaitingTimeID", cpzWaitingTimeID)
+            currRestriction.setAttribute("HoursOfControl", cpzWaitingTimeID)
             currRestriction.setAttribute("MatchDayTimePeriodID", edWaitingTimeID)
             #currRestriction.setAttribute("Lines_DateTime", currDate)
 
@@ -784,7 +793,7 @@ class RestrictionTypeUtilsMixin():
             #currRestriction.setAttribute("GeomShapeID", 21)   # 21 = Parallel Bay (Polygon)
             currRestriction.setAttribute("NrBays", -1)
 
-            currRestriction.setAttribute("TimePeriodID", cpzWaitingTimeID)
+            currRestriction.setAttribute("HoursOfControl", cpzWaitingTimeID)
             currRestriction.setAttribute("MatchDayTimePeriodID", edWaitingTimeID)
 
             currentPTA, ptaMaxStayID, ptaNoReturnID = generateGeometryUtils.getCurrentPTADetails(currRestriction)

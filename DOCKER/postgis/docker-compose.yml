@@ -32,6 +32,6 @@ networks:
   toms-net:
     name: toms_net
     ipam:
-        driver: default
-        config:
-          - subnet: 172.20.0.0/16
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

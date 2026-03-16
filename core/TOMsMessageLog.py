@@ -21,7 +21,7 @@
 """
 import time, datetime
 import functools
-import os.path
+import os
 import sys
 
 from qgis.core import (
@@ -74,10 +74,58 @@ class TOMsMessageLog(QgsMessageLog):
 
     def setLogFile(self):
 
-        try:
-            logFilePath = os.environ.get('QGIS_LOGFILE_PATH')
-        except Exception as e:
-            QgsMessageLog.logMessage("Error in TOMsMessageLog. QGIS_LOGFILE_PATH not found ... ", tag="TOMs Panel")
+        def _log_path_from_env_file():
+            """
+            Read QGIS_LOGFILE_PATH from a local .env file if present.
+            """
+            try:
+                base_dir = os.path.dirname(os.path.dirname(__file__))
+                env_path = os.path.join(base_dir, '.env')
+                if not os.path.exists(env_path):
+                    return None
+
+                with open(env_path, 'r') as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line or line.startswith('#'):
+                            continue
+                        if line.startswith('QGIS_LOGFILE_PATH'):
+                            _, _, value = line.partition('=')
+                            value = value.strip().strip('"').strip("'")
+                            return value or None
+            except Exception as e:
+                QgsMessageLog.logMessage(
+                    "Error in TOMsMessageLog. Problem reading .env for QGIS_LOGFILE_PATH ... {}".format(e),
+                    tag="TOMs Panel"
+                )
+            return None
+
+        logFilePath = None
+        base_dir = os.path.dirname(os.path.dirname(__file__))
+
+        # 1) OS environment variable (e.g. Docker sets QGIS_LOGFILE_PATH to a writable path)
+        logFilePath = os.environ.get('QGIS_LOGFILE_PATH')
+        if logFilePath and not os.path.isabs(logFilePath):
+            logFilePath = os.path.abspath(os.path.join(base_dir, logFilePath))
+
+        # 2) Fallback to .env (so users can configure per-project when env var not set)
+        if not logFilePath:
+            env_file_path = _log_path_from_env_file()
+            if env_file_path:
+                if not os.path.isabs(env_file_path):
+                    env_file_path = os.path.abspath(os.path.join(base_dir, env_file_path))
+                logFilePath = env_file_path
+
+        if logFilePath:
+            # Ensure the directory exists (create it if necessary)
+            try:
+                os.makedirs(logFilePath, exist_ok=True)
+            except Exception as e:
+                QgsMessageLog.logMessage(
+                    "Error in TOMsMessageLog. Could not create log directory {} ... {}".format(logFilePath, e),
+                    tag="TOMs Panel"
+                )
+                logFilePath = None
 
         if logFilePath:
             QgsMessageLog.logMessage("LogFilePath: " + str(logFilePath), tag="TOMs Panel", level=Qgis.Info)
@@ -86,6 +134,12 @@ class TOMsMessageLog(QgsMessageLog):
             TOMsMessageLog.filename = os.path.join(logFilePath, logfile)
             QgsMessageLog.logMessage("Sorting out log file" + self.filename, tag="TOMs Panel", level=Qgis.Info)
             #QgsApplication.messageLog().messageReceived.connect(self.write_log_message)
+        else:
+            QgsMessageLog.logMessage(
+                "TOMsMessageLog: log file path not configured; file logging disabled",
+                tag="TOMs Panel",
+                level=Qgis.Warning
+            )
 
         """def write_log_message(self, *args, **kwargs):
         with open(TOMsMessageLog.filename, 'a') as logfile:

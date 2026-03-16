@@ -486,6 +486,18 @@ class TOMsGeometryElement(QObject):
         newGeom = QgsGeometry.fromPolylineXY(newPtsList)
 
         return newGeom
+    
+    def _azimuthAtDistance(self, geom, distance, length):
+        """Return local line azimuth at a distance along the geometry (for curved zigzag)."""
+        delta = min(0.05, length / 10.0) if length > 0 else 0.05
+        d_before = max(0.0, distance - delta)
+        d_after = min(length, distance + delta)
+        if d_after <= d_before:
+            d_after = min(length, distance + 0.05)
+        pt_before = geom.interpolate(d_before).asPoint()
+        pt_after = geom.interpolate(d_after).asPoint()
+        return pt_before.azimuth(pt_after)
+
 
     def getZigZag(self, wavelength=None, shpExtent=None):
 
@@ -503,7 +515,9 @@ class TOMsGeometryElement(QObject):
 
         ptsList = []
 
-        length = self.currFeature.geometry().length()
+        # length = self.currFeature.geometry().length()
+        geom = self.currFeature.geometry()
+        length = geom.length()
 
         NrSegments = int(length / wavelength)    # e.g., length = 33, wavelength = 4
         if NrSegments == 0:
@@ -540,28 +554,50 @@ class TOMsGeometryElement(QObject):
 
             distanceAlongLine = distanceAlongLine + interval / 2
 
-            interpolatedPointC = self.currFeature.geometry().interpolate(distanceAlongLine).asPoint()
+            # interpolatedPointC = self.currFeature.geometry().interpolate(distanceAlongLine).asPoint()
 
             #TOMsMessageLog.logMessage("In getZigZag. PtC = " + str(interpolatedPointC.x()) + ": " + str(interpolatedPointC.y()) + "; distanceAlongLine = " + str(distanceAlongLine), level=Qgis.Info)
             # TOMsMessageLog.logMessage("In getZigZag. offset = " + str(float(offset)) + "; cosa = " + str(cosa) + "; cosb = " + str(cosb), level=Qgis.Info)
 
             #TOMsMessageLog.logMessage("In getZigZag. newC x = " + str(interpolatedPointC.x() + (float(offset) * cosa)) + "; y = " + str(interpolatedPointC.y() + (float(offset) * cosb)), level=Qgis.Info)
 
-            ptsList.append(QgsPointXY(interpolatedPointC.x() + (float(offset) * cosa), interpolatedPointC.y() + (float(offset) * cosb)))
+            # ptsList.append(QgsPointXY(interpolatedPointC.x() + (float(offset) * cosa), interpolatedPointC.y() + (float(offset) * cosb)))
+
+            interpolatedPointC = geom.interpolate(distanceAlongLine).asPoint()
+            # Use local azimuth at this distance so zigzag follows the curve (avoids overlapping on curved surfaces)
+            AzC = self._azimuthAtDistance(geom, distanceAlongLine, length)
+            TurnC = generateGeometryUtils.turnToCL(AzC, self.currAzimuthToCentreLine)
+            newAzC = AzC + TurnC
+            cosaC, cosbC = generateGeometryUtils.cosdir_azim(newAzC)
+            ptsList.append(QgsPointXY(interpolatedPointC.x() + (float(offset) * cosaC), interpolatedPointC.y() + (float(offset) * cosbC)))
+
 
             distanceAlongLine = distanceAlongLine+interval/2
 
-            interpolatedPointD = self.currFeature.geometry().interpolate(distanceAlongLine).asPoint()
+            # interpolatedPointD = self.currFeature.geometry().interpolate(distanceAlongLine).asPoint()
 
             # TOMsMessageLog.logMessage("In getZigZag. PtD = " + interpolatedPointD.asWkt() + "; distanceAlongLine = " + str(distanceAlongLine), level=Qgis.Info)
 
-            ptsList.append(QgsPointXY(interpolatedPointD.x() + ((float(shpExtent)+float(offset)) * cosa),
-                     interpolatedPointD.y() + ((float(shpExtent)+float(offset)) * cosb)))
+            # ptsList.append(QgsPointXY(interpolatedPointD.x() + ((float(shpExtent)+float(offset)) * cosa),
+            #          interpolatedPointD.y() + ((float(shpExtent)+float(offset)) * cosb)))
 
-        # deal with last point
+            interpolatedPointD = geom.interpolate(distanceAlongLine).asPoint()
+            AzD = self._azimuthAtDistance(geom, distanceAlongLine, length)
+            TurnD = generateGeometryUtils.turnToCL(AzD, self.currAzimuthToCentreLine)
+            newAzD = AzD + TurnD
+            cosaD, cosbD = generateGeometryUtils.cosdir_azim(newAzD)
+            ptsList.append(QgsPointXY(interpolatedPointD.x() + ((float(shpExtent)+float(offset)) * cosaD),
+                     interpolatedPointD.y() + ((float(shpExtent)+float(offset)) * cosbD)))
+
+         # Last point: use last segment azimuth so end follows the curve
+        AzLast = line[len(line) - 2].azimuth(line[len(line) - 1])
+        TurnLast = generateGeometryUtils.turnToCL(AzLast, self.currAzimuthToCentreLine)
+        newAzLast = AzLast + TurnLast
+        cosaLast, cosbLast = generateGeometryUtils.cosdir_azim(newAzLast)
+
         ptsList.append(
-            QgsPointXY(line[len(line) - 1].x() + (float(offset) * cosa),
-                     line[len(line) - 1].y() + (float(offset) * cosb)))
+             QgsPointXY(line[len(line) - 1].x() + (float(offset) * cosaLast),
+                     line[len(line) - 1].y() + (float(offset) * cosbLast)))
 
         newLine = QgsGeometry.fromPolylineXY(ptsList)
 

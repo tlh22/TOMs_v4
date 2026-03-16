@@ -401,10 +401,15 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
-        commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
-        TOMsMessageLog.logMessage(
-            "In doCreateLineRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+        if self.restrictionTransaction is not None:
+            commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
+            TOMsMessageLog.logMessage(
+                "In doCreateLineRestriction. Current transaction rolled back ... {}".format(commitStatus),
+                level=Qgis.Warning)
+        else:
+            TOMsMessageLog.logMessage(
+                "In doCreateLineRestriction. No restriction transaction to roll back.",
+                level=Qgis.Warning)
 
         self.mapTool = None
 
@@ -427,6 +432,18 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                 #currLayer = self.tableNames.LINES
                 currLayer = self.proposalsManager.tableNames.TOMsLayerDict.get("Lines")
                 self.iface.setActiveLayer(currLayer)
+
+                if self.restrictionTransaction is None:
+                    TOMsMessageLog.logMessage(
+                        "In doCreateLineRestriction - no restrictionTransaction available; cannot start transaction group",
+                        level=Qgis.Critical)
+                    QMessageBox.critical(
+                        self.iface.mainWindow(),
+                        "TOMs",
+                        "Internal error: no active transaction for restrictions.\n"
+                        "Please re-open the TOMs panel or restart the plugin.")
+                    self.actionCreateLineRestriction.setChecked(False)
+                    return
 
                 self.restrictionTransaction.startTransactionGroup()  # start editing
 
