@@ -1,0 +1,51 @@
+# Multi-version QGIS launcher for TOMs. Version is set in .env (QGIS_VERSION + BASE_IMAGE).
+# (Omitting obsolete top-level "version" for Compose V2.)
+# User workflow: edit .env if needed, then docker compose build && docker compose up -d
+
+services:
+  qgis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - QGIS_VERSION=${QGIS_VERSION:-3.22}
+        - BASE_IMAGE=${BASE_IMAGE:-debian:bookworm-slim}
+    image: toms-qgis:${QGIS_VERSION:-3.22}
+    container_name: toms-qgis-${QGIS_VERSION:-3.22}
+
+    environment:
+      - DISPLAY=:99
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_INDIRECT=1
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - PGSERVICEFILE=/home/qgisuser/.pg_service.conf
+      - QGIS_CUSTOM_CONFIG_PATH=/home/qgisuser/qgis_data
+      - TOMs_CONFIG_PATH=/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/QGIS
+      - TOMs_FORM_PATH=/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/ui
+      # Writable log dir for TOMs plugin (plugin dir is mounted read-only)
+      - QGIS_LOGFILE_PATH=/home/qgisuser/log_files
+      # VNC only for Mac (1). On Windows/Linux set USE_VNC=0 in .env so QGIS uses host display.
+      - USE_VNC=${USE_VNC:-1}
+
+    ports:
+      - "6080:6080"
+      - "5900:5900"
+
+    volumes:
+      # QGIS profile and settings persistence (must be first so plugin mount is visible under it)
+      - ./qgis_config:/home/qgisuser/qgis_data
+      # TOMs plugin source — repo root at plugin path (read-only)
+      - ../..:/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs:ro
+      # Writable logs dir (overrides ro plugin mount so TOMs can write logs if it uses ./logs)
+      - ./qgis_config/toms_plugin_logs:/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/logs
+      # QGIS project files (.qgz / .qgs)
+      - ../../projects:/home/qgisuser/projects
+      # Database connection — reuse existing file, do not copy
+      - ../pg_service/.pg_service.conf:/home/qgisuser/.pg_service.conf:ro
+
+    restart: unless-stopped
+
+networks:
+  default:
+    name: toms_net
+    external: true

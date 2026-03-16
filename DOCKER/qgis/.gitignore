@@ -1,0 +1,3 @@
+# QGIS profile data generated at runtime — do not commit
+qgis_config/*
+!qgis_config/.gitkeep

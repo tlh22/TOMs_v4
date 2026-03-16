@@ -545,9 +545,9 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         TOMsMessageLog.logMessage(("In CreateRestrictionTool - mode set."), level=Qgis.Info)
 
-        # Seems that this is important - or at least to create a point list that is used later to create Geometry
-        self.sketchPoints = self.points()
-        #self.setPoints(self.sketchPoints)  ... not sure when to use this ??
+        # Point list used later to create geometry (filled when capture finishes)
+        # self.sketchPoints = self.points()
+        self.sketchPoints = []
 
         # Set up rubber band. In current implementation, it is not showing feeback for "next" location
 
@@ -602,6 +602,14 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         TOMsMessageLog.logMessage(("In CreateRestrictionTool. Finished init."), level=Qgis.Info)
 
     def cadCanvasReleaseEvent(self, event):
+        # Right-click: handle ourselves first so we read points before parent clears them.
+        # Parent's cadCanvasReleaseEvent treats right-click as "finish" and clears the capture list.
+        if event.button() == Qt.RightButton:
+            TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (right-click)"), level=Qgis.Info)
+            self.getPointsCaptured()
+            return
+
+
         QgsMapToolCapture.cadCanvasReleaseEvent(self, event)
         TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent"), level=Qgis.Info)
 
@@ -630,55 +638,49 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
             nrPoints = self.size()
             res = None
+            TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: current rubber band size before branch: " + str(nrPoints), level=Qgis.Info)
 
             if not self.lastPoint:
-
+                # Parent already added currPoint; remove it so we add exactly once
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: first point, calling undo() to remove parent-added vertex", level=Qgis.Info)
+                self.undo()
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (first point): " + str(self.size()), level=Qgis.Info)
                 self.result = self.addVertex(self.currPoint)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: adding vertex 0 " + str(self.result), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: adding vertex 0 " + str(self.result) + " at X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y()), level=Qgis.Info)
 
             else:
-
-                # check for shortest line
+                # Parent already added currPoint; remove it so we control order (path from lastPoint to currPoint)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: subsequent point, calling undo() to remove parent-added vertex", level=Qgis.Info)
+                self.undo()
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (subsequent point): " + str(self.size()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: findShortestPath lastPoint: " + str(self.lastPoint) + " currPoint: " + str(self.currPoint), level=Qgis.Info)
                 resVectorList = self.TOMsTracer.findShortestPath(self.lastPoint, self.currPoint)
 
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList" + str(resVectorList), level=Qgis.Info)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList" + str(resVectorList[1]), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList " + str(resVectorList), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList[1] " + str(resVectorList[1]), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList before adding points resVectorList[0] (count=" + str(len(resVectorList[0])) + "): " + str(resVectorList[0]), level=Qgis.Info)
                 if resVectorList[1] == 0:
-                    # path found, add the points to the list
                     TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (found path) ", level=Qgis.Info)
-
-                    #self.points.extend(resVectorList)
                     initialPoint = True
+                    idx = 0
                     for point in resVectorList[0]:
                         if not initialPoint:
-
-                            TOMsMessageLog.logMessage(("In CreateRestrictionTool - cadCanvasReleaseEvent (found path) X:" + str(
-                                point.x()) + " Y: " + str(point.y())), level=Qgis.Info)
-
+                            TOMsMessageLog.logMessage("In CreateRestrictionTool - cadCanvasReleaseEvent (adding path point idx=" + str(idx) + ") X:" + str(
+                                point.x()) + " Y: " + str(point.y()), level=Qgis.Info)
                             self.result = self.addVertex(point)
-
+                        else:
+                            TOMsMessageLog.logMessage("In CreateRestrictionTool - cadCanvasReleaseEvent (skipping initial path point idx=0, assumed equal to lastPoint) X:" + str(
+                                point.x()) + " Y: " + str(point.y()), level=Qgis.Info)
                         initialPoint = False
-
-                    TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (added shortest path)"),
-                                             level=Qgis.Info)
-
+                        idx += 1
+                    TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (added shortest path); total added points (excluding first) = " + str(max(0, idx - 1)), level=Qgis.Info)
                 else:
-                    # error encountered, add just the curr point ??
-
                     self.result = self.addVertex(self.currPoint)
-                    TOMsMessageLog.logMessage(("In CreateRestrictionTool - (adding shortest path) X:" + str(self.currPoint.x()) + " Y: " + str(self.currPoint.y())), level=Qgis.Info)
+                    TOMsMessageLog.logMessage(("In CreateRestrictionTool Last Else part - (adding curr point without path) X:" + str(self.currPoint.x()) + " Y: " + str(self.currPoint.y())), level=Qgis.Info)
 
             self.lastPoint = self.currPoint
 
             TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (AddVertex/Line) Result: " + str(self.result) + " X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y())), level=Qgis.Info)
-
-        elif (event.button() == Qt.RightButton):
-            # Stop capture when right button or escape key is pressed
-            #points = self.getCapturedPoints()
-            self.getPointsCaptured()
-
-            # Need to think about the default action here if none of these buttons/keys are pressed.
-
         pass
 
     def keyPressEvent(self, event):
@@ -692,15 +694,30 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
     def getPointsCaptured(self):
         TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured"), level=Qgis.Info)
 
-        # Check the number of points
+        # Check the number of points (read before stopCapturing())
         self.nrPoints = self.size()
+
         TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured; Stopping: " + str(self.nrPoints)),
                                  level=Qgis.Info)
 
-        self.sketchPoints = self.points()
+        # Use pointsZM() (points() is deprecated); convert to QgsPointXY for geometry APIs
+        self.sketchPoints = [QgsPointXY(p.x(), p.y()) for p in self.pointsZM()]
+        raw_count = len(self.sketchPoints)
+        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured raw pointsZM() count: " + str(raw_count), level=Qgis.Info)
 
+        # Remove consecutive duplicate points so the line has no zero-length segments
+        _tol = 1e-6
+        deduped = []
+        for p in self.sketchPoints:
+            if not deduped or abs(deduped[-1].x() - p.x()) > _tol or abs(deduped[-1].y() - p.y()) > _tol:
+                deduped.append(p)
+        self.sketchPoints = deduped
+        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured deduped points count: " + str(len(self.sketchPoints)), level=Qgis.Info)
+
+        idx = 0
         for point in self.sketchPoints:
-            TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured idx:" + str(idx) + " X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.Info)
+            idx += 1
 
         # stop capture activity
         self.stopCapturing()
@@ -736,6 +753,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
             if self.layer.name() == "ConstructionLines":
                 self.layer.addFeature(feature)
             else:
+                newRestrictionID = str(uuid.uuid4())
 
                 # set any geometry related attributes ...
 
@@ -764,11 +782,12 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                 # To allow saving of the original feature, this function follows changes to attributes within the table and records them to the current feature
                 #currForm.attributeChanged.connect(functools.partial(self.onAttributeChanged, feature))
                 # Can we now implement the logic from the form code ???
-
-                newRestrictionID = str(uuid.uuid4())
                 feature[self.layer.fields().indexFromName("RestrictionID")] = newRestrictionID
+                TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.Info)
                 #self.layer.addFeature(feature)  # TH (added for v3)
 
+                TOMsMessageLog.logMessage("after adding feature to layer CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.Info)
+                
                 dialog = self.iface.getFeatureForm(self.layer, feature)
 
                 self.setupRestrictionDialog(dialog, self.layer, feature, self.currTransaction)  # connects signals, etc
@@ -821,8 +840,9 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - mode set."), level=Qgis.Info)
 
-        # Seems that this is important - or at least to create a point list that is used later to create Geometry
-        self.sketchPoints = self.points()
+        # Point list used when capture finishes
+        # self.sketchPoints = self.points()
+        self.sketchPoints = []
 
         # get details of the selected feature
         self.selectedRestriction = self.iface.activeLayer().selectedFeatures()[0]
@@ -867,7 +887,9 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - getPointsCaptured; Stopping: " + str(self.nrPoints)),
                                  level=Qgis.Info)
 
-        self.sketchPoints = self.points()
+        # Use pointsZM() (points() is deprecated); convert to QgsPointXY
+        self.sketchPoints = [QgsPointXY(p.x(), p.y()) for p in self.pointsZM()]
+        # self.sketchPoints = self.points()
 
         for point in self.sketchPoints:
             TOMsMessageLog.logMessage(("In SplitRestrictionTool - getPointsCaptured X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.Info)

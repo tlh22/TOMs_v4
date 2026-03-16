@@ -1017,7 +1017,7 @@ CREATE TABLE "toms"."Bays" (
     "LastUpdatePerson" character varying(255) NOT NULL,
     "BayOrientation" double precision,
     "NrBays" integer DEFAULT '-1'::integer NOT NULL,
-    "TimePeriodID" integer NOT NULL,
+    "HoursOfControl" integer NOT NULL,
     "PayTypeID" integer,
     "MaxStayID" integer,
     "NoReturnID" integer,
@@ -1126,7 +1126,7 @@ CREATE TABLE "toms"."Lines" (
     "CPZ" character varying(40),
     "LastUpdateDateTime" timestamp without time zone NOT NULL,
     "LastUpdatePerson" character varying(255) NOT NULL,
-    "NoWaitingTimeID" integer,
+    "HoursOfControl" integer,
     "NoLoadingTimeID" integer,
     "UnacceptableTypeID" integer,
     "AdditionalConditionID" integer,
@@ -1329,7 +1329,7 @@ CREATE TABLE "toms"."RestrictionPolygons" (
     "LabelText" character varying(254),
     "NoWaitingTimeID" integer,
     "NoLoadingTimeID" integer,
-    "TimePeriodID" integer,
+    "HoursOfControl" integer,
     "AreaPermitCode" character varying(254),
     "CPZ" character varying(40),
     "ComplianceRoadMarkingsFaded" integer,
@@ -3540,11 +3540,11 @@ ALTER TABLE ONLY "toms"."Bays"
 
 --
 -- TOC entry 4187 (class 2606 OID 222644)
--- Name: Bays Bays_TimePeriodID_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
+-- Name: Bays Bays_HoursOfControl_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
 --
 
 ALTER TABLE ONLY "toms"."Bays"
-    ADD CONSTRAINT "Bays_TimePeriodID_fkey" FOREIGN KEY ("TimePeriodID") REFERENCES "toms_lookups"."TimePeriodsInUse"("Code");
+    ADD CONSTRAINT "Bays_HoursOfControl_fkey" FOREIGN KEY ("HoursOfControl") REFERENCES "toms_lookups"."TimePeriodsInUse"("Code");
 
 
 --
@@ -3648,11 +3648,11 @@ ALTER TABLE ONLY "toms"."Lines"
 
 --
 -- TOC entry 4199 (class 2606 OID 222704)
--- Name: Lines Lines_NoWaitingTimeID_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
+-- Name: Lines Lines_HoursOfControl_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
 --
 
 ALTER TABLE ONLY "toms"."Lines"
-    ADD CONSTRAINT "Lines_NoWaitingTimeID_fkey" FOREIGN KEY ("NoWaitingTimeID") REFERENCES "toms_lookups"."TimePeriodsInUse"("Code");
+    ADD CONSTRAINT "Lines_HoursOfControl_fkey" FOREIGN KEY ("HoursOfControl") REFERENCES "toms_lookups"."TimePeriodsInUse"("Code");
 
 
 --
@@ -3837,11 +3837,11 @@ ALTER TABLE ONLY "toms"."RestrictionPolygons"
 
 --
 -- TOC entry 4217 (class 2606 OID 222809)
--- Name: RestrictionPolygons RestrictionsPolygons_TimePeriodID_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
+-- Name: RestrictionPolygons RestrictionsPolygons_HoursOfControl_fkey; Type: FK CONSTRAINT; Schema: toms; Owner: postgres
 --
 
 ALTER TABLE ONLY "toms"."RestrictionPolygons"
-    ADD CONSTRAINT "RestrictionsPolygons_TimePeriodID_fkey" FOREIGN KEY ("TimePeriodID") REFERENCES "toms_lookups"."TimePeriods"("Code");
+    ADD CONSTRAINT "RestrictionsPolygons_HoursOfControl_fkey" FOREIGN KEY ("HoursOfControl") REFERENCES "toms_lookups"."TimePeriods"("Code");
 
 
 --

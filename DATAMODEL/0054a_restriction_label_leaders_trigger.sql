@@ -111,7 +111,7 @@ def getBayRestrictionLabelText(feature):
 
     maxStayID = feature["MaxStayID"]
     noReturnID = feature["NoReturnID"]
-    timePeriodID = feature["TimePeriodID"]
+    timePeriodID = feature["HoursOfControl"]
     matchDayTimePeriodID = feature["MatchDayTimePeriodID"]
     additionalConditionID = feature["AdditionalConditionID"]
     permitCode = feature["PermitCode"]
@@ -197,7 +197,7 @@ def getWaitingLoadingRestrictionLabelText(feature):
     loadDesc = None
 
     try:
-        waitingTimeID = feature["NoWaitingTimeID"]
+        waitingTimeID = feature["HoursOfControl"]
         loadingTimeID = feature["NoLoadingTimeID"]
         matchDayTimePeriodID = feature["MatchDayTimePeriodID"]
         additionalConditionID = feature["AdditionalConditionID"]
