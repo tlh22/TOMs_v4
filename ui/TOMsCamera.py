@@ -83,21 +83,21 @@ class formCamera(QObject):
 
         # indicate whether or not to flip image
         self.rotate_camera = rotate_camera
-        TOMsMessageLog.logMessage("In formCamera::rotate_camera: {}".format(self.rotate_camera), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::rotate_camera: {}".format(self.rotate_camera), level=Qgis.MessageLevel.Info)
 
         self.START_CAMERA_BUTTON = START_CAMERA_BUTTON
         self.TAKE_PHOTO_BUTTON = TAKE_PHOTO_BUTTON
 
-        TOMsMessageLog.logMessage("formCamera:init completed ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("formCamera:init completed ...", level=Qgis.MessageLevel.Info)
 
     def identify(self):
         reply = QMessageBox.information(None, "Information",
                                         "Hello, I am a camera path:{} photo:{} ...".format(self.path_absolute, self.currFileName),
-                                        QMessageBox.Ok)
+                                        QMessageBox.StandardButton.Ok)
 
     @pyqtSlot(QPixmap)
     def displayFrame(self, pixmap):
-        TOMsMessageLog.logMessage("In formCamera::displayFrame ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::displayFrame ... ", level=Qgis.MessageLevel.Info)
         #self.FIELD.setPixmap(pixmap)
         #self.FIELD.setScaledContents(True)
         self.pixmapUpdated.emit(pixmap)
@@ -105,7 +105,7 @@ class formCamera(QObject):
 
     @pyqtSlot()
     def useCamera(self):
-        TOMsMessageLog.logMessage("In formCamera::useCamera ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::useCamera ... ", level=Qgis.MessageLevel.Info)
 
         self.START_CAMERA_BUTTON.clicked.disconnect()
         self.currButtonColour = self.START_CAMERA_BUTTON.palette().button().color()
@@ -123,20 +123,20 @@ class formCamera(QObject):
         self.camera.photoTaken.connect(self.checkPhotoTaken)
         self.photoTaken = False
 
-        TOMsMessageLog.logMessage("In formCamera::useCamera: starting camera ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::useCamera: starting camera ... ", level=Qgis.MessageLevel.Info)
 
         self.camera.startCamera(self.cameraNr, self.frameWidth, self.frameHeight, self.rotate_camera)
 
     def endCamera(self):
 
-        TOMsMessageLog.logMessage("In formCamera::endCamera: stopping camera ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::endCamera: stopping camera ... ", level=Qgis.MessageLevel.Info)
 
         try:
             self.camera.stopCamera()
             self.camera.changePixmap.disconnect(self.displayFrame)
             self.camera.closeCamera.disconnect(self.endCamera)
         except Exception as e:
-            TOMsMessageLog.logMessage("In formCamera::endCamera: problem stopping camera {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In formCamera::endCamera: problem stopping camera {}".format(e), level=Qgis.MessageLevel.Warning)
 
         # del self.camera
 
@@ -154,31 +154,31 @@ class formCamera(QObject):
                 self.START_CAMERA_BUTTON.clicked.connect(self.useCamera)
             except Exception as e:
                 TOMsMessageLog.logMessage("In formCamera::endCamera: problem resetting connections {}".format(e),
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
 
         if self.photoTaken == False:
             self.resetPhoto()
 
     def closeCameraForm(self):
 
-        TOMsMessageLog.logMessage("In formCamera::closeCameraForm: closing form ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::closeCameraForm: closing form ... ", level=Qgis.MessageLevel.Info)
 
         try:
             self.camera.stopCamera()
             self.camera.changePixmap.disconnect(self.displayFrame)
             self.camera.closeCamera.disconnect(self.endCamera)
         except Exception as e:
-            TOMsMessageLog.logMessage("In formCamera::closeCameraForm1: problem stopping camera {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In formCamera::closeCameraForm1: problem stopping camera {}".format(e), level=Qgis.MessageLevel.Warning)
 
         try:
             self.TAKE_PHOTO_BUTTON.clicked.disconnect()
             self.START_CAMERA_BUTTON.clicked.disconnect()
         except Exception as e:
-            TOMsMessageLog.logMessage("In formCamera::closeCameraForm1: problem disconnecting buttons {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In formCamera::closeCameraForm1: problem disconnecting buttons {}".format(e), level=Qgis.MessageLevel.Warning)
 
     @pyqtSlot(str)
     def checkPhotoTaken(self, fileName):
-        TOMsMessageLog.logMessage("In formCamera::photoTaken: file: " + fileName, level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::photoTaken: file: " + fileName, level=Qgis.MessageLevel.Info)
 
         if len(fileName) > 0:
             self.photoTaken = True
@@ -188,7 +188,7 @@ class formCamera(QObject):
             self.photoTaken = False
 
     def resetPhoto(self):
-        TOMsMessageLog.logMessage("In formCamera::resetPhoto ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In formCamera::resetPhoto ... ", level=Qgis.MessageLevel.Info)
 
         if len(self.currFileName) > 0:
             pixmap = QPixmap(self.currFileName)
@@ -208,49 +208,49 @@ class cvCamera(QThread):
 
     def __init__(self):
         QThread.__init__(self)
-        TOMsMessageLog.logMessage("In cvCamera::init ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::init ... ", level=Qgis.MessageLevel.Info)
 
     def stopCamera(self):
-        TOMsMessageLog.logMessage("In cvCamera::stopCamera ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::stopCamera ... ", level=Qgis.MessageLevel.Info)
         self.cameraAvailable = False
         try:
             self.cap.release()
         except Exception as e:
-            TOMsMessageLog.logMessage("In cvCamera::stopCamera: problem stopping camera {}".format(e), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In cvCamera::stopCamera: problem stopping camera {}".format(e), level=Qgis.MessageLevel.Info)
 
     def startCamera(self, cameraNr, frameWidth, frameHeight, rotate_camera):
 
-        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 1 nr: {}; rotate: {}".format(cameraNr, rotate_camera), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 1 nr: {}; rotate: {}".format(cameraNr, rotate_camera), level=Qgis.MessageLevel.Info)
         self.rotate_camera = rotate_camera
 
         """if acapture_available:
             self.cap = acapture.open(cameraNr)  # /dev/video0
         else:"""
         if not cv2_available:
-            reply = QMessageBox.information(None, "Information", "Camera is not available. Check cv2 status ...", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Camera is not available. Check cv2 status ...", QMessageBox.StandardButton.Ok)
             self.closeCamera.emit()
             return False
 
         try:
             self.cap = cv2.VideoCapture(cameraNr)  # video capture source camera (Here webcam of laptop)
         except Exception as e:
-            TOMsMessageLog.logMessage("In TOMsCamera::startCamera: problem starting camera {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsCamera::startCamera: problem starting camera {}".format(e), level=Qgis.MessageLevel.Warning)
             self.cameraAvailable = False
             return
 
         self.cameraAvailable = True
         if not self.cap.isOpened():
-            reply = QMessageBox.information(None, "Information", "Camera {} did not open ...".format(cameraNr), QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Camera {} did not open ...".format(cameraNr), QMessageBox.StandardButton.Ok)
             self.cameraAvailable = False
 
-        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 2a ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 2a ", level=Qgis.MessageLevel.Info)
 
-        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... resolution: {}*{} ".format(frameWidth, frameHeight), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... resolution: {}*{} ".format(frameWidth, frameHeight), level=Qgis.MessageLevel.Info)
 
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, frameWidth)  # width=640 (1600)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, frameHeight)  # height=480 (1200)
 
-        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 2b ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::startCamera: ... 2b ", level=Qgis.MessageLevel.Info)
 
         while self.cameraAvailable:
             #while True:
@@ -259,62 +259,62 @@ class cvCamera(QThread):
             # cv2.waitKey(1)
             time.sleep(0.1)
         else:
-            TOMsMessageLog.logMessage("In cvCamera::startCamera: camera closed ... ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In cvCamera::startCamera: camera closed ... ", level=Qgis.MessageLevel.Info)
             self.closeCamera.emit()
 
     def getFrame(self):
 
         """ Camera code  """
 
-        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 1", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 1", level=Qgis.MessageLevel.Info)
 
         ret, frame = self.cap.read()  # return a single frame in variable `frame`
 
-        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 2 ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 2 ", level=Qgis.MessageLevel.Info)
 
         if ret == True:
 
             # check for rotation
             if self.rotate_camera:
-                TOMsMessageLog.logMessage("In cvCamera::getFrame ... rotating ", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In cvCamera::getFrame ... rotating ", level=Qgis.MessageLevel.Info)
                 self.cvRotatedImage = cv2.flip(frame, 0)
             else:
                 self.cvRotatedImage = frame
 
             # Need to change from BRG (cv::mat) to RGB image
             self.cvRGBImg = cv2.cvtColor(self.cvRotatedImage, cv2.COLOR_BGR2RGB)
-            qimg = QImage(self.cvRGBImg.data, self.cvRGBImg.shape[1], self.cvRGBImg.shape[0], QImage.Format_RGB888)
-            TOMsMessageLog.logMessage("In cvCamera::getFrame ... 3 ", level=Qgis.Info)
+            qimg = QImage(self.cvRGBImg.data, self.cvRGBImg.shape[1], self.cvRGBImg.shape[0], QImage.Format.Format_RGB888)
+            TOMsMessageLog.logMessage("In cvCamera::getFrame ... 3 ", level=Qgis.MessageLevel.Info)
 
             # Now display ...
             pixmap = QPixmap.fromImage(qimg)
 
             self.changePixmap.emit(pixmap)
 
-            TOMsMessageLog.logMessage("In cvCamera::getFrame ... 4 ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In cvCamera::getFrame ... 4 ", level=Qgis.MessageLevel.Info)
         else:
 
-            TOMsMessageLog.logMessage("In cvCamera::useCamera: frame not returned ... ", level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In cvCamera::useCamera: frame not returned ... ", level=Qgis.MessageLevel.Warning)
             self.closeCamera.emit()
 
-        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 5", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::getFrame ... 5", level=Qgis.MessageLevel.Info)
 
     def takePhoto(self, path_absolute):
 
-        TOMsMessageLog.logMessage("In cvCamera::takePhoto ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In cvCamera::takePhoto ... ", level=Qgis.MessageLevel.Info)
         # Save frame to file
 
         fileName = 'Photo_{}.png'.format(datetime.datetime.now().strftime('%Y%m%d_%H%M%S%f'))
         newPhotoFileName = os.path.join(path_absolute, fileName)
 
-        TOMsMessageLog.logMessage("Saving photo: file: " + newPhotoFileName, level=Qgis.Info)
+        TOMsMessageLog.logMessage("Saving photo: file: " + newPhotoFileName, level=Qgis.MessageLevel.Info)
         writeStatus = cv2.imwrite(newPhotoFileName, self.cvRotatedImage)
 
         if writeStatus is True:
-            reply = QMessageBox.information(None, "Information", "Photo captured.", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Photo captured.", QMessageBox.StandardButton.Ok)
             self.photoTaken.emit(newPhotoFileName)
         else:
-            reply = QMessageBox.information(None, "Information", "Problem taking photo.", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Problem taking photo.", QMessageBox.StandardButton.Ok)
             self.photoTaken.emit()
 
         # Now stop camera (and display image)

@@ -94,7 +94,7 @@ class ProposalTypeUtilsMixin():
         return None
 
     def getRestrictionLayerIDfromLayer(self, currLayer):
-        TOMsMessageLog.logMessage("In getRestrictionLayerTableID.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestrictionLayerTableID.", level=Qgis.MessageLevel.Info)
         # find the ID for the layer within the table "
 
         self.RestrictionLayers = self.tableNames.setLayer("RestrictionLayers")

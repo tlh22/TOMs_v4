@@ -44,7 +44,7 @@ class TOMsProposalElement(QObject):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__()
         # restriction is restriction record ??
-        TOMsMessageLog.logMessage("In TOMsProposalElement ... {proposal}:{layer}:{restrictionID}".format(proposal=proposalsManager.currentProposal(), layer=layerID, restrictionID=restrictionID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposalElement ... {proposal}:{layer}:{restrictionID}".format(proposal=proposalsManager.currentProposal(), layer=layerID, restrictionID=restrictionID), level=Qgis.MessageLevel.Info)
         self.proposalsManager = proposalsManager
         self.currProposal = self.proposalsManager.currentProposalObject()
         self.tableNames = self.proposalsManager.tableNames
@@ -60,8 +60,8 @@ class TOMsProposalElement(QObject):
         # this is not used - see issue #305
         self.thisLayer = self.proposalsManager.getRestrictionLayerFromID(self.layerID)
         if self.thisLayer is None:
-            TOMsMessageLog.logMessage("In TOMsProposalElement:setThisLayer. layer NOT set !!! for " + str(self.layerID), level=Qgis.Warning)
-        TOMsMessageLog.logMessage("In TOMsProposalElement:setThisLayer ... {}".format(self.thisLayer.name()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsProposalElement:setThisLayer. layer NOT set !!! for " + str(self.layerID), level=Qgis.MessageLevel.Warning)
+        TOMsMessageLog.logMessage("In TOMsProposalElement:setThisLayer ... {}".format(self.thisLayer.name()), level=Qgis.MessageLevel.Info)
 
     def setElement(self, restrictionID):
         self.thisRestrictionID = restrictionID
@@ -83,10 +83,10 @@ class TOMsProposalElement(QObject):
         for element in self.thisLayer.getFeatures(request):
             #context.setFeature(element)
             self.thisElement = element  # make assumption that only one row
-            TOMsMessageLog.logMessage("In TOMsProposalElement:setElement ... " + str(self.getGeometryID()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsProposalElement:setElement ... " + str(self.getGeometryID()), level=Qgis.MessageLevel.Info)
             return True
 
-        TOMsMessageLog.logMessage("*** ERROR: RestrictionID: \'{restrictionID}\' not found within layer {layerName}".format(restrictionID=restrictionID, layerName=self.thisLayer.name()), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("*** ERROR: RestrictionID: \'{restrictionID}\' not found within layer {layerName}".format(restrictionID=restrictionID, layerName=self.thisLayer.name()), level=Qgis.MessageLevel.Warning)
         self.thisElement = None
         return False # either not found or 0
 
@@ -98,7 +98,7 @@ class TOMsProposalElement(QObject):
     def getTilesForRestrictionForDate(self, filterDate):
         # get the tile(s) for a given restriction
 
-        TOMsMessageLog.logMessage("In getTilesForRestriction. ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getTilesForRestriction. ", level=Qgis.MessageLevel.Info)
 
         self.tilesLayer = self.tableNames.setLayer("MapGrid")
         idxTileID = self.tableNames.setLayer("MapGrid").fields().indexFromName("id")
@@ -106,10 +106,10 @@ class TOMsProposalElement(QObject):
         dictTilesInRestriction = dict()
 
         TOMsMessageLog.logMessage(
-            "In factory. Creating Proposal Element ... " + str(self.thisRestrictionID) + ";" + str(self.thisElement.geometry().asWkt()), level=Qgis.Info)
-        TOMsMessageLog.logMessage("In getTilesForRestriction. restGeom " + self.thisElement.geometry().boundingBox().asWktPolygon(), level=Qgis.Info)
+            "In factory. Creating Proposal Element ... " + str(self.thisRestrictionID) + ";" + str(self.thisElement.geometry().asWkt()), level=Qgis.MessageLevel.Info)
+        TOMsMessageLog.logMessage("In getTilesForRestriction. restGeom " + self.thisElement.geometry().boundingBox().asWktPolygon(), level=Qgis.MessageLevel.Info)
 
-        request = QgsFeatureRequest().setFilterRect(self.thisElement.geometry().boundingBox()).setFlags(QgsFeatureRequest.ExactIntersect)
+        request = QgsFeatureRequest().setFilterRect(self.thisElement.geometry().boundingBox()).setFlags(QgsFeatureRequest.Flag.ExactIntersect)
 
         for tile in self.tilesLayer.getFeatures(request):
 
@@ -120,7 +120,7 @@ class TOMsProposalElement(QObject):
                 # get revision number and add tile to list
                 # currRevisionNrForTile = self.getTileRevisionNr(tile)
                 TOMsMessageLog.logMessage("In getTileForRestriction. Tile: " + str(tile.attribute("id")) + "; " + str(
-                    tile.attribute("CurrRevisionNr")) + "; " + str(tile.attribute("LastRevisionDate")), level=Qgis.Info)
+                    tile.attribute("CurrRevisionNr")) + "; " + str(tile.attribute("LastRevisionDate")), level=Qgis.MessageLevel.Info)
 
                 # check revision nr, etc
 
@@ -134,15 +134,15 @@ class TOMsProposalElement(QObject):
                 #tile.setAttribute("CurrRevisionNr", CurrRevisionNr)
                 #tile.setAttribute("LastRevisionDate", revisionDate)
                 TOMsMessageLog.logMessage("In getTileForRestriction. Tile: " + str(currTile.tileNr()) + "; " + str(
-                    currTile.getRevisionNr_AtDate()) + "; " + str(currTile.getLastRevisionDate_AtDate()), level=Qgis.Info)
+                    currTile.getRevisionNr_AtDate()) + "; " + str(currTile.getLastRevisionDate_AtDate()), level=Qgis.MessageLevel.Info)
 
                 dictTilesInRestriction[currTileNr] = currTile
 
         TOMsMessageLog.logMessage(
                     "In getTilesForRestriction. len tileSet: " + str(len(dictTilesInRestriction)),
-                    level=Qgis.Info)
+                    level=Qgis.MessageLevel.Info)
         for thisTile in dictTilesInRestriction:
-            TOMsMessageLog.logMessage('In getTilesForRestriction. tiles returned ... {}'.format(thisTile), level=Qgis.Info)
+            TOMsMessageLog.logMessage('In getTilesForRestriction. tiles returned ... {}'.format(thisTile), level=Qgis.MessageLevel.Info)
 
         return dictTilesInRestriction
 
@@ -156,9 +156,9 @@ class TOMsProposalElement(QObject):
         # update the Open/Close date for the restriction
         TOMsMessageLog.logMessage("In TOMsProposalElement.acceptActionOnProposalElement. layer: " + str(
             self.thisLayer.name()) + " currRestId: " + self.thisRestrictionID + " Opendate: " + str(
-            currProposalOpenDate), level=Qgis.Info)
+            currProposalOpenDate), level=Qgis.MessageLevel.Info)
 
-        TOMsMessageLog.logMessage("In TOMsProposalElement.acceptActionOnProposalElement. id: {}; idx: {}".format(self.thisElement.id(), self.thisLayer.fields().indexFromName("OpenDate")), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposalElement.acceptActionOnProposalElement. id: {}; idx: {}".format(self.thisElement.id(), self.thisLayer.fields().indexFromName("OpenDate")), level=Qgis.MessageLevel.Info)
 
         # clear filter currRestrictionLayer.setSubsetString("")  **** need to make sure this is done ...
 
@@ -168,14 +168,14 @@ class TOMsProposalElement(QObject):
                                                                       "OpenDate"),
                                                                   currProposalOpenDate)
             TOMsMessageLog.logMessage(
-                "In TOMsProposalElement.acceptActionOnProposalElement. {} Opened; status: {}".format(self.thisRestrictionID, statusUpd), level=Qgis.Info)
+                "In TOMsProposalElement.acceptActionOnProposalElement. {} Opened; status: {}".format(self.thisRestrictionID, statusUpd), level=Qgis.MessageLevel.Info)
         else:  # Close
             statusUpd = self.thisLayer.changeAttributeValue(self.thisElement.id(),
                                                             self.thisLayer.fields().indexFromName(
                                                                       "CloseDate"),
                                                                   currProposalOpenDate)
             TOMsMessageLog.logMessage(
-                "In TOMsProposalElement.acceptActionOnProposalElement. {} Closed; status: {}".format(self.thisRestrictionID, statusUpd), level=Qgis.Info)
+                "In TOMsProposalElement.acceptActionOnProposalElement. {} Closed; status: {}".format(self.thisRestrictionID, statusUpd), level=Qgis.MessageLevel.Info)
 
         return statusUpd
 
@@ -183,7 +183,7 @@ class TOMsProposalElement(QObject):
 class TOMsRestriction(TOMsProposalElement):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating TOMsRestriction ... {}".format(restrictionID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating TOMsRestriction ... {}".format(restrictionID), level=Qgis.MessageLevel.Info)
 
     def getDisplayGeometry(self):
         # TODO: ...
@@ -192,7 +192,7 @@ class TOMsRestriction(TOMsProposalElement):
 class Bay(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("Creating BAY ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("Creating BAY ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -203,7 +203,7 @@ class Bay(TOMsRestriction):
 class Line(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating LINE ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating LINE ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -214,7 +214,7 @@ class Line(TOMsRestriction):
 class Sign(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating SIGN ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating SIGN ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -225,7 +225,7 @@ class Sign(TOMsRestriction):
 class TOMsPolygonRestriction(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating POLYGON ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating POLYGON ... ", level=Qgis.MessageLevel.Info)
 
     def getZoneType(self):
         pass
@@ -236,7 +236,7 @@ class TOMsPolygonRestriction(TOMsRestriction):
 class PedestrianZone(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating PedestrianZone ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating PedestrianZone ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -248,7 +248,7 @@ class PedestrianZone(TOMsRestriction):
 class CPZ(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating CPZ ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating CPZ ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -259,7 +259,7 @@ class CPZ(TOMsRestriction):
 class PTA(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating PTA ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating PTA ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -270,7 +270,7 @@ class PTA(TOMsRestriction):
 class MAPPING_UPDATE(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating Mapping_Update ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating Mapping_Update ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -281,7 +281,7 @@ class MAPPING_UPDATE(TOMsRestriction):
 class MAPPING_UPDATE_MASK(TOMsRestriction):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating Mapping_Update_Mask ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating Mapping_Update_Mask ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -292,7 +292,7 @@ class MAPPING_UPDATE_MASK(TOMsRestriction):
 class TOMsLabel(TOMsProposalElement):
     def __init__(self, proposalsManager, layerID, restrictionLayer, restrictionID):
         super().__init__(proposalsManager, layerID, restrictionLayer, restrictionID)
-        TOMsMessageLog.logMessage("In factory. Creating Label ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. Creating Label ... ", level=Qgis.MessageLevel.Info)
 
     def getGeometryID(self):
         pass
@@ -301,7 +301,7 @@ class ProposalElementFactory():
 
     @staticmethod
     def getProposalElement(proposalsManager, proposalElementType, restrictionLayer, RestrictionID):
-        TOMsMessageLog.logMessage("In factory. getProposalElement ... " + str(proposalElementType) + ";" + str(RestrictionID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In factory. getProposalElement ... " + str(proposalElementType) + ";" + str(RestrictionID), level=Qgis.MessageLevel.Info)
         try:
             if proposalElementType == RestrictionLayers.BAYS:
                 return Bay(proposalsManager, proposalElementType, restrictionLayer, RestrictionID)
@@ -322,7 +322,7 @@ class ProposalElementFactory():
                 return MAPPING_UPDATE_MASK(proposalsManager, proposalElementType, restrictionLayer, RestrictionID)
             raise AssertionError("Restriction Type NOT found")
         except AssertionError as _e:
-            TOMsMessageLog.logMessage("In ProposalElementFactory. TYPE not found or something else ... ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In ProposalElementFactory. TYPE not found or something else ... ", level=Qgis.MessageLevel.Info)
 
 class RestrictionPolygonFactory():
 
@@ -340,5 +340,5 @@ class RestrictionPolygonFactory():
             raise AssertionError("Proposal Type NOT found")
         except AssertionError as _e:
             TOMsMessageLog.logMessage("In ProposalElementFactory. TYPE not found or something else ... ",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 

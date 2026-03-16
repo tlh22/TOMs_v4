@@ -1,0 +1,800 @@
+20260315:125154[TOMs Panel]: 0 :: Finished init ...
+20260315:125154[TOMs Panel]: 0 :: Registering expression functions ... 
+20260315:125154[TOMs Panel]: 0 :: Considering function generate_display_geometry
+20260315:125154[TOMs Panel]: 0 :: Registered expression function generate_display_geometry
+20260315:125154[TOMs Panel]: 0 :: Considering function generateDisplayGeometry
+20260315:125154[TOMs Panel]: 0 :: Registered expression function generateDisplayGeometry
+20260315:125154[TOMs Panel]: 0 :: Considering function generateCrossoverGeometry
+20260315:125154[TOMs Panel]: 0 :: Registered expression function generateCrossoverGeometry
+20260315:125154[TOMs Panel]: 0 :: Considering function getAzimuthToRoadCentreLine
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getAzimuthToRoadCentreLine
+20260315:125154[TOMs Panel]: 0 :: Considering function getRoadName
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getRoadName
+20260315:125154[TOMs Panel]: 0 :: Considering function getUSRN
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getUSRN
+20260315:125154[TOMs Panel]: 0 :: Considering function generate_ZigZag
+20260315:125154[TOMs Panel]: 0 :: Registered expression function generate_ZigZag
+20260315:125154[TOMs Panel]: 0 :: Considering function getWaitingLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getWaitingLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Considering function getLoadingLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getLoadingLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Considering function getBayLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getBayLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Considering function getPolygonLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getPolygonLabelLeader
+20260315:125154[TOMs Panel]: 0 :: Considering function getWaitingRestrictionLabelText
+20260315:125154[TOMs Panel]: 0 :: Registered expression function getWaitingRestrictionLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getLoadingRestrictionLabelText
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getLoadingRestrictionLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getBayTimePeriodLabelText
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getBayTimePeriodLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getBayMaxStayLabelText
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getBayMaxStayLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getBayNoReturnLabelText
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getBayNoReturnLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getBayLabelText
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getBayLabelText
+20260315:125155[TOMs Panel]: 0 :: Considering function getCPZ
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getCPZ
+20260315:125155[TOMs Panel]: 0 :: Considering function getPTA
+20260315:125155[TOMs Panel]: 0 :: Registered expression function getPTA
+20260315:125155[TOMs Panel]: 0 :: Considering function prepareSignLine
+20260315:125155[TOMs Panel]: 0 :: Registered expression function prepareSignLine
+20260315:125155[TOMs Panel]: 0 :: Considering function prepareSignIconLocation
+20260315:125155[TOMs Panel]: 0 :: Registered expression function prepareSignIconLocation
+20260315:125155[TOMs Panel]: 0 :: Considering function prepareSignIcon
+20260315:125155[TOMs Panel]: 0 :: Registered expression function prepareSignIcon
+20260315:125155[TOMs Panel]: 0 :: Considering function prepareSignOrientation
+20260315:125155[TOMs Panel]: 0 :: Registered expression function prepareSignOrientation
+20260315:125155[TOMs Panel]: 0 :: Considering function generateDemandPoints
+20260315:125155[TOMs Panel]: 0 :: Registered expression function generateDemandPoints
+20260315:125155[TOMs Panel]: 0 :: Considering function generateDemandShapes
+20260315:125155[TOMs Panel]: 0 :: Registered expression function generateDemandShapes
+20260315:125155[TOMs Panel]: 0 :: Considering function generateAvailableSpacesShapes
+20260315:125155[TOMs Panel]: 0 :: Registered expression function generateAvailableSpacesShapes
+20260315:125155[TOMs Panel]: 0 :: In TOMSLayers.init ...
+20260315:125155[TOMs Panel]: 0 :: In TOMsProposal:init. ... 
+20260315:125155[TOMs Panel]: 0 :: In TOMsProposal:setProposalsLayer. Proposals layer NOT set !!!
+20260315:125155[TOMs Panel]: 0 :: In TOMsProposal:init. ... proposals layer set 
+20260315:125155[TOMs Panel]: 0 :: In manageRestrictionDetails::init
+20260315:125155[TOMs Panel]: 0 :: In searchBar
+20260315:125155[TOMs Panel]: 0 :: In initSearchBox:
+20260315:125155[TOMs Panel]: 0 :: In disableSearchBar
+20260315:125155[TOMs Panel]: 0 :: In disableTOMsToolbarItems
+20260315:125155[TOMs Panel]: 0 :: Finished proposalsPanel init ...
+20260315:125228[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125228[TOMs Panel]: 0 :: In generateBayLabelLeader. Current scale: 36.660086878305336 min scale: 2500.0
+20260315:125228[TOMs Panel]: 0 :: getBayLabelLeader: error in expression function: 'label_X'
+20260315:125228[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125228[TOMs Panel]: 0 :: In generateBayLabelLeader. Current scale: 36.660086878305336 min scale: 2500.0
+20260315:125228[TOMs Panel]: 0 :: getBayLabelLeader: error in expression function: 'label_X'
+20260315:125228[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125228[TOMs Panel]: 0 :: In generateBayLabelLeader. Current scale: 36.660086878305336 min scale: 2500.0
+20260315:125228[TOMs Panel]: 0 :: getBayLabelLeader: error in expression function: 'label_X'
+20260315:125231[TOMs Panel]: 0 :: In onInitProposalsPanel
+20260315:125231[TOMs Panel]: 0 :: In onInitProposalsPanel. Activating ...
+20260315:125231[TOMs Panel]: 0 :: In openTOMsTools. Activating ...
+20260315:125231[TOMs Panel]: 0 :: In onInitProposalsPanel. Checking tables
+20260315:125231[TOMs Panel]: 0 :: In TOMSLayers.getLayers ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. formPath is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Proposals is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/proposal_details_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/proposal_details_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ProposalStatusTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ActionOnProposalAcceptanceTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionLayers is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionsInProposals is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Bays is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionBayDetails_dialog_base2_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionBayDetails_dialog_base2_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Lines is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionLineDetails_dialog_base2_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionLineDetails_dialog_base2_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Signs is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionSignsDetails_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionSignsDetails_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygons is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionPolygonDetails_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/restrictionPolygonDetails_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ConstructionLines is 170917 ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.form path not found for layer ConstructionLines ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MapGrid is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer CPZs is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/cpz_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/cpz_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ParkingTariffAreas is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MatchDayEventDayZones is /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/cpz_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers.setting new path for form /Users/macbookpro/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins/TOMs/ui/cpz_dialog_base_qt5.ui ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer StreetGazetteerRecords is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RoadCentreLine is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RoadCasement is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer TilesInAcceptedProposals is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer AdditionalConditionTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer BayLineTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer BayTypesInUse is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer BayTypesInUse_View is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer LineTypesInUse is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer LineTypesInUse_View is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygonTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygonTypesInUse is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygonTypesInUse_View is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer LengthOfTime is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer PaymentTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer SignTypes is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer SignTypesInUse is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer SignTypesInUse_View is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer TimePeriods is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer TimePeriodsInUse is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer TimePeriodsInUse_View is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer GeomShapeGroupType is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Bays.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Lines.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Lines.label_loading_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygons.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer CPZs.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ParkingTariffAreas.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MatchDayEventDayZones.label_pos is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Bays.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Lines.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer Lines.label_loading_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer RestrictionPolygons.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer CPZs.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer ParkingTariffAreas.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MatchDayEventDayZones.label_ldr is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer os_mastermap_topography_polygons is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer os_mastermap_topography_text is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MappingUpdates is  ...
+20260315:125231[TOMs Panel]: 0 :: In TOMsLayers:getLayers. ui_path for layer MappingUpdateMasks is  ...
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: Adding 0
+20260315:125231[TOMs Panel]: 0 :: In __getProposalsListWithStatus. query: "ProposalStatusID" = 1
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: proposalID: 7:Add line
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: proposalID: 9:Bay within pay parking area
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: proposalID: 12:Line Geom
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: proposalID: 14:OS mapping updates test
+20260315:125231[TOMs Panel]: 0 :: In createProposalcb: proposalID: 13:Self-intersecting Geometry Issue
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction. prepareLayerSet: 
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Proposals
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding RestrictionsInProposals
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Bays
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Lines
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Signs
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding RestrictionPolygons
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding MapGrid
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding CPZs
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding ParkingTariffAreas
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding TilesInAcceptedProposals
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Bays.label_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Lines.label_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Lines.label_loading_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding RestrictionPolygons.label_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding CPZs.label_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Bays.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Lines.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding Lines.label_loading_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding RestrictionPolygons.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding CPZs.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding MappingUpdates
+20260315:125231[TOMs Panel]: 0 :: In TOMsTransaction.prepareLayerSet. Adding MappingUpdateMasks
+20260315:125231[TOMs Panel]: 0 :: In enableTOMsToolbarItems
+20260315:125231[TOMs Panel]: 0 :: In enableSearchBar
+20260315:125231[TOMs Panel]: 0 :: In setLabelUpdateTriggers ...
+20260315:125231[TOMs Panel]: 0 :: Current proposal changed to 0
+20260315:125231[TOMs Panel]: 0 :: In TOMsProposal:setProposalsLayer... 
+20260315:125231[TOMs Panel]: 0 :: Entering updateMapCanvas ... 
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Signs
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Signs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdates
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdates Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdateMasks
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdateMasks Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125231[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125231[TOMs Panel]: 0 :: Finished updateMapCanvas ... 
+20260315:125231[TOMs Panel]: 0 :: In getProposalBoundingBox.
+20260315:125233[TOMs Panel]: 0 :: In onProposalListIndexChanged.
+20260315:125233[TOMs Panel]: 0 :: In onProposalListIndexChanged. Current Index = 1
+20260315:125233[TOMs Panel]: 0 :: Current proposal changed to 7
+20260315:125233[TOMs Panel]: 0 :: In TOMsProposal:setProposalsLayer... 
+20260315:125233[TOMs Panel]: 0 :: Entering updateMapCanvas ... 
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays
+20260315:125233[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125233[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125233[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines
+20260315:125233[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125233[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125233[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125233[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Signs
+20260315:125233[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 5 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 5 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Signs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdates
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 101 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 101 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdates Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdateMasks
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 102 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 102 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdateMasks Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_pos Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_pos Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_ldr Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_ldr Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125234[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125234[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125234[TOMs Panel]: 0 :: Finished updateMapCanvas ... 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox.
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Bays) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines) request: '5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447'
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines) filter:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Lines) filter 1:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 5
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Signs) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Signs) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Signs) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (RestrictionPolygons) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (CPZs) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (ParkingTariffAreas) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 101
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (MappingUpdates) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (MappingUpdates) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (MappingUpdates) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 102
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (MappingUpdateMasks) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (MappingUpdateMasks) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (MappingUpdateMasks) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays.label_pos) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays.label_pos) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Bays.label_pos) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_pos) request: '5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447'
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_pos) filter:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Lines.label_pos) filter 1:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_loading_pos) request: '5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447'
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_loading_pos) filter:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Lines.label_loading_pos) filter 1:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons.label_pos) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons.label_pos) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (RestrictionPolygons.label_pos) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs.label_pos) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs.label_pos) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (CPZs.label_pos) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas.label_pos) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas.label_pos) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (ParkingTariffAreas.label_pos) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays.label_ldr) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Bays.label_ldr) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Bays.label_ldr) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_ldr) request: '5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447'
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_ldr) filter:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Lines.label_ldr) filter 1:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_loading_ldr) request: '5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447'
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (Lines.label_loading_ldr) filter:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (Lines.label_loading_ldr) filter 1:"RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons.label_ldr) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (RestrictionPolygons.label_ldr) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (RestrictionPolygons.label_ldr) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs.label_ldr) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (CPZs.label_ldr) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (CPZs.label_ldr) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas.label_ldr) request: 
+20260315:125234[TOMs Panel]: 0 :: In getProposalBoundingBox. (ParkingTariffAreas.label_ldr) filter:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In In TOMsProposal:getProposalBoundingBox. (ParkingTariffAreas.label_ldr) filter 1:"OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125234[TOMs Panel]: 0 :: In onProposalChanged. Zoom to extents
+20260315:125234[TOMs Panel]: 0 :: In getLoadingRestrictionLabelText: Feature:L_0000023
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125234[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125234[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText: Feature:L_0000023
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125234[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125234[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText ****: Waiting: None Loading: None
+20260315:125234[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText: Feature:L_0000023
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125234[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125234[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125234[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText ****: Waiting: None Loading: None
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125234[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125237[TOMs Panel]: 0 :: In doCreateLineRestriction
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:rollBackTransactionGroup
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:rollBackTransactionGroup. Transaction rolled back correctly ...
+20260315:125237[TOMs Panel]: 0 :: Entering updateMapCanvas ... 
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Signs
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 5 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 5 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Signs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdates
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 101 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 101 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdates Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: MappingUpdateMasks
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 102 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 102 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: MappingUpdateMasks Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_pos Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_pos Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_pos Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Bays.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 2 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Bays.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_ldr Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: Lines.label_loading_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 3 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: Lines.label_loading_ldr Date Filter:  "RestrictionID"  IN ('5bd16a68-97b0-49fd-9029-d0e9b2a8554e','a1a65fde-2217-434c-aa1d-54814642f447') OR ("OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL)))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: RestrictionPolygons.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 4 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: RestrictionPolygons.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: CPZs.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 6 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: CPZs.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 2
+20260315:125237[TOMs Panel]: 0 :: In __getRestrictionsInProposalForLayerForAction. query: "ProposalID" = 7 AND "RestrictionTableID" = 7 AND "ActionOnProposalAcceptance" = 1
+20260315:125237[TOMs Panel]: 0 :: In updateMapCanvas. Layer: ParkingTariffAreas.label_ldr Date Filter: "OpenDate" <= to_date('15-03-2026', 'dd-MM-yyyy') AND (("CloseDate" > to_date('15-03-2026', 'dd-MM-yyyy')  OR "CloseDate" IS NULL))
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: updateMapCanvas: Considering layer: ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: Finished updateMapCanvas ... 
+20260315:125237[TOMs Panel]: 0 :: In doCreateLineRestriction. Current transaction rolled back ... None
+20260315:125237[TOMs Panel]: 0 :: In doCreateLineRestriction - tool activated
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:startTransactionGroup.
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:startTransactionGroup. Currently empty adding layers
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction.createTransactionGroup
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Proposals
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding RestrictionsInProposals
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Bays
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Lines
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Signs
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding RestrictionPolygons
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding MapGrid
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding CPZs
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding ParkingTariffAreas
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding TilesInAcceptedProposals
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Bays.label_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Lines.label_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Lines.label_loading_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding RestrictionPolygons.label_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding CPZs.label_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding ParkingTariffAreas.label_pos
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Bays.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Lines.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding Lines.label_loading_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding RestrictionPolygons.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding CPZs.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding ParkingTariffAreas.label_ldr
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding MappingUpdates
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:createTransactionGroup. Adding MappingUpdateMasks
+20260315:125237[TOMs Panel]: 0 :: In TOMsTransaction:startTransactionGroup. Transaction started correctly!!! ...
+20260315:125237[TOMs Panel]: 0 :: In CreateRestrictionTool - init.
+20260315:125237[TOMs Panel]: 0 :: In CreateRestrictionTool - geometryType for Lines: 1
+20260315:125237[TOMs Panel]: 0 :: In CreateRestrictionTool - mode set.
+20260315:125237[TOMs Panel]: 0 :: In CreateRestrictionTool - init. Curr layer is LinesIncoming: <QgsVectorLayer: 'Lines' (postgres)>
+20260315:125237[TOMs Panel]: 0 :: In CreateRestrictionTool. Finished init.
+20260315:125237[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText: Feature:L_0000023
+20260315:125237[TOMs Panel]: 0 :: In getLoadingRestrictionLabelText: Feature:L_0000023
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125237[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125237[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125237[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText ****: Waiting: None Loading: None
+20260315:125237[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText: Feature:L_0000023
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText
+20260315:125237[TOMs Panel]: 0 :: In getMininumScaleForDisplay. minScale(1): 2500
+20260315:125237[TOMs Panel]: 0 :: In getWaitingLoadingRestrictionLabelText(1): get details ...
+20260315:125237[TOMs Panel]: 0 :: In getWaitingRestrictionLabelText ****: Waiting: None Loading: None
+20260315:125237[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125237[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125238[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125238[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125238[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125238[TOMs Panel]: 0 :: generateDisplayGeometry: L_0000023:LineString (325364.58189985150238499 674030.68397241388447583, 325364.311900861968752 674031.6468330193310976, 325366.08025538281071931 674031.10413134144619107, 325367.30861192441079766 674032.48715087433811277, 325369.07696644536918029 674031.94444919645320624, 325370.30532298696925864 674033.32746872946154326, 325372.07367750792764127 674032.78476705157663673, 325373.30203404952771962 674034.16778658446855843, 325375.07038857048610225 674033.6250849065836519, 325376.2987451120861806 674035.00810443959198892, 325378.06709963333560154 674034.46540276159066707, 325379.29545617464464158 674035.84842229459900409, 325381.06381069560302421 674035.30572061671409756, 325382.29216723720310256 674036.68874014972243458, 325384.0605217581614852 674036.14603847172111273, 325385.28887829976156354 674037.52905800472944975, 325387.05723282071994618 674036.98635632684454322, 325388.28558936232002452 674038.36937585985288024, 325390.05394388327840716 674037.82667418185155839, 325391.28230042505310848 674039.20969371485989541, 325391.55254831101046875 674038.24690290330909193)
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generate_display_geometry
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generateDisplayGeometry
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generateCrossoverGeometry
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getAzimuthToRoadCentreLine
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getRoadName
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getUSRN
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generate_ZigZag
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getWaitingLabelLeader
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getLoadingLabelLeader
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getBayLabelLeader
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getPolygonLabelLeader
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getWaitingRestrictionLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getLoadingRestrictionLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getBayTimePeriodLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getBayMaxStayLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getBayNoReturnLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getBayLabelText
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getCPZ
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function getPTA
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function prepareSignLine
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function prepareSignIconLocation
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function prepareSignIcon
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function prepareSignOrientation
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generateDemandPoints
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generateDemandShapes
+20260315:125247[TOMs Panel]: 0 :: Unregistered expression function generateAvailableSpacesShapes
+20260315:125247[TOMs Panel]: 0 :: Unload comnpleted ... 
+20260315:130231[TOMs Panel]: 0 :: Finished init ...
+20260315:130231[TOMs Panel]: 0 :: Registering expression functions ... 
+20260315:130231[TOMs Panel]: 0 :: Considering function generate_display_geometry
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generate_display_geometry
+20260315:130231[TOMs Panel]: 0 :: Considering function generateDisplayGeometry
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generateDisplayGeometry
+20260315:130231[TOMs Panel]: 0 :: Considering function generateCrossoverGeometry
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generateCrossoverGeometry
+20260315:130231[TOMs Panel]: 0 :: Considering function getAzimuthToRoadCentreLine
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getAzimuthToRoadCentreLine
+20260315:130231[TOMs Panel]: 0 :: Considering function getRoadName
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getRoadName
+20260315:130231[TOMs Panel]: 0 :: Considering function getUSRN
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getUSRN
+20260315:130231[TOMs Panel]: 0 :: Considering function generate_ZigZag
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generate_ZigZag
+20260315:130231[TOMs Panel]: 0 :: Considering function getWaitingLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getWaitingLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Considering function getLoadingLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getLoadingLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Considering function getBayLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getBayLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Considering function getPolygonLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getPolygonLabelLeader
+20260315:130231[TOMs Panel]: 0 :: Considering function getWaitingRestrictionLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getWaitingRestrictionLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getLoadingRestrictionLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getLoadingRestrictionLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getBayTimePeriodLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getBayTimePeriodLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getBayMaxStayLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getBayMaxStayLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getBayNoReturnLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getBayNoReturnLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getBayLabelText
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getBayLabelText
+20260315:130231[TOMs Panel]: 0 :: Considering function getCPZ
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getCPZ
+20260315:130231[TOMs Panel]: 0 :: Considering function getPTA
+20260315:130231[TOMs Panel]: 0 :: Registered expression function getPTA
+20260315:130231[TOMs Panel]: 0 :: Considering function prepareSignLine
+20260315:130231[TOMs Panel]: 0 :: Registered expression function prepareSignLine
+20260315:130231[TOMs Panel]: 0 :: Considering function prepareSignIconLocation
+20260315:130231[TOMs Panel]: 0 :: Registered expression function prepareSignIconLocation
+20260315:130231[TOMs Panel]: 0 :: Considering function prepareSignIcon
+20260315:130231[TOMs Panel]: 0 :: Registered expression function prepareSignIcon
+20260315:130231[TOMs Panel]: 0 :: Considering function prepareSignOrientation
+20260315:130231[TOMs Panel]: 0 :: Registered expression function prepareSignOrientation
+20260315:130231[TOMs Panel]: 0 :: Considering function generateDemandPoints
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generateDemandPoints
+20260315:130231[TOMs Panel]: 0 :: Considering function generateDemandShapes
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generateDemandShapes
+20260315:130231[TOMs Panel]: 0 :: Considering function generateAvailableSpacesShapes
+20260315:130231[TOMs Panel]: 0 :: Registered expression function generateAvailableSpacesShapes
+20260315:130231[TOMs Panel]: 0 :: In TOMSLayers.init ...
+20260315:130231[TOMs Panel]: 0 :: In TOMsProposal:init. ... 
+20260315:130231[TOMs Panel]: 0 :: In TOMsProposal:setProposalsLayer. Proposals layer NOT set !!!
+20260315:130231[TOMs Panel]: 0 :: In TOMsProposal:init. ... proposals layer set 
+20260315:130231[TOMs Panel]: 0 :: In manageRestrictionDetails::init
+20260315:130231[TOMs Panel]: 0 :: In searchBar
+20260315:130231[TOMs Panel]: 0 :: In initSearchBox:
+20260315:130231[TOMs Panel]: 0 :: In disableSearchBar
+20260315:130231[TOMs Panel]: 0 :: In disableTOMsToolbarItems
+20260315:130231[TOMs Panel]: 0 :: Finished proposalsPanel init ...
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generate_display_geometry
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generateDisplayGeometry
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generateCrossoverGeometry
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getAzimuthToRoadCentreLine
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getRoadName
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getUSRN
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generate_ZigZag
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getWaitingLabelLeader
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getLoadingLabelLeader
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getBayLabelLeader
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getPolygonLabelLeader
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getWaitingRestrictionLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getLoadingRestrictionLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getBayTimePeriodLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getBayMaxStayLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getBayNoReturnLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getBayLabelText
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getCPZ
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function getPTA
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function prepareSignLine
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function prepareSignIconLocation
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function prepareSignIcon
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function prepareSignOrientation
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generateDemandPoints
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generateDemandShapes
+20260315:130522[TOMs Panel]: 0 :: Unregistered expression function generateAvailableSpacesShapes
+20260315:130522[TOMs Panel]: 0 :: Unload comnpleted ... 

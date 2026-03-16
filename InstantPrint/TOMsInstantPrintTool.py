@@ -11,15 +11,15 @@
 # T Hancock (180607) generate a subclass of Sandro's class
 
 
-from PyQt5.QtCore import (
+from qgis.PyQt.QtCore import (
     Qt, QSettings, QPointF, QRectF, QRect, QUrl, pyqtSignal, QLocale, QMetaObject, QDate
     )
-from PyQt5.QtGui import (
+from qgis.PyQt.QtGui import (
     QColor, QDesktopServices, QIcon)
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QDialog, QDialogButtonBox, QMessageBox, QFileDialog, QListWidgetItem, QListWidget, QCheckBox
     )
-from PyQt5.QtPrintSupport import (
+from qgis.PyQt.QtPrintSupport import (
     QPrintDialog, QPrinter
     )
 from TOMs.core.TOMsMessageLog import TOMsMessageLog
@@ -68,7 +68,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
         try:
             self.dialogui.comboBox_scale.scaleChanged.disconnect(self._InstantPrintTool__changeScale)
         except Exception as e:
-            TOMsMessageLog.logMessage("In TOMsInstantPrintTool.init. error: {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsInstantPrintTool.init. error: {}".format(e), level=Qgis.MessageLevel.Warning)
 
         self.dialogui.comboBox_scale.scaleChanged.connect(self.TOMsChangeScale)
 
@@ -92,12 +92,12 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 # TODO: somehow have to disable combobox for scaled atlas ...
                 self.dialogui.comboBox_scale.setEnabled(False)
 
-                TOMsMessageLog.logMessage("In initialisePrintdialog .. scale box notEnabled ...", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In initialisePrintdialog .. scale box notEnabled ...", level=Qgis.MessageLevel.Info)
 
                 return
 
     def createAcceptedProposalcb(self):
-        TOMsMessageLog.logMessage("In createAcceptedProposalcb", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In createAcceptedProposalcb", level=Qgis.MessageLevel.Info)
         # set up a "NULL" field for "No proposals to be shown"
 
         self.acceptedProposalDialog.cb_AcceptedProposalsList.clear()
@@ -105,7 +105,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
         for (currProposalID, currProposalTitle, currProposalStatusID, currProposalOpenDate, currProposal) in sorted(
                 self.proposalsManager.getProposalsListWithStatus(ProposalStatus.ACCEPTED), key=lambda f: f[1]):
             TOMsMessageLog.logMessage(
-                "In createProposalcb: queryString: " + str(currProposalID) + ":" + currProposalTitle, level=Qgis.Info)
+                "In createProposalcb: queryString: " + str(currProposalID) + ":" + currProposalTitle, level=Qgis.MessageLevel.Info)
             self.acceptedProposalDialog.cb_AcceptedProposalsList.addItem(currProposalTitle, currProposalID)
 
     def TOMsSelectLayout(self):
@@ -136,7 +136,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
         # self.mapitem = maps[0]
 
         if layout.atlas().enabled():
-            TOMsMessageLog.logMessage("In TOMsSelectLayout. This one has an atlas ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsSelectLayout. This one has an atlas ...", level=Qgis.MessageLevel.Info)
 
             # tidy - if required
             self.iface.mapCanvas().scene().removeItem(self.rubberband)
@@ -149,7 +149,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
 
             # somehow have to disable combobox
             self.dialogui.comboBox_scale.setEnabled(False)
-            TOMsMessageLog.logMessage("In TOMsSelectLayout .. scale box notEnabled ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsSelectLayout .. scale box notEnabled ...", level=Qgis.MessageLevel.Info)
 
             # sort out export process ...
             try:
@@ -157,16 +157,16 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 self.exportButton.clicked.connect(self.TOMsExport)
             except TypeError:
                 TOMsMessageLog.logMessage("In TOMsSelectLayout. export tools already correctly connected ...",
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
             else:
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 TOMsMessageLog.logMessage(
                     'In TOMsSelectLayout. export tools issue {}'.format(
                         repr(traceback.extract_tb(exc_traceback))),
-                    level=Qgis.Warning)
+                    level=Qgis.MessageLevel.Warning)
 
         else:
-            TOMsMessageLog.logMessage("In TOMsSelectLayout. This one does NOT have an atlas ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsSelectLayout. This one does NOT have an atlas ...", level=Qgis.MessageLevel.Info)
             self.dialogui.comboBox_scale.setEnabled(True)
             self.dialogui.comboBox_scale.setScale(layoutScale)
             #self.dialogui.comboBox_scale.setScale(1 / 500)  # composer may not have a "scale" item
@@ -182,20 +182,20 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 self.exportButton.clicked.connect(self._InstantPrintTool__export)
             except TypeError:
                 TOMsMessageLog.logMessage("In TOMsSelectLayout. export tools already correctly connected ...",
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
             else:
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 TOMsMessageLog.logMessage(
                     'In TOMsSelectLayout. export tools issue {}'.format(
                         repr(traceback.extract_tb(exc_traceback))),
-                    level=Qgis.Warning)
+                    level=Qgis.MessageLevel.Warning)
 
     def TOMsChangeScale(self):
-        TOMsMessageLog.logMessage("In TOMsChangeScale ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsChangeScale ... ", level=Qgis.MessageLevel.Info)
 
         self._InstantPrintTool__changeScale()
 
-        TOMsMessageLog.logMessage("In TOMsChangeScale. Checking for atlas ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsChangeScale. Checking for atlas ", level=Qgis.MessageLevel.Info)
 
         layout = self.dialogui.comboBox_layouts.itemData(self.dialogui.comboBox_layouts.currentIndex())
         if layout.atlas().enabled():
@@ -204,7 +204,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
             if self.oldrubberband:
                 self.iface.mapCanvas().scene().removeItem(self.oldrubberband)
             self.rubberband = None
-            TOMsMessageLog.logMessage("In TOMsChangeScale .. scale box notEnabled ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsChangeScale .. scale box notEnabled ...", level=Qgis.MessageLevel.Info)
             self.dialogui.comboBox_scale.setEnabled(False)
 
     def TOMsExport(self):
@@ -240,18 +240,18 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 self.acceptedProposalDialog.show()
 
                 # Run the dialog event loop
-                result = self.acceptedProposalDialog.exec_()
+                result = self.acceptedProposalDialog.exec()
                 # See if OK was pressed
                 if result:
 
                     # Take the output from the form and set the current Proposal
                     indexProposal = self.acceptedProposalDialog.cb_AcceptedProposalsList.currentIndex()
                     proposalNrForPrinting = self.acceptedProposalDialog.cb_AcceptedProposalsList.itemData(indexProposal)
-                    TOMsMessageLog.logMessage("In TOMsExport. Choosing " + str(proposalNrForPrinting), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In TOMsExport. Choosing " + str(proposalNrForPrinting), level=Qgis.MessageLevel.Info)
                     printProposal = TOMsProposal(self.proposalsManager, proposalNrForPrinting)
                     # self.openDateForPrintProposal = self.proposalsManager.getProposalOpenDate(proposalNrForPrinting)
                     self.openDateForPrintProposal = printProposal.getProposalOpenDate()
-                    TOMsMessageLog.logMessage("In TOMsExport. Open date for printing is {}".format(self.openDateForPrintProposal), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In TOMsExport. Open date for printing is {}".format(self.openDateForPrintProposal), level=Qgis.MessageLevel.Info)
 
                 else:
 
@@ -298,7 +298,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
         currProposalOpenDate = currRevisionDate  # TODO:Need to check if this is needed ...
 
         TOMsMessageLog.logMessage("In TOMsExportAtlas. printProposal:{}|".format(printProposalObject.thisProposalNr),
-                                  level=Qgis.Info)
+                                  level=Qgis.MessageLevel.Info)
 
         # get the map tiles that are affected by the Proposal
 
@@ -310,7 +310,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
         self.tilesToPrint = self.TOMsChooseTiles(proposalTileDictionaryForDate)
 
         TOMsMessageLog.logMessage("In TOMsExportAtlas. now have " + str(len(self.tilesToPrint)) + " items ....",
-                                  level=Qgis.Info)
+                                  level=Qgis.MessageLevel.Info)
 
         if len(self.tilesToPrint) == 0:
             return
@@ -320,7 +320,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
             self.iface.mainWindow(),
             self.tr("Export Composition"),
             settings.value("/instantprint/lastdir", ""),
-            QFileDialog.ShowDirsOnly
+            QFileDialog.Option.ShowDirsOnly
         )
         if not dirName:
             return
@@ -339,7 +339,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 tileIDList = tileIDList + ',\'' + str(tile.getMapSheetName()) + '\''
 
         TOMsMessageLog.logMessage('"mapsheetname" in ({tileList})'.format(tileList=tileIDList),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         currLayoutAtlas.setFilterFeatures(True)
         currLayoutAtlas.setFilterExpression(' "mapsheetname" in ({tileList})'.format(tileList=tileIDList))
@@ -362,7 +362,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
                                 self.tr("Missing label 'printTypeDetails'"))
 
         TOMsMessageLog.logMessage("In TOMsExportAtlas. Now printing " + str(currLayoutAtlas.count()) + " items ....",
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         currLayoutAtlas.setEnabled(True)
         currLayoutAtlas.updateFeatures()
@@ -375,7 +375,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
             currTileName = currLayoutAtlas.nameForPage(currLayoutAtlas.currentFeatureNumber())
 
             TOMsMessageLog.logMessage('Considering tile {}'.format(currTileName),
-                                      level=Qgis.Info)
+                                      level=Qgis.MessageLevel.Info)
 
             currLayoutAtlas.refreshCurrentFeature()
             tileWithDetails = None
@@ -384,10 +384,10 @@ class TOMsInstantPrintTool(InstantPrintTool):
                     if tile.getMapSheetName() == currTileName:
                         tileWithDetails = tile
                 except Exception as e:
-                    TOMsMessageLog.logMessage('In TOMsExportAtlas. Error with map sheet details {} {} ....'.format(tile.getMapSheetName(), currTileName), level=Qgis.Info)
+                    TOMsMessageLog.logMessage('In TOMsExportAtlas. Error with map sheet details {} {} ....'.format(tile.getMapSheetName(), currTileName), level=Qgis.MessageLevel.Info)
 
             if tileWithDetails == None:
-                TOMsMessageLog.logMessage("In TOMsExportAtlas. Tile with details not found ....", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In TOMsExportAtlas. Tile with details not found ....", level=Qgis.MessageLevel.Info)
                 QMessageBox.warning(self.iface.mainWindow(), self.tr("Print Failed"),
                                     self.tr("Could not find details for " + str(currTileName)))
                 break
@@ -399,7 +399,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
                                       " RevisionDate: " + #str(tileWithDetails["LastRevisionDate"])  +
                                             str(tileWithDetails.getLastRevisionDate_AtDate())  +
                                       " lastUpdateDate: " + currProposalOpenDate.toString('dd-MMM-yyyy'),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 
             if self.proposalForPrintingStatusText == "CONFIRMED":
                 composerRevisionNr.setText(str(tileWithDetails.getRevisionNr_AtDate()))
@@ -413,7 +413,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
                     '{date}'.format(date=currProposalOpenDate.toString('dd-MMM-yyyy')))
 
             TOMsMessageLog.logMessage("In TOMsExportAtlas. status: {}; composerRevisionNr: {}; effectiveDate: {}".format(self.proposalForPrintingStatusText, composerRevisionNr.text(), composerEffectiveDate.text()),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 
 
             filename = formatted_currProposalTitle + "_" + currMapSheetName + "." + self.dialogui.comboBox_fileformat.currentText().lower()
@@ -425,7 +425,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
             TOMsMessageLog.logMessage(
                 "In TOMsExportAtlas. outputfile: {}; type: {}".format(
                     outputFile, self.dialogui.comboBox_fileformat.currentText().lower()),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
 
             if self.dialogui.comboBox_fileformat.currentText().lower() == u"pdf":
                 result = exporter.exportToPdf(outputFile, QgsLayoutExporter.PdfExportSettings())
@@ -437,7 +437,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
                 QMessageBox.warning(self.iface.mainWindow(), self.tr("Print Failed"),
                                     self.tr("No type choosen " + exporter.errorFile()))
 
-            if result != QgsLayoutExporter.Success:
+            if result != QgsLayoutExporter.ExportResult.Success:
                 QMessageBox.warning(self.iface.mainWindow(), self.tr("Print Failed"),
                                     self.tr("Failed to print " + exporter.errorFile()))
                 break
@@ -498,7 +498,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
     def TOMsChooseTiles(self, tileDictionary):
         # function to display and allow choice of tiles for printing
 
-        TOMsMessageLog.logMessage("In TOMsChooseTiles ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsChooseTiles ", level=Qgis.MessageLevel.Info)
 
         # set the dialog (somehow)
 
@@ -507,7 +507,7 @@ class TOMsInstantPrintTool(InstantPrintTool):
 
         #tileSet = set()
         for currTileNr, currTile in tileDictionary.items():
-            TOMsMessageLog.logMessage("In TOMsChooseTiles: " + str(currTileNr) + ":" +str(currTile.tileNr()) + " mapsheet: " + currTile.getMapSheetName() + " CurrRevisionNr: " + str(currTile.getCurrentRevisionNr()) + " RevisionNrAtDate: " + str(currTile.getRevisionNr_AtDate()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsChooseTiles: " + str(currTileNr) + ":" +str(currTile.tileNr()) + " mapsheet: " + currTile.getMapSheetName() + " CurrRevisionNr: " + str(currTile.getCurrentRevisionNr()) + " RevisionNrAtDate: " + str(currTile.getRevisionNr_AtDate()), level=Qgis.MessageLevel.Info)
             #tileSet.add(tile)
 
         self.tileListDialog = printListDialog(tileDictionary)
@@ -515,11 +515,11 @@ class TOMsInstantPrintTool(InstantPrintTool):
         self.tileListDialog.show()
 
         # Run the dialog event loop
-        result = self.tileListDialog.exec_()
+        result = self.tileListDialog.exec()
         # See if OK was pressed
         if result:
             TOMsMessageLog.logMessage("In TOMsChooseTiles. Now printing - getValues ...",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             tilesToPrint = self.tileListDialog.getValues()
 
         # ToDo: deal with cancel
@@ -536,7 +536,7 @@ class printListDialog(printListDialog, QDialog):
         # Set up the user interface from Designer.
         self.setupUi(self)
 
-        TOMsMessageLog.logMessage("In printListDialog. Initiating ...",             level=Qgis.Info)
+        TOMsMessageLog.logMessage("In printListDialog. Initiating ...",             level=Qgis.MessageLevel.Info)
 
         self.initValuesDict = initValuesDict # set
 
@@ -546,7 +546,7 @@ class printListDialog(printListDialog, QDialog):
         self.LIST = self.findChild(QListWidget, "tileList")
         self.cbToggleTiles = self.findChild(QCheckBox, "cb_ToggleTiles")
         self.buttonBox = self.findChild(QDialogButtonBox, "buttonBox")
-        self.cbToggleTiles.setCheckState(Qt.Checked)
+        self.cbToggleTiles.setCheckState(Qt.CheckState.Checked)
 
         QMetaObject.connectSlotsByName(self)
 
@@ -562,11 +562,11 @@ class printListDialog(printListDialog, QDialog):
             "In printListDialog. In changeValues for: " + str(element.data(Qt.DisplayRole)),
             level=Qgis.Info)"""
 
-        if element.checkState() == Qt.Checked:
+        if element.checkState() == Qt.CheckState.Checked:
             #self.tilesToPrint.append(element.data(Qt.DisplayRole))
-            self.addFeatureToSet(element.data(Qt.DisplayRole))
+            self.addFeatureToSet(element.data(Qt.ItemDataRole.DisplayRole))
         else:
-            self.removedFeatureFromSet(element.data(Qt.DisplayRole))
+            self.removedFeatureFromSet(element.data(Qt.ItemDataRole.DisplayRole))
 
     def addFeatureToSet(self, valueToAdd):
 
@@ -575,7 +575,7 @@ class printListDialog(printListDialog, QDialog):
                 self.tilesToPrint[feature.tileNr()] = feature
                 TOMsMessageLog.logMessage(
                     "In TOMsTileListDialog. Adding: " + feature.getMapSheetName() + " ; " + str(len(self.tilesToPrint)),
-                    level=Qgis.Info)
+                    level=Qgis.MessageLevel.Info)
                 return
 
     def removedFeatureFromSet(self, valueToRemove):
@@ -585,7 +585,7 @@ class printListDialog(printListDialog, QDialog):
                 del self.tilesToPrint[feature.tileNr()]
                 TOMsMessageLog.logMessage(
                     "In TOMsTileListDialog. Removing: " + feature.getMapSheetName() + " ; " + str(len(self.tilesToPrint)) ,
-                    level=Qgis.Info)
+                    level=Qgis.MessageLevel.Info)
                 return
 
     def toggleValues(self):
@@ -594,37 +594,37 @@ class printListDialog(printListDialog, QDialog):
 
         TOMsMessageLog.logMessage(
             "In TOMsTileListDialog. In toggleValues. toggleState: " + str(self.cbToggleTiles.checkState()),
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
-        if self.cbToggleTiles.checkState() == Qt.Checked:
+        if self.cbToggleTiles.checkState() == Qt.CheckState.Checked:
             for i in range(self.LIST.count()):
                 # attr = feature.attributes()
                 element = QListWidgetItem(self.LIST.item(i).text())
-                self.LIST.item(i).setCheckState(Qt.Checked)
+                self.LIST.item(i).setCheckState(Qt.CheckState.Checked)
 
         else:
 
             for i in range(self.LIST.count()):
                 # attr = feature.attributes()
                 element = QListWidgetItem(self.LIST.item(i).text())
-                self.LIST.item(i).setCheckState(Qt.Unchecked)
+                self.LIST.item(i).setCheckState(Qt.CheckState.Unchecked)
 
     def populateTileListDialog(self, txtFilter=None):
         '''Fill the QListWidget with values'''
         # Delete everything
         TOMsMessageLog.logMessage("In TOMsTileListDialog. In populateList",
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         self.LIST.clear()
         #for feature in sorted(self.initValues, key=lambda f: f[self.idxValue]):
 
         for featureNr, feature in sorted(self.initValuesDict.items()):
             element = QListWidgetItem(str(feature.tileNr()))
-            element.setData(Qt.UserRole, feature)
+            element.setData(Qt.ItemDataRole.UserRole, feature)
             element.setText(str(feature.getMapSheetName()))
 
             #self.tilesToPrint.add(feature)
-            element.setCheckState(Qt.Checked)
+            element.setCheckState(Qt.CheckState.Checked)
 
             self.LIST.addItem(element)
 
@@ -632,10 +632,10 @@ class printListDialog(printListDialog, QDialog):
         '''Return the selected values of the QListWidget'''
 
         TOMsMessageLog.logMessage("In TOMsTileListDialog. In getValues. Len List = " + str(len(self.tilesToPrint)),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         for featureNr, feature in sorted(self.tilesToPrint.items()):
             TOMsMessageLog.logMessage("In Choose tiles form ... Returning " + str(feature.getMapSheetName()),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 
         return self.tilesToPrint

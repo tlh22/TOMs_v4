@@ -44,7 +44,7 @@ class TOMsMessageLog(QgsMessageLog):
         # check to see if a logging level has been set
         def currentLoggingLevel():
 
-            currLoggingLevel = int(Qgis.Info)
+            currLoggingLevel = int(Qgis.MessageLevel.Info)
 
             try:
                 currLoggingLevel = int(QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('TOMs_Logging_Level'))
@@ -60,7 +60,7 @@ class TOMsMessageLog(QgsMessageLog):
                 messageLevel = int(kwargs.get('level'))
             except Exception as e:
                 QgsMessageLog.logMessage("Error in TOMsMessageLog. Level in message not found...{}".format(e), tag="TOMs Panel")
-                messageLevel = Qgis.Info
+                messageLevel = Qgis.MessageLevel.Info
 
             #QgsMessageLog.logMessage('{}: messageLevel: {}; debug_level: {}'.format(args[0], messageLevel, debug_level), tag="TOMs panel")
 
@@ -128,17 +128,17 @@ class TOMsMessageLog(QgsMessageLog):
                 logFilePath = None
 
         if logFilePath:
-            QgsMessageLog.logMessage("LogFilePath: " + str(logFilePath), tag="TOMs Panel", level=Qgis.Info)
+            QgsMessageLog.logMessage("LogFilePath: " + str(logFilePath), tag="TOMs Panel", level=Qgis.MessageLevel.Info)
 
             logfile = 'qgis_' + datetime.date.today().strftime("%Y%m%d") + '.log'
             TOMsMessageLog.filename = os.path.join(logFilePath, logfile)
-            QgsMessageLog.logMessage("Sorting out log file" + self.filename, tag="TOMs Panel", level=Qgis.Info)
+            QgsMessageLog.logMessage("Sorting out log file" + self.filename, tag="TOMs Panel", level=Qgis.MessageLevel.Info)
             #QgsApplication.messageLog().messageReceived.connect(self.write_log_message)
         else:
             QgsMessageLog.logMessage(
                 "TOMsMessageLog: log file path not configured; file logging disabled",
                 tag="TOMs Panel",
-                level=Qgis.Warning
+                level=Qgis.MessageLevel.Warning
             )
 
         """def write_log_message(self, *args, **kwargs):

@@ -7,7 +7,11 @@
 
 import sys
 import getpass
-import xmlrpclib
+try:
+    # Python 3
+    import xmlrpc.client as xmlrpclib
+except ImportError:  # pragma: no cover - legacy fallback
+    import xmlrpclib  # type: ignore[no-redef]
 from optparse import OptionParser
 
 # Configuration
@@ -31,25 +35,25 @@ def main(parameters, arguments):
         parameters.server,
         parameters.port,
         ENDPOINT)
-    print "Connecting to: %s" % hide_password(address)
+    print("Connecting to: %s" % hide_password(address))
 
     server = xmlrpclib.ServerProxy(address, verbose=VERBOSE)
 
     try:
         plugin_id, version_id = server.plugin.upload(
-            xmlrpclib.Binary(open(arguments[0]).read()))
-        print "Plugin ID: %s" % plugin_id
-        print "Version ID: %s" % version_id
-    except xmlrpclib.ProtocolError, err:
-        print "A protocol error occurred"
-        print "URL: %s" % hide_password(err.url, 0)
-        print "HTTP/HTTPS headers: %s" % err.headers
-        print "Error code: %d" % err.errcode
-        print "Error message: %s" % err.errmsg
-    except xmlrpclib.Fault, err:
-        print "A fault occurred"
-        print "Fault code: %d" % err.faultCode
-        print "Fault string: %s" % err.faultString
+            xmlrpclib.Binary(open(arguments[0], "rb").read()))
+        print("Plugin ID: %s" % plugin_id)
+        print("Version ID: %s" % version_id)
+    except xmlrpclib.ProtocolError as err:
+        print("A protocol error occurred")
+        print("URL: %s" % hide_password(err.url, 0))
+        print("HTTP/HTTPS headers: %s" % err.headers)
+        print("Error code: %d" % err.errcode)
+        print("Error message: %s" % err.errmsg)
+    except xmlrpclib.Fault as err:
+        print("A fault occurred")
+        print("Fault code: %d" % err.faultCode)
+        print("Fault string: %s" % err.faultString)
 
 
 def hide_password(url, start=6):
@@ -85,7 +89,7 @@ if __name__ == "__main__":
         help="Specify server name", metavar="plugins.qgis.org")
     options, args = parser.parse_args()
     if len(args) != 1:
-        print "Please specify zip file.\n"
+        print("Please specify zip file.\n")
         parser.print_help()
         sys.exit(1)
     if not options.server:
@@ -95,8 +99,11 @@ if __name__ == "__main__":
     if not options.username:
         # interactive mode
         username = getpass.getuser()
-        print "Please enter user name [%s] :" % username,
-        res = raw_input()
+        try:
+            # Python 3 input
+            res = input("Please enter user name [%s] :" % username)
+        except EOFError:
+            res = ""
         if res != "":
             options.username = res
         else:

@@ -23,7 +23,7 @@
 
 import os
 
-from PyQt5 import QtGui, uic, QtWidgets
+from qgis.PyQt import QtGui, uic, QtWidgets
 from qgis.PyQt.QtWidgets import (
     QDialog
 )

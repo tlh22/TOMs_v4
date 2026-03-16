@@ -40,7 +40,7 @@ class snapTraceUtilsMixin():
 
         request = QgsFeatureRequest()
         request.setFilterRect(searchRect)
-        request.setFlags(QgsFeatureRequest.ExactIntersect)
+        request.setFlags(QgsFeatureRequest.Flag.ExactIntersect)
 
         shortestDistance = float("inf")
         #nearestPoint = QgsFeature()
@@ -94,7 +94,7 @@ class snapTraceUtilsMixin():
 
         request = QgsFeatureRequest()
         request.setFilterRect(searchRect)
-        request.setFlags(QgsFeatureRequest.ExactIntersect)
+        request.setFlags(QgsFeatureRequest.Flag.ExactIntersect)
 
         shortestDistance = float("inf")
 

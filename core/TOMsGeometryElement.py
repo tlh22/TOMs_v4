@@ -88,7 +88,7 @@ class TOMsGeometryElement(QObject):
                     self.nrBays = float(currFeature.attribute("NrBays"))
                 except KeyError as e:
                     TOMsMessageLog.logMessage("In TOMsGeometryElement.init: NrBays not present {}".format(e),
-                                              level=Qgis.Warning)
+                                              level=Qgis.MessageLevel.Warning)
                     self.nrBays = -1
 
             # BayOrientation
@@ -96,20 +96,20 @@ class TOMsGeometryElement(QObject):
                 self.currBayOrientation = currFeature.attribute("BayOrientation")
             except KeyError as e:
                 TOMsMessageLog.logMessage("In TOMsGeometryElement.init: BayOrientation not present {}".format(e),
-                                      level=Qgis.Info)
+                                      level=Qgis.MessageLevel.Info)
                 self.currBayOrientation = 0
 
             try:
                 thisBayWidth = currFeature.attribute("BayWidth")
             except KeyError as e:
                 TOMsMessageLog.logMessage("In TOMsGeometryElement.init: BayWidth not present {}".format(e),
-                                      level=Qgis.Info)
+                                      level=Qgis.MessageLevel.Info)
                 thisBayWidth = NULL
 
             if thisBayWidth != NULL:  # https://gis.stackexchange.com/questions/216018/importing-null-in-pyqgis
                 self.BayWidth = float(thisBayWidth)
                 TOMsMessageLog.logMessage("In TOMsGeometryElement.init: changing BayWidth to {}".format(thisBayWidth),
-                                          level=Qgis.Info)
+                                          level=Qgis.MessageLevel.Info)
 
         #TOMsMessageLog.logMessage("In TOMsGeometryElement.init: finished ", level=Qgis.Info)
 
@@ -150,7 +150,7 @@ class TOMsGeometryElement(QObject):
             #TOMsMessageLog.logMessage("In generatePolygon:  new geom type ********: {}: {}".format(newGeometry.wkbType(), newGeometry.asWkt()),
             #                         level=Qgis.Info)
 
-            if newGeometry.wkbType() == QgsWkbTypes.MultiLineString:
+            if newGeometry.wkbType() == QgsWkbTypes.Type.MultiLineString:
 
                 #TOMsMessageLog.logMessage(
                 #    "In generatePolygon: creating multi  ...", level=Qgis.Info)
@@ -398,14 +398,14 @@ class TOMsGeometryElement(QObject):
 
         newLine = QgsGeometry.fromPolylineXY(ptsList)
         if not newLine.isSimple():    # https://gis.stackexchange.com/questions/353194/how-to-find-the-line-is-self-intersected-or-not-in-python-using-qgis
-            TOMsMessageLog.logMessage("In TOMsGeometryElement.getShape: newLine is self-intersecting for {}. Resolving ... ".format(self.currFeature.attribute("GeometryID")), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsGeometryElement.getShape: newLine is self-intersecting for {}. Resolving ... ".format(self.currFeature.attribute("GeometryID")), level=Qgis.MessageLevel.Warning)
             newLine = self.resolveSelfIntersections(ptsList)
 
         #parallelPtsList.reverse()
         parallelLine = QgsGeometry.fromPolylineXY(parallelPtsList)
         if not parallelLine.isSimple():    # https://gis.stackexchange.com/questions/353194/how-to-find-the-line-is-self-intersected-or-not-in-python-using-qgis
             TOMsMessageLog.logMessage("In TOMsGeometryElement.getShape: parallelLine is self-intersecting for {}. Resolving ... ".format(self.currFeature.attribute("GeometryID")),
-                                      level=Qgis.Warning)
+                                      level=Qgis.MessageLevel.Warning)
             parallelLine = self.resolveSelfIntersections(parallelPtsList)
 
         # TOMsMessageLog.logMessage("In getDisplayGeometry:  newLine ********: " + newLine.asWkt(), level=Qgis.Info)
@@ -452,13 +452,13 @@ class TOMsGeometryElement(QObject):
                 intersectPt = currLine.intersection(testLine)
                 if intersectPt:
                     # TODO: deal with situation where intersection is a line, i.e., colinear ...
-                    if intersectPt.type() == QgsWkbTypes.PointGeometry:
+                    if intersectPt.type() == QgsWkbTypes.GeometryType.PointGeometry:
                         intersectLineStartVertexNr = testVertexNr
                         nextPt = intersectPt
 
             #print("Finished line intersection check: {} ... ".format(intersectLineStartVertexNr))
             TOMsMessageLog.logMessage("In TOMsGeometryElement.resolveSelfIntersections: Finished line intersection check: {} ... ".format(intersectLineStartVertexNr),
-                                      level=Qgis.Info)
+                                      level=Qgis.MessageLevel.Info)
 
             if intersectLineStartVertexNr > 0:
                 # intersect was found
@@ -687,7 +687,7 @@ class TOMsGeometryElement(QObject):
                 diffEchelonAz = generateGeometryUtils.checkDegrees(diffEchelonAz1)
                 newAz = generateGeometryUtils.checkDegrees(newAz + diffEchelonAz)
 
-            TOMsMessageLog.logMessage("In getBayDividers. newAz: {}".format(newAz), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In getBayDividers. newAz: {}".format(newAz), level=Qgis.MessageLevel.Info)
 
             cosa, cosb = generateGeometryUtils.cosdir_azim(newAz)
 
@@ -761,7 +761,7 @@ class TOMsGeometryElement(QObject):
 
             TOMsMessageLog.logMessage(
                 "In factory. addBayPolygonDividers ... nr dividers: {}".format(len(bayDividers)),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             for divider in bayDividers:
                 # divGeometry = QgsGeometry()
                 # res = divGeometry.addPointsXY(divider.asPolyline(), QgsWkbTypes.LineGeometry)
@@ -1288,4 +1288,4 @@ class ElementGeometryFactory():
             raise AssertionError("Restriction Geometry Type NOT found")
 
         except AssertionError as _e:
-            TOMsMessageLog.logMessage("In ElementGeometryFactory. TYPE not found or something else ... ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In ElementGeometryFactory. TYPE not found or something else ... ", level=Qgis.MessageLevel.Info)

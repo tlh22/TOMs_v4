@@ -93,7 +93,7 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         """
         Set the current date
         """
-        TOMsMessageLog.logMessage('Current date changed to {date}'.format(date=value.toString('dd/MM/yyyy')), level=Qgis.Info)
+        TOMsMessageLog.logMessage('Current date changed to {date}'.format(date=value.toString('dd/MM/yyyy')), level=Qgis.MessageLevel.Info)
         self.__date = value
         self.dateChanged.emit()
         self.updateMapCanvas()
@@ -123,7 +123,7 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         """
         Set the current proposal
         """
-        TOMsMessageLog.logMessage('Current proposal changed to {proposal_id}'.format(proposal_id=value), level=Qgis.Info)
+        TOMsMessageLog.logMessage('Current proposal changed to {proposal_id}'.format(proposal_id=value), level=Qgis.MessageLevel.Info)
         QgsExpressionContextUtils.setProjectVariable(QgsProject.instance(), 'CurrentProposal', value)
 
         self.currProposalObject.setProposal(self.currentProposal())
@@ -156,7 +156,7 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         Whenever the current proposal or the date changes we need to update the canvas.
         """
 
-        TOMsMessageLog.logMessage('Entering updateMapCanvas ... ', level=Qgis.Warning)
+        TOMsMessageLog.logMessage('Entering updateMapCanvas ... ', level=Qgis.MessageLevel.Warning)
 
         dateString = self.__date.toString('dd-MM-yyyy')
         currProposalID = self.currentProposal()
@@ -170,7 +170,7 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         #     self.RestrictionLayers = QgsMapLayerRegistry.instance().mapLayersByName("RestrictionLayers")[0]
 
         for (layerID, layerName) in self.getRestrictionLayersList():
-            TOMsMessageLog.logMessage("updateMapCanvas: Considering layer: {}".format(layerName), level=Qgis.Info)
+            TOMsMessageLog.logMessage("updateMapCanvas: Considering layer: {}".format(layerName), level=Qgis.MessageLevel.Info)
 
             layerFilterString = filterString
 
@@ -190,12 +190,12 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
             else:
                 layerFilterString = layerFilterString + ")"
 
-            TOMsMessageLog.logMessage("In updateMapCanvas. Layer: {} Date Filter: {}".format(layerName, layerFilterString), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In updateMapCanvas. Layer: {} Date Filter: {}".format(layerName, layerFilterString), level=Qgis.MessageLevel.Info)
             try:
                 self.tableNames.setLayer(layerName).dataProvider().setSubsetString(layerFilterString)
             except Exception as e:
                 TOMsMessageLog.logMessage('updateMapCanvas: error in layer {}: {}'.format(layerName, e),
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
                 return False
 
             # *** deal with labels ...
@@ -216,30 +216,30 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
 
             for label_layers_name in label_layers_names:
                 # get the label layer
-                TOMsMessageLog.logMessage("updateMapCanvas: Considering layer: {}".format(label_layers_name), level=Qgis.Info)
+                TOMsMessageLog.logMessage("updateMapCanvas: Considering layer: {}".format(label_layers_name), level=Qgis.MessageLevel.Info)
                 try:
                     QgsProject.instance().mapLayersByName(label_layers_name)[0].dataProvider().setSubsetString(layerFilterString)
                 except Exception as e:
                     TOMsMessageLog.logMessage('updateMapCanvas: error in layer {}: {}'.format(label_layers_name, e),
-                                              level=Qgis.Warning)
+                                              level=Qgis.MessageLevel.Warning)
                     return False
 
-        TOMsMessageLog.logMessage('Finished updateMapCanvas ... ', level=Qgis.Warning)
+        TOMsMessageLog.logMessage('Finished updateMapCanvas ... ', level=Qgis.MessageLevel.Warning)
 
         return True
 
     def clearRestrictionFilters(self):
         # This is to be used at the close of the plugin to clear any filters that have been set
 
-        TOMsMessageLog.logMessage('Entering clearRestrictionFilters ... ', level=Qgis.Info)
+        TOMsMessageLog.logMessage('Entering clearRestrictionFilters ... ', level=Qgis.MessageLevel.Info)
 
         for (layerID, layerName) in self.getRestrictionLayersList():
-            TOMsMessageLog.logMessage("Clearing filter for layer: {}".format(layerName), level=Qgis.Info)
+            TOMsMessageLog.logMessage("Clearing filter for layer: {}".format(layerName), level=Qgis.MessageLevel.Info)
             try:
                 self.tableNames.setLayer(layerName).dataProvider().setSubsetString(None)
             except Exception as e:
                 TOMsMessageLog.logMessage('clearRestrictionFilters: error in layer {}: {}'.format(layerName, e),
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
                 return False
 
            # *** deal with labels ...
@@ -260,12 +260,12 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
 
             for label_layers_name in label_layers_names:
                 # get the label layer
-                TOMsMessageLog.logMessage("clearRestrictionFilters: Clearing filter for layer: {}".format(label_layers_name), level=Qgis.Info)
+                TOMsMessageLog.logMessage("clearRestrictionFilters: Clearing filter for layer: {}".format(label_layers_name), level=Qgis.MessageLevel.Info)
                 try:
                     QgsProject.instance().mapLayersByName(label_layers_name)[0].dataProvider().setSubsetString(None)
                 except Exception as e:
                     TOMsMessageLog.logMessage('clearRestrictionFilters: error in layer {}: {}'.format(label_layers_name, e),
-                                              level=Qgis.Warning)
+                                              level=Qgis.MessageLevel.Warning)
                     return False
 
         return True
@@ -286,12 +286,12 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         request = QgsFeatureRequest().setFilterExpression(filterString)
 
         TOMsMessageLog.logMessage("In ProposalsManager:getCurrentRestrictionsForLayerAtDate. Layer: " + thisLayer.name() + " Filter: " + filterString,
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         restrictionList = []
         for currentRestrictionDetails in thisLayer.getFeatures(request):
             TOMsMessageLog.logMessage(
                 "In ProposalsManager:getCurrentRestrictionsForLayerAtDate. Layer: " + thisLayer.name() + " restrictionID: " + str(currentRestrictionDetails["RestrictionID"]),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             currRestriction = ProposalElementFactory.getProposalElement(self, layerID, thisLayer,
                                                                         currentRestrictionDetails["RestrictionID"])
             restrictionList.append([currentRestrictionDetails["RestrictionID"], currRestriction])
@@ -307,7 +307,7 @@ class TOMsProposalsManager(RestrictionTypeUtilsMixin, ProposalTypeUtilsMixin, QO
         if proposalStatus is not None:
             query = ("\"ProposalStatusID\" = {proposalStatus}").format(proposalStatus=str(proposalStatus))
 
-        TOMsMessageLog.logMessage("In __getProposalsListWithStatus. query: " + str(query), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In __getProposalsListWithStatus. query: " + str(query), level=Qgis.MessageLevel.Info)
         request = QgsFeatureRequest().setFilterExpression(query)
 
         proposalsList = []

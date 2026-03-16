@@ -23,7 +23,7 @@
 
 import os
 
-from PyQt5 import QtGui, uic
+from qgis.PyQt import QtGui, uic
 from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtWidgets import (
     QDockWidget

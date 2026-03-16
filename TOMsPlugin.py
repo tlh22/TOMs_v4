@@ -62,7 +62,7 @@ class TOMs:
 
     def __init__(self, iface):
 
-        QgsMessageLog.logMessage("Starting TOMs ... ", tag='TOMs Panel', level=Qgis.Warning)
+        QgsMessageLog.logMessage("Starting TOMs ... ", tag='TOMs Panel', level=Qgis.MessageLevel.Warning)
 
         """Constructor.
         # Monkeypatch to avoid slowdown because of logging
@@ -101,7 +101,7 @@ class TOMs:
         loggingUtils = TOMsMessageLog()
         loggingUtils.setLogFile()
 
-        TOMsMessageLog.logMessage("Finished init ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("Finished init ...", level=Qgis.MessageLevel.Warning)
         # Set up local logging
         # Set up log file and collect any relevant messages
         """logFilePath = os.environ.get('QGIS_LOGFILE_PATH')
@@ -118,7 +118,7 @@ class TOMs:
         #TOMsMessageLog.logMessage("Finished init", level=Qgis.Warning)
 
     def write_log_message(self, message, tag, level):
-        TOMsMessageLog.logMessage("In write_log_message ... " + self.filename, level=Qgis.Info)
+        TOMsMessageLog.logMessage("In write_log_message ... " + self.filename, level=Qgis.MessageLevel.Info)
         with open(self.filename, 'a') as logfile:
             logfile.write(
                 '{dateDetails}[{tag}]: {level} :: {message}\n'.format(dateDetails=time.strftime("%Y%m%d:%H%M%S"),
@@ -126,7 +126,7 @@ class TOMs:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-        TOMsMessageLog.logMessage("Registering expression functions ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("Registering expression functions ... ", level=Qgis.MessageLevel.Info)
         self.expressionsObject =  TOMsExpressions()
         self.expressionsObject.registerFunctions()   # Register the Expression functions that we need
 
@@ -140,4 +140,4 @@ class TOMs:
         self.expressionsObject.unregisterFunctions()  # unregister all the Expression functions used
 
         # TODO: Check whether or not there are any current map tools
-        TOMsMessageLog.logMessage("Unload comnpleted ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("Unload comnpleted ... ", level=Qgis.MessageLevel.Info)

@@ -68,7 +68,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def __init__(self, iface, TOMsToolbar, proposalsManager):
 
-        TOMsMessageLog.logMessage("In manageRestrictionDetails::init", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In manageRestrictionDetails::init", level=Qgis.MessageLevel.Info)
         RestrictionTypeUtilsMixin.__init__(self, iface)
 
         # Save reference to the QGIS interface
@@ -176,7 +176,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def enableTOMsToolbarItems(self, restrictionTransaction):
 
-        TOMsMessageLog.logMessage("In enableTOMsToolbarItems", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In enableTOMsToolbarItems", level=Qgis.MessageLevel.Info)
 
         self.actionSelectRestriction.setEnabled(True)
         self.actionRestrictionDetails.setEnabled(True)
@@ -210,7 +210,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def disableTOMsToolbarItems(self):
 
-        TOMsMessageLog.logMessage("In disableTOMsToolbarItems", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In disableTOMsToolbarItems", level=Qgis.MessageLevel.Info)
 
         self.actionSelectRestriction.setEnabled(False)
         self.actionRestrictionDetails.setEnabled(False)
@@ -234,12 +234,12 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
         """ Select point and then display details
         """
 
-        TOMsMessageLog.logMessage("In doSelectRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doSelectRestriction", level=Qgis.MessageLevel.Info)
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doSelectRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -264,7 +264,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
     def doRestrictionDetails(self):
         """ Select point and then display details
         """
-        TOMsMessageLog.logMessage("In doRestrictionDetails", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doRestrictionDetails", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
@@ -275,7 +275,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
         if currRestrictionLayer:
 
-            TOMsMessageLog.logMessage("In doRestrictionDetails. currLayer: " + str(currRestrictionLayer.name() + " Nr feats: " + str(currRestrictionLayer.selectedFeatureCount())), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In doRestrictionDetails. currLayer: " + str(currRestrictionLayer.name() + " Nr feats: " + str(currRestrictionLayer.selectedFeatureCount())), level=Qgis.MessageLevel.Info)
 
             if currRestrictionLayer.selectedFeatureCount() > 0:
 
@@ -291,7 +291,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                     #self.restrictionForm.show()
 
                     TOMsMessageLog.logMessage(
-                        "In restrictionFormOpen. currRestrictionLayer: " + str(currRestrictionLayer.name()), level=Qgis.Info)
+                        "In restrictionFormOpen. currRestrictionLayer: " + str(currRestrictionLayer.name()), level=Qgis.MessageLevel.Info)
 
                     dialog = self.iface.getFeatureForm(currRestrictionLayer, currRestriction)
 
@@ -312,7 +312,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                 "Select restriction first and then choose information button",
-                                                QMessageBox.Ok)
+                                                QMessageBox.StandardButton.Ok)
 
             pass
 
@@ -322,21 +322,21 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                             "Select restriction first and then choose information button",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
         pass
 
 
     def doCreateBayRestriction(self):
 
-        TOMsMessageLog.logMessage("In doCreateBayRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doCreateBayRestriction", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doCreateBayRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -351,7 +351,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 # set TOMs layer as active layer (for editing)...
 
-                TOMsMessageLog.logMessage("In doCreateBayRestriction - tool activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateBayRestriction - tool activated", level=Qgis.MessageLevel.Info)
 
                 # self.restrictionTransaction.startTransactionGroup()  # start editing
 
@@ -373,7 +373,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             else:
 
-                TOMsMessageLog.logMessage("In doCreateBayRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateBayRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.iface.mapCanvas().unsetMapTool(self.mapTool)
                 self.mapTool = None
@@ -391,13 +391,13 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                     self.actionCreateBayRestriction.setChecked(False)
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information", "Changes to current data is not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
         pass
 
     def doCreateLineRestriction(self):
 
-        TOMsMessageLog.logMessage("In doCreateLineRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doCreateLineRestriction", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
@@ -405,11 +405,11 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
             commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
             TOMsMessageLog.logMessage(
                 "In doCreateLineRestriction. Current transaction rolled back ... {}".format(commitStatus),
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
         else:
             TOMsMessageLog.logMessage(
                 "In doCreateLineRestriction. No restriction transaction to roll back.",
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -424,7 +424,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 # set TOMs layer as active layer (for editing)...
 
-                TOMsMessageLog.logMessage("In doCreateLineRestriction - tool activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateLineRestriction - tool activated", level=Qgis.MessageLevel.Info)
 
                 # self.restrictionTransaction.startTransactionGroup()  # start editing
 
@@ -436,7 +436,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                 if self.restrictionTransaction is None:
                     TOMsMessageLog.logMessage(
                         "In doCreateLineRestriction - no restrictionTransaction available; cannot start transaction group",
-                        level=Qgis.Critical)
+                        level=Qgis.MessageLevel.Critical)
                     QMessageBox.critical(
                         self.iface.mainWindow(),
                         "TOMs",
@@ -456,7 +456,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             else:
 
-                TOMsMessageLog.logMessage("In doCreateLineRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateLineRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.iface.mapCanvas().setMapTool(QgsMapToolPan(self.iface.mapCanvas()))
                 self.mapTool = None
@@ -470,20 +470,20 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                     self.actionCreateLineRestriction.setChecked(False)
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information", "Changes to current data is not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
         pass
 
     def doCreatePolygonRestriction(self):
 
-        TOMsMessageLog.logMessage("In doCreatePolygonRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doCreatePolygonRestriction", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doCreatePolygonRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -498,7 +498,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 # set TOMs layer as active layer (for editing)...
 
-                TOMsMessageLog.logMessage("In doCreatePolygonRestriction - tool activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreatePolygonRestriction - tool activated", level=Qgis.MessageLevel.Info)
 
                 #self.currLayer = QgsMapLayerRegistry.instance().mapLayersByName("RestrictionPolygons")[0]
                 #currLayer = self.tableNames.RESTRICTION_POLYGONS
@@ -515,7 +515,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             else:
 
-                TOMsMessageLog.logMessage("In doCreatePolygonRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreatePolygonRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.iface.mapCanvas().unsetMapTool(self.mapTool)
                 self.mapTool = None
@@ -529,20 +529,20 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                     self.actionCreatePolygonRestriction.setChecked(False)
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information", "Changes to current data is not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
         pass
 
     def doCreateSignRestriction(self):
 
-        TOMsMessageLog.logMessage("In doCreateSignRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doCreateSignRestriction", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doCreateSignRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -557,7 +557,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 # set TOMs layer as active layer (for editing)...
 
-                TOMsMessageLog.logMessage("In doCreateSignRestriction - tool activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateSignRestriction - tool activated", level=Qgis.MessageLevel.Info)
 
                 # self.restrictionTransaction.startTransactionGroup()
 
@@ -577,7 +577,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             else:
 
-                TOMsMessageLog.logMessage("In doCreateSignRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doCreateSignRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.iface.mapCanvas().unsetMapTool(self.mapTool)
                 self.mapTool = None
@@ -593,20 +593,20 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                     self.actionCreateSignRestriction.setChecked(False)
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information", "Changes to current data is not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
         pass
 
     def doCreateConstructionLine(self):
 
-        TOMsMessageLog.logMessage("In doCreateConstructionLine", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doCreateConstructionLine", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doCreateConstructionLine. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -616,7 +616,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             # set TOMs layer as active layer (for editing)...
 
-            TOMsMessageLog.logMessage("In doCreateConstructionLine - tool activated", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In doCreateConstructionLine - tool activated", level=Qgis.MessageLevel.Info)
 
             self.currLayer = QgsProject.instance().mapLayersByName("ConstructionLines")[0]
             self.iface.setActiveLayer(self.currLayer)
@@ -631,7 +631,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
         else:
 
-            TOMsMessageLog.logMessage("In doCreateConstructionLine - tool deactivated", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In doCreateConstructionLine - tool deactivated", level=Qgis.MessageLevel.Info)
 
             self.iface.mapCanvas().unsetMapTool(self.mapTool)
             self.mapTool = None
@@ -643,14 +643,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def doRemoveRestriction(self):
         # pass control to MapTool and then deal with Proposals issues from there ??
-        TOMsMessageLog.logMessage("In doRemoveRestriction", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doRemoveRestriction", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doRemoveRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -663,7 +663,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             if currRestrictionLayer:
 
-                TOMsMessageLog.logMessage("In doRemoveRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doRemoveRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.MessageLevel.Info)
 
                 if currRestrictionLayer.selectedFeatureCount() > 0:
 
@@ -692,16 +692,16 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                     reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                     "Select restriction for delete",
-                                                    QMessageBox.Ok)
+                                                    QMessageBox.StandardButton.Ok)
 
         else:
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information", "Changes to current data are not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
 
 
     def onRemoveRestriction(self, currRestrictionLayer, currRestriction):
-        TOMsMessageLog.logMessage("In onRemoveRestriction. currLayer: " + str(currRestrictionLayer.id()) + " CurrFeature: " + str(currRestriction.id()), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onRemoveRestriction. currLayer: " + str(currRestrictionLayer.id()) + " CurrFeature: " + str(currRestriction.id()), level=Qgis.MessageLevel.Info)
 
         currProposalID = self.proposalsManager.currentProposal()
 
@@ -717,14 +717,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
             # remove the restriction from the RestrictionsInProposals table - and from the currLayer, i.e., it is totally removed.
             # NB: This is the only case of a restriction being truly deleted
 
-            TOMsMessageLog.logMessage("In onRemoveRestriction. Removing from RestrictionsInProposals and currLayer.", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In onRemoveRestriction. Removing from RestrictionsInProposals and currLayer.", level=Qgis.MessageLevel.Info)
 
             # Delete from RestrictionsInProposals
             if not self.deleteRestrictionInProposal(currRestriction[idxRestrictionID], currRestrictionLayerID, currProposalID):
                 return False
 
             TOMsMessageLog.logMessage("In onRemoveRestriction. Deleting restriction id: " + str(currRestriction.id()),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             if not currRestrictionLayer.deleteFeature(currRestriction.id()):
                 return False
 
@@ -733,7 +733,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
             #    - enter the restriction into the table RestrictionInProposals as closed, and
             #
             TOMsMessageLog.logMessage("In onRemoveRestriction. Closing existing restriction.",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 
             if not self.addRestrictionToProposal(currRestriction[idxRestrictionID], currRestrictionLayerID, currProposalID,
                                                           RestrictionAction.CLOSE):
@@ -743,14 +743,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def doEditRestriction(self):
 
-        TOMsMessageLog.logMessage("In doEditRestriction - starting", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doEditRestriction - starting", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doEditRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -761,7 +761,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             if self.actionEditRestriction.isChecked():
 
-                TOMsMessageLog.logMessage("In actionEditRestriction - tool being activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In actionEditRestriction - tool being activated", level=Qgis.MessageLevel.Info)
 
                 # Need to clear any other maptools ....   ********
 
@@ -769,7 +769,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 if currRestrictionLayer:
 
-                    TOMsMessageLog.logMessage("In doEditRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In doEditRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.MessageLevel.Info)
 
                     if currRestrictionLayer.selectedFeatureCount() > 0:
 
@@ -795,7 +795,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                         reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                         "Select restriction for edit",
-                                                        QMessageBox.Ok)
+                                                        QMessageBox.StandardButton.Ok)
 
                         self.actionEditRestriction.setChecked(False)
                         self.iface.mapCanvas().unsetMapTool(self.mapTool)
@@ -805,14 +805,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                     reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                     "Select restriction for edit",
-                                                    QMessageBox.Ok)
+                                                    QMessageBox.StandardButton.Ok)
                     self.actionEditRestriction.setChecked(False)
                     self.iface.mapCanvas().unsetMapTool(self.mapTool)
                     self.mapTool = None
 
             else:
 
-                TOMsMessageLog.logMessage("In doEditRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doEditRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.actionEditRestriction.setChecked(False)
                 self.iface.mapCanvas().unsetMapTool(self.mapTool)
@@ -829,29 +829,29 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                             "Changes to current data are not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             self.actionEditRestriction.setChecked(False)
             self.iface.mapCanvas().unsetMapTool(self.mapTool)
             self.mapTool = None
 
         pass
 
-        TOMsMessageLog.logMessage("In doEditRestriction - leaving", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doEditRestriction - leaving", level=Qgis.MessageLevel.Info)
 
         pass
 
 
     def doEditLabels(self):
 
-        TOMsMessageLog.logMessage("In doEditLabels ... ", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In doEditLabels ... ", level=Qgis.MessageLevel.Warning)
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doEditLabels. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         def alert_box(text):
-            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.Ok )
+            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.StandardButton.Ok )
 
         if self.actionEditLabels.isChecked():
 
@@ -949,11 +949,11 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                 # toggle edit mode
                 #label_layer.startEditing()  # already started with transaction
                 #label_layer.geometryChanged.connect(self.labelGeometryChanged)
-                TOMsMessageLog.logMessage("In doEditLabels - layer: {}".format(label_layers_name), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doEditLabels - layer: {}".format(label_layers_name), level=Qgis.MessageLevel.Info)
 
             TOMsMessageLog.logMessage(
                 "In doEditLabels - _currently_editted_label_layers: {}".format(len(self._currently_editted_label_layers)),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             # enable the vertex tool
             #self.iface.actionVertexTool().trigger()
             #self.mapTool = self.iface.mapCanvas().mapTool()
@@ -976,10 +976,10 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
         else:
 
-            TOMsMessageLog.logMessage("In doEditLabels - should now be finished", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In doEditLabels - should now be finished", level=Qgis.MessageLevel.Info)
 
     def saveLabelChanges(self, newTool, oldTool):  # Not currently used ...
-        TOMsMessageLog.logMessage("In saveLabelChanges ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In saveLabelChanges ...", level=Qgis.MessageLevel.Warning)
 
         if self.labelMapToolSet:
             try: # this signal is not connected for situations where right click is used - as tool is already unset within commit process TODO: improve!!
@@ -987,7 +987,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                 oldTool.onFinishEditing()
             except Exception as e:
                 TOMsMessageLog.logMessage('In saveLabelChanges: error in with signal disconnect: {}'.format(e),
-                                          level=Qgis.Warning)
+                                          level=Qgis.MessageLevel.Warning)
 
             #self.labelMapToolSet = False
 
@@ -1032,14 +1032,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
     def doSplitRestriction(self):
 
-        TOMsMessageLog.logMessage("In doSplitRestriction - starting", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doSplitRestriction - starting", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doSplitRestriction. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -1050,7 +1050,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             if self.actionSplitRestriction.isChecked():
 
-                TOMsMessageLog.logMessage("In doSplitRestriction - tool being activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doSplitRestriction - tool being activated", level=Qgis.MessageLevel.Info)
 
                 # Need to clear any other maptools ....   ********
 
@@ -1058,7 +1058,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                 if currRestrictionLayer:
 
-                    TOMsMessageLog.logMessage("In doSplitRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In doSplitRestriction. currLayer: " + str(currRestrictionLayer.name()), level=Qgis.MessageLevel.Info)
 
                     if currRestrictionLayer.selectedFeatureCount() > 0:
 
@@ -1084,7 +1084,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                         reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                         "Select restriction for edit",
-                                                        QMessageBox.Ok)
+                                                        QMessageBox.StandardButton.Ok)
 
                         self.actionSplitRestriction.setChecked(False)
                         self.iface.mapCanvas().unsetMapTool(self.mapTool)
@@ -1094,14 +1094,14 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
                     reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                                     "Select restriction for edit",
-                                                    QMessageBox.Ok)
+                                                    QMessageBox.StandardButton.Ok)
                     self.actionSplitRestriction.setChecked(False)
                     self.iface.mapCanvas().unsetMapTool(self.mapTool)
                     self.mapTool = None
 
             else:
 
-                TOMsMessageLog.logMessage("In doSplitRestriction - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doSplitRestriction - tool deactivated", level=Qgis.MessageLevel.Info)
 
                 self.actionSplitRestriction.setChecked(False)
                 self.iface.mapCanvas().unsetMapTool(self.mapTool)
@@ -1118,27 +1118,27 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                             "Changes to current data are not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             self.actionSplitRestriction.setChecked(False)
             self.iface.mapCanvas().unsetMapTool(self.mapTool)
             self.mapTool = None
 
         pass
 
-        TOMsMessageLog.logMessage("In doSplitRestriction - leaving", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doSplitRestriction - leaving", level=Qgis.MessageLevel.Info)
 
         pass
 
     def doImportRestrictions(self):
 
-        TOMsMessageLog.logMessage("In doImportRestrictions - starting", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doImportRestrictions - starting", level=Qgis.MessageLevel.Info)
 
         #self.proposalsManager.TOMsToolChanged.emit()
 
         commitStatus = self.restrictionTransaction.rollBackTransactionGroup()
         TOMsMessageLog.logMessage(
             "In doImportRestrictions. Current transaction rolled back ... {}".format (commitStatus),
-            level=Qgis.Warning)
+            level=Qgis.MessageLevel.Warning)
 
         self.mapTool = None
 
@@ -1149,7 +1149,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             if self.actionImportRestrictions.isChecked():
 
-                TOMsMessageLog.logMessage("In doImportRestrictions - tool being activated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doImportRestrictions - tool being activated", level=Qgis.MessageLevel.Info)
 
                 """
                 Need to confirm layer/selected items to be imported - and the layer into which they are to be imported
@@ -1167,7 +1167,7 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                 dlg.show()
 
                 # Run the dialog event loop
-                result = dlg.exec_()
+                result = dlg.exec()
                 # See if OK was pressed
                 if result:
 
@@ -1205,12 +1205,12 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
                                 outputLayer.addFeature(newRestriction)
                             except Exception as e:
                                 TOMsMessageLog.logMessage('doImportRestrictions: error: {}'.format(e),
-                                                      level=Qgis.Warning)
+                                                      level=Qgis.MessageLevel.Warning)
                                 transactionError = True
                                 break
                             status = self.addRestrictionToProposal(str(newRestriction.attribute("RestrictionID")), currRestrictionLayerTableID,
                                              currProposalID, RestrictionAction.OPEN)
-                            TOMsMessageLog.logMessage("In doImportRestrictions - adding restriction {}".format(newRestriction.attribute("RestrictionID")), level=Qgis.Info)
+                            TOMsMessageLog.logMessage("In doImportRestrictions - adding restriction {}".format(newRestriction.attribute("RestrictionID")), level=Qgis.MessageLevel.Info)
 
                     if transactionError:
                         self.restrictionTransaction.rollBackTransactionGroup()
@@ -1222,16 +1222,16 @@ class manageRestrictionDetails(RestrictionTypeUtilsMixin):
 
             else:
 
-                TOMsMessageLog.logMessage("In doImportRestrictions - tool deactivated", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In doImportRestrictions - tool deactivated", level=Qgis.MessageLevel.Info)
                 self.actionImportRestrictions.setChecked(False)
 
         else:
 
             reply = QMessageBox.information(self.iface.mainWindow(), "Information",
                                             "Changes to current data are not allowed. Changes are made via Proposals",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             self.actionImportRestrictions.setChecked(False)
 
-        TOMsMessageLog.logMessage("In doImportRestrictions - leaving", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doImportRestrictions - leaving", level=Qgis.MessageLevel.Info)
 
 

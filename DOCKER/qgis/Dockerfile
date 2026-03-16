@@ -39,12 +39,15 @@ RUN set -e; \
 
 # Version is determined by which repo was added above (no apt version pin).
 # 3.22: Debian repo only → qgis 3.22. 3.44 / 3.x: qgis.org bookworm → 3.44. 4.x: qgis.org nightly → 4.x.
-# Qt5 for 3.x (bookworm), Qt6 for 4.x (trixie).
+# Qt5 for 3.x (bookworm), Qt6 for 4.x (trixie). For Qt6 we also install Qt Quick Controls so the welcome
+# screen and other QML UI pieces work (avoids 'QtQuick.Controls ... plugin not found').
 RUN MAJOR=$(echo "${QGIS_VERSION}" | cut -d'.' -f1) && \
     if [ "$MAJOR" = "3" ]; then \
       VERSION_PKGS="libqt5gui5 libqt5widgets5 libqt5svg5 libasound2"; \
+  EXTRA_PKGS=""; \
     else \
       VERSION_PKGS="libqt6gui6 libqt6widgets6 libqt6svg6 libasound2t64"; \
+  EXTRA_PKGS="qml6-module-qtquick-controls qml6-module-qtquick-layouts qml6-module-qtquick-effects"; \
     fi && \
     apt-get update && \
     apt-get install -y \
@@ -61,6 +64,7 @@ RUN MAJOR=$(echo "${QGIS_VERSION}" | cut -d'.' -f1) && \
       websockify \
       xterm \
       $VERSION_PKGS \
+  $EXTRA_PKGS \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user

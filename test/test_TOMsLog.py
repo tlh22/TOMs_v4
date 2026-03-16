@@ -41,11 +41,11 @@ class TOMsLogger(unittest.TestCase):
         loggingUtils = TOMsLoggingUtils(self.iface)
         TOMsMessage = loggingUtils.TOMsLogger()
 
-        TOMsMessage("Info - Check ...", level=Qgis.Info)
+        TOMsMessage("Info - Check ...", level=Qgis.MessageLevel.Info)
         self.assertEqual(self.signalReceived, False)
 
         #TODO: test setting of project variable - TOMs_Logging_Level (not sure how to get to project ...)
-        TOMsMessage("Warning - Check ...", level=Qgis.Warning)
+        TOMsMessage("Warning - Check ...", level=Qgis.MessageLevel.Warning)
         self.assertEqual(self.signalReceived, True)
 
 """if __name__ == '__main__':
