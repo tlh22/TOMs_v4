@@ -1,6 +1,8 @@
--- test script for bay dividers (to be run in console)
+"""Test script for bay dividers (to be run in console).
+Intended to be executed manually in the QGIS Python console.
+"""
 
--- for polygons
+# for polygons
 
 testPolygon = QgsGeometry.fromPolygonXY(
     [[QgsPointXY(0, 0), QgsPointXY(3, 0), QgsPointXY(3, 1), QgsPointXY(0, 1), QgsPointXY(0, 0)]]
@@ -25,7 +27,7 @@ for divider in cutListGeoms:
             newGeomsList.append(geom)
     outputGeometries = newGeomsList
 
-assertEqual(outputGeometries.wkbType(), QgsWkbTypes.MultiPolygon)
+assertEqual(outputGeometries.wkbType(), QgsWkbTypes.Type.MultiPolygon)
 assert ...
 
 # for linestring
@@ -50,5 +52,5 @@ for i in range(1, len(geomList)):
     newGeom = newGeom.combine(geomList[i])
     print (newGeom)
 
-assertEqual(newGeom.wkbType(), QgsWkbTypes.MultiLineString)
+assertEqual(newGeom.wkbType(), QgsWkbTypes.Type.MultiLineString)
 assert ...

@@ -23,7 +23,7 @@ proposalDetailsDialog
 
 import os
 
-from PyQt5 import QtGui, uic, QtWidgets
+from qgis.PyQt import QtGui, uic, QtWidgets
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'proposal_details_dialog_base_qt5.ui'))

@@ -13,7 +13,7 @@
 # also ... https://stackoverflow.com/questions/35508711/how-to-enable-pan-and-zoom-in-a-qgraphicsview/35514531#35514531
 # ... and https://stackoverflow.com/questions/20942586/controlling-the-pan-to-anchor-a-point-when-zooming-into-an-image
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+from qgis.PyQt import QtWidgets, QtCore, QtGui
 
 from qgis.core import (
     Qgis,
@@ -45,7 +45,7 @@ class imageLabel(QtWidgets.QLabel):
         self.setAutoFillBackground(True)
 
     def setPixmap(self, image):
-        TOMsMessageLog.logMessage("In imageLabel.setPixmap ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In imageLabel.setPixmap ... ", level=Qgis.MessageLevel.Info)
         super(imageLabel, self).setPixmap(image)
         self.origImage = image
         self._zoom = 0
@@ -62,7 +62,7 @@ class imageLabel(QtWidgets.QLabel):
         return not self._empty
 
     def wheelEvent(self, event):
-        TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... new ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... new ", level=Qgis.MessageLevel.Info)
         super(imageLabel, self).wheelEvent(event)
 
         modifiers = QtWidgets.QApplication.keyboardModifiers()
@@ -70,20 +70,20 @@ class imageLabel(QtWidgets.QLabel):
         if modifiers == QtCore.Qt.ControlModifier:  # need to hold down Ctl and use the wheel for the zoom to take effect
 
             if self.hasPhoto() and abs(self._zoom) < ZOOM_LIMIT:
-                TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... acting ", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... acting ", level=Qgis.MessageLevel.Info)
                 if event.angleDelta().y() > 0:
-                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... zooming in ", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... zooming in ", level=Qgis.MessageLevel.Info)
                     factor = 1.25
                     self._zoom += 1
                 else:
-                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... zooming out ", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... zooming out ", level=Qgis.MessageLevel.Info)
                     factor = 0.8
                     self._zoom -= 1
 
                 if abs(self._zoom) < ZOOM_LIMIT:
 
                     image_size = self._displayed_pixmap.size()
-                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... dimensions {}:{}. Resized to {}:{} ".format(image_size.width(), image_size.height(), image_size.width() * factor, image_size.height() * factor), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In imageLabel.wheelEvent ... dimensions {}:{}. Resized to {}:{} ".format(image_size.width(), image_size.height(), image_size.width() * factor, image_size.height() * factor), level=Qgis.MessageLevel.Info)
                     if (self._zoom) == 0:
                         image_size.setWidth(image_size.width())
                         image_size.setHeight(image_size.height())
@@ -96,10 +96,10 @@ class imageLabel(QtWidgets.QLabel):
 
                     TOMsMessageLog.logMessage(
                         "In imageLabel.wheelEvent ... zoom:factor {}:{}".format(self._zoom, factor),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
                     TOMsMessageLog.logMessage(
                         "In imageLabel.wheelEvent ... screenpoint {}:{}".format(curr_x, curr_y),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     if self._zoom == 0:
                         self.top_left_corner.setX(0)
@@ -111,7 +111,7 @@ class imageLabel(QtWidgets.QLabel):
                     TOMsMessageLog.logMessage(
                             "In imageLabel.wheelEvent ... tl new 2 {}:{}".format(self.top_left_corner.x(),
                                                                                  self.top_left_corner.y()),
-                            level=Qgis.Info)
+                            level=Qgis.MessageLevel.Info)
 
                     self.update_image(self.origImage.scaled(image_size, QtCore.Qt.KeepAspectRatio, transformMode=QtCore.Qt.SmoothTransformation))
                     self.update()  # call paintEvent()

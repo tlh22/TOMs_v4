@@ -41,13 +41,13 @@ from ..constants import (
 class TOMsProposal(ProposalTypeUtilsMixin, QObject):
     def __init__(self, proposalsManager, proposalNr=None):
         QObject.__init__(self)
-        TOMsMessageLog.logMessage("In TOMsProposal:init. ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposal:init. ... ", level=Qgis.MessageLevel.Info)
         self.proposalsManager = proposalsManager
         self.tableNames = self.proposalsManager.tableNames
 
         self.setProposalsLayer()
 
-        TOMsMessageLog.logMessage("In TOMsProposal:init. ... proposals layer set ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposal:init. ... proposals layer set ", level=Qgis.MessageLevel.Info)
 
         if proposalNr is not None:
             self.setProposal(proposalNr)
@@ -56,7 +56,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
         self.proposalsLayer = self.tableNames.setLayer("Proposals")
 
         if self.proposalsLayer is None:
-            TOMsMessageLog.logMessage("In TOMsProposal:setProposalsLayer. Proposals layer NOT set !!!", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsProposal:setProposalsLayer. Proposals layer NOT set !!!", level=Qgis.MessageLevel.Info)
             return False
         else:
             idxProposalID = self.proposalsLayer.fields().indexFromName("ProposalID")
@@ -65,7 +65,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
             self.idxOpenDate = self.proposalsLayer.fields().indexFromName("ProposalOpenDate")
             self.idxProposalStatusID = self.proposalsLayer.fields().indexFromName("ProposalStatusID")
 
-        TOMsMessageLog.logMessage("In TOMsProposal:setProposalsLayer... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposal:setProposalsLayer... ", level=Qgis.MessageLevel.Info)
 
     def setProposal(self, proposalID):
 
@@ -102,7 +102,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
         TOMsMessageLog.logMessage(
             "In TOMsProposal:createProposal - attributes: (fid=" + str(self.thisProposal.id()) + ") " + str(
                 self.thisProposal.attributes()),
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
         return self
 
@@ -161,7 +161,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
         if actionOnAcceptance is not None:
             query = ("{query} AND \"ActionOnProposalAcceptance\" = {actionOnAcceptance}").format(query=query, actionOnAcceptance=str(actionOnAcceptance))
 
-        TOMsMessageLog.logMessage("In __getRestrictionsInProposalForLayerForAction. query: " + str(query), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In __getRestrictionsInProposalForLayerForAction. query: " + str(query), level=Qgis.MessageLevel.Info)
         request = QgsFeatureRequest().setFilterExpression(query)
 
         restrictionList = []
@@ -173,7 +173,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
     def getProposalBoundingBox(self):
 
         # Need to remember that filters are in operation, so need to ensure that Restriction features are available
-        TOMsMessageLog.logMessage("In getProposalBoundingBox.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getProposalBoundingBox.", level=Qgis.MessageLevel.Info)
         currProposalID = self.thisProposalNr
         geometryBoundingBox = QgsRectangle()
 
@@ -182,16 +182,16 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
             for (layerID, layerName) in self.getRestrictionLayersList():
                 currLayer = self.tableNames.setLayer(layerName)
                 restrictionStr = self.__getRestrictionsListForLayerForAction(layerID)
-                TOMsMessageLog.logMessage("In getProposalBoundingBox. ({}) request: {}".format(layerName, restrictionStr), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In getProposalBoundingBox. ({}) request: {}".format(layerName, restrictionStr), level=Qgis.MessageLevel.Info)
 
                 #currLayer.blockSignals(True)
                 # unset filter to get geometries of closed features
                 if currLayer:
                     layerFilterString = currLayer.subsetString()
-                    TOMsMessageLog.logMessage("In getProposalBoundingBox. (" + layerName + ") filter:" + layerFilterString, level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In getProposalBoundingBox. (" + layerName + ") filter:" + layerFilterString, level=Qgis.MessageLevel.Info)
                     if not currLayer.dataProvider().setSubsetString(None):
                         TOMsMessageLog.logMessage(
-                            "In TOMsProposal:getProposalBoundingBox. (" + layerName + ") filter error ....", level=Qgis.Warning)
+                            "In TOMsProposal:getProposalBoundingBox. (" + layerName + ") filter error ....", level=Qgis.MessageLevel.Warning)
 
                     query = '"RestrictionID" IN ({restrictions})'.format(restrictions=restrictionStr)
 
@@ -201,7 +201,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
 
                     currLayer.dataProvider().setSubsetString(layerFilterString)
                     #currLayer.blockSignals(False)
-                    TOMsMessageLog.logMessage("In In TOMsProposal:getProposalBoundingBox. (" + currLayer.name() + ") filter 1:" + currLayer.subsetString(), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In In TOMsProposal:getProposalBoundingBox. (" + currLayer.name() + ") filter 1:" + currLayer.subsetString(), level=Qgis.MessageLevel.Info)
 
         return geometryBoundingBox
 
@@ -211,7 +211,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
             revisionDate = self.proposalsManager.date()
 
         # returns list of tiles in the proposal and their current revision numbers
-        TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate. considering Proposal: " + str (self.getProposalNr()) + " for " + str(revisionDate), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate. considering Proposal: " + str (self.getProposalNr()) + " for " + str(revisionDate), level=Qgis.MessageLevel.Info)
         dictTilesInProposal = dict()
 
         # Logic is:
@@ -242,7 +242,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
                         dictTilesInProposal = dict()
                         reply = QMessageBox.information(None, "Error",
                                                         "getProposalTileDictionaryForDate failed with RestrictionID: {}".format(currRestrictionID)
-                                                        , QMessageBox.Ok)
+                                                        , QMessageBox.StandardButton.Ok)
                         break
                 else:  # only execute when it's no break in the inner loop
 
@@ -258,7 +258,7 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
 
             for currTileRecord in self.tableNames.setLayer("MapGrid").getFeatures():
 
-                TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate. Current. Tile: " + str(currTileRecord.attribute("id")), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate. Current. Tile: " + str(currTileRecord.attribute("id")), level=Qgis.MessageLevel.Info)
 
                 currTileObject = TOMsTile(self.proposalsManager)
                 if not currTileObject.setTile(currTileRecord.attribute("id")):
@@ -271,14 +271,14 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
                     dictTilesInProposal[currTileObject.tileNr()] = currTileObject
 
         for thisTileNr, thisTile in dictTilesInProposal.items():
-            TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate: " + str(thisTileNr) + " mapsheet: " + thisTile.getMapSheetName()+ " RevisionNr: " + str(thisTile.getRevisionNr_AtDate()) + " RevisionDate: " + str(thisTile.getLastRevisionDate_AtDate()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsProposal.getProposalTileDictionaryForDate: " + str(thisTileNr) + " mapsheet: " + thisTile.getMapSheetName()+ " RevisionNr: " + str(thisTile.getRevisionNr_AtDate()) + " RevisionDate: " + str(thisTile.getLastRevisionDate_AtDate()), level=Qgis.MessageLevel.Info)
 
         return dictTilesInProposal
 
     def acceptProposal(self):
 
         currProposalID = self.thisProposalNr
-        TOMsMessageLog.logMessage("In TOMsProposal.acceptProposal - " + str(self.thisProposalNr), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsProposal.acceptProposal - " + str(self.thisProposalNr), level=Qgis.MessageLevel.Warning)
 
         """ Steps in acceptance are:
         1. Set new open/close dates for restrictions ( remember to clear filter )
@@ -293,12 +293,12 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
                 currLayer = self.tableNames.setLayer(currlayerName)
                 if not currLayer.dataProvider().setSubsetString(None):   # need to use data provider ??
                     TOMsMessageLog.logMessage("In TOMsProposal.acceptProposal - problem clearing filter for layer {}:{}:{}".format(currlayerName, currLayer.name(), currLayer),
-                                              level=Qgis.Warning)
+                                              level=Qgis.MessageLevel.Warning)
                     return False
 
                 TOMsMessageLog.logMessage(
                     "In TOMsProposal:acceptProposal. Considering layer: {}".format(currlayerName),
-                    level=Qgis.Warning)
+                    level=Qgis.MessageLevel.Warning)
 
                 restrictionList = []
                 restrictionList = self.__getRestrictionsInProposalForLayerForAction(currlayerID)
@@ -312,24 +312,24 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
                         TOMsMessageLog.logMessage(
                             "In TOMsProposal:acceptProposal. " + str(
                                 currRestrictionID) + " error on Action",
-                            level=Qgis.Warning)
+                            level=Qgis.MessageLevel.Warning)
                         return status
 
             # Now update tile revision nrs
             TOMsMessageLog.logMessage("In TOMsProposal:acceptProposal. Updating tile revision nrs",
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
             proposalTileDictionary = self.getProposalTileDictionaryForDate()
 
             for tileNr, currTile in proposalTileDictionary.items():
                 TOMsMessageLog.logMessage("In TOMsProposal.acceptProposal: current tile " + str(currTile.tileNr()) + " current RevisionNr: " + str(
-                    currTile.getRevisionNr_AtDate()) + " RevisionDate: " + str(currTile.getLastRevisionDate_AtDate()), level=Qgis.Warning)
+                    currTile.getRevisionNr_AtDate()) + " RevisionDate: " + str(currTile.getLastRevisionDate_AtDate()), level=Qgis.MessageLevel.Warning)
                 #currTile = TOMsTile(self.proposalsManager, tileNr)
 
                 if not currTile.updateTileDetailsOnProposalAcceptance(self.proposalsManager):
                     TOMsMessageLog.logMessage(
                         "In TOMsProposal:acceptProposal. " + str(
                             tileNr) + " error updating tile revision details",
-                        level=Qgis.Warning)
+                        level=Qgis.MessageLevel.Warning)
                     return False
 
             # Now update Proposal
@@ -340,11 +340,11 @@ class TOMsProposal(ProposalTypeUtilsMixin, QObject):
 
     def rejectProposal(self):
 
-        TOMsMessageLog.logMessage("In TOMsProposal.rejectProposal - " + str(self.thisProposalNr), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsProposal.rejectProposal - " + str(self.thisProposalNr), level=Qgis.MessageLevel.Info)
         status = self.setProposalStatusID(ProposalStatus.REJECTED)
 
         if status:
-            TOMsMessageLog.logMessage("In TOMsProposal.rejectProposal.  Proposal Rejected ... ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsProposal.rejectProposal.  Proposal Rejected ... ", level=Qgis.MessageLevel.Info)
             #self.proposalsManager.newProposalCreated.emit(0)
 
         return status

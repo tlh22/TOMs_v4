@@ -16,8 +16,8 @@ import datetime
 import time
 import functools
 #from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtMultimedia import QCamera, QCameraImageCapture, QCameraInfo, QImageEncoderSettings, QCameraViewfinderSettings
-from PyQt5.QtMultimediaWidgets import QCameraViewfinder
+from qgis.PyQt.QtMultimedia import QCamera, QCameraImageCapture, QCameraInfo, QImageEncoderSettings, QCameraViewfinderSettings
+from qgis.PyQt.QtMultimediaWidgets import QCameraViewfinder
 
 from qgis.PyQt.QtGui import QPixmap
 
@@ -51,7 +51,7 @@ class TOMsCameraWidget(QWidget):
 
     def __init__(self, parent=None):
         super(TOMsCameraWidget, self).__init__(parent)
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:init ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:init ... ", level=Qgis.MessageLevel.Info)
 
         # getting available cameras
         self.available_cameras = QCameraInfo.availableCameras()
@@ -59,24 +59,24 @@ class TOMsCameraWidget(QWidget):
         # if no camera found
         if not self.available_cameras:
             # exit the code
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:init. No cameras found. Exiting ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:init. No cameras found. Exiting ", level=Qgis.MessageLevel.Info)
             return
 
         try:
             self.cameraNr = int(QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('CameraNr'))
         except Exception as e:
-            TOMsMessageLog.logMessage("In photoDetails_camera: cameraNr issue: {}".format(e), level=Qgis.Warning)
-            QMessageBox.information(None, "Information", "No value for CameraNr.", QMessageBox.Ok)
+            TOMsMessageLog.logMessage("In photoDetails_camera: cameraNr issue: {}".format(e), level=Qgis.MessageLevel.Warning)
+            QMessageBox.information(None, "Information", "No value for CameraNr.", QMessageBox.StandardButton.Ok)
             #self.cameraNr = QMessageBox.information(None, "Information", "Please set value for CameraNr.", QMessageBox.Ok)
             return
             
         self.path_absolute = self.getPhotoPath()
         if self.path_absolute is None:
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:init. Path not found. Exiting ", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:init. Path not found. Exiting ", level=Qgis.MessageLevel.Info)
             return
 
     def setupWidget(self, imageFile=None):
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget ...", level=Qgis.MessageLevel.Warning)
         
         # setting geometry
         self.setGeometry(100, 100,
@@ -108,19 +108,19 @@ class TOMsCameraWidget(QWidget):
 
         if imageFile:
             self.photoFileName = os.path.join(self.path_absolute, imageFile)
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. photo {}".format(self.photoFileName), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. photo {}".format(self.photoFileName), level=Qgis.MessageLevel.Warning)
             thisPixmap = QPixmap(self.photoFileName)
             photoWidget.set_Pixmap(thisPixmap)
             photoWidget.pixmapUpdated.connect(functools.partial(self.displayPixmapUpdated, photoWidget))
 
         else:
 
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. No photo provided", level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. No photo provided", level=Qgis.MessageLevel.Warning)
 
         self.switchWidget.addWidget(photoWidget)
         self.photoIndex = self.switchWidget.indexOf(photoWidget)
         
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. cameraIndex: {}; photoIndex: {}".format(self.cameraIndex, self.photoIndex), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. cameraIndex: {}; photoIndex: {}".format(self.cameraIndex, self.photoIndex), level=Qgis.MessageLevel.Warning)
         
         mainLayout.addWidget(self.switchWidget, 0, 0)
 
@@ -133,10 +133,10 @@ class TOMsCameraWidget(QWidget):
         
         if imageFile:
             self.switchWidget.setCurrentIndex(self.photoIndex)
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. Photo found. Displaying ...", level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. Photo found. Displaying ...", level=Qgis.MessageLevel.Warning)
         else:
             self.switchWidget.setCurrentIndex(self.cameraIndex)
-            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. No photo. Going to camera ...", level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In TOMsCameraWidget:setupWidget. No photo. Going to camera ...", level=Qgis.MessageLevel.Warning)
         
         #if len(self.available_cameras) > 0:
         self.select_camera(self.cameraNr)
@@ -236,7 +236,7 @@ class TOMsCameraWidget(QWidget):
 
     # method to select camera
     def select_camera(self, i):
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:select_camera ...{}".format(i), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:select_camera ...{}".format(i), level=Qgis.MessageLevel.Warning)
         
         # getting the selected camera
         self.camera = QCamera(self.available_cameras[i])
@@ -259,19 +259,19 @@ class TOMsCameraWidget(QWidget):
         # creating a QCameraImageCapture object
         self.capture = QCameraImageCapture(self.camera)
         TOMsMessageLog.logMessage(
-            "In TOMsCameraWidget: capacities: {}".format(self.capture.imageCodecDescription), level=Qgis.Warning)
+            "In TOMsCameraWidget: capacities: {}".format(self.capture.imageCodecDescription), level=Qgis.MessageLevel.Warning)
 
         # showing alert if error occur
         self.capture.error.connect(lambda error_msg, error,
                                           msg: self.alert(msg))
 
         # when image captured showing message
-        self.capture.imageCaptured.connect(lambda d, i: QMessageBox.information(None, "Information", "Photo captured.", QMessageBox.Ok))
+        self.capture.imageCaptured.connect(lambda d, i: QMessageBox.information(None, "Information", "Photo captured.", QMessageBox.StandardButton.Ok))
 
 
     # open current camera
     def open_camera(self):
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:open_camera ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:open_camera ...", level=Qgis.MessageLevel.Warning)
         # change to camera widget
         self.switchWidget.setCurrentIndex(self.cameraIndex)
         # start the camera
@@ -281,7 +281,7 @@ class TOMsCameraWidget(QWidget):
 
     # open current camera
     def close_camera(self):
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:close_camera ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:close_camera ...", level=Qgis.MessageLevel.Warning)
         # start the camera
         self.camera.stop()
         # change back to image widget
@@ -291,13 +291,13 @@ class TOMsCameraWidget(QWidget):
 
     # method to take photo
     def click_photo(self):
-        TOMsMessageLog.logMessage("In TOMsCameraWidget:click_photo ...", level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsCameraWidget:click_photo ...", level=Qgis.MessageLevel.Warning)
         # time stamp
 
         fileName = 'Photo_{}.jpg'.format(datetime.datetime.now().strftime('%Y%m%d_%H%M%S%f'))
         newPhotoFileName = os.path.join(self.path_absolute, fileName)
 
-        TOMsMessageLog.logMessage("Saving photo: file: " + newPhotoFileName, level=Qgis.Info)
+        TOMsMessageLog.logMessage("Saving photo: file: " + newPhotoFileName, level=Qgis.MessageLevel.Info)
 
         imageSettings = self.capture.encodingSettings()
         imageSettings.setCodec("image/png")
@@ -309,7 +309,7 @@ class TOMsCameraWidget(QWidget):
             frameHeight = 480
 
         TOMsMessageLog.logMessage(
-            "In TOMsCameraWidget: resolution: {}*{} ".format(frameWidth, frameHeight), level=Qgis.Warning)
+            "In TOMsCameraWidget: resolution: {}*{} ".format(frameWidth, frameHeight), level=Qgis.MessageLevel.Warning)
 
         imageSettings.setResolution(QSize(100, 100))
         #self.capture.setEncodingSettings(imageSettings)
@@ -324,7 +324,7 @@ class TOMsCameraWidget(QWidget):
     def alert(self, msg):
         # error message
         error = QErrorMessage(self)
-        TOMsMessageLog.logMessage("TOMsCameraWidget:alert: {}".format(msg), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("TOMsCameraWidget:alert: {}".format(msg), level=Qgis.MessageLevel.Warning)
         
         # setting text to the error message
         error.showMessage(msg)
@@ -332,7 +332,7 @@ class TOMsCameraWidget(QWidget):
     ## TODO: remove and include with Utils
     def getPhotoPath(self):
         """ check that photo path exists """
-        TOMsMessageLog.logMessage("In getPhotoPath", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getPhotoPath", level=Qgis.MessageLevel.Info)
 
         photoPath = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('PhotoPath')
 
@@ -341,16 +341,16 @@ class TOMsCameraWidget(QWidget):
         path_absolute = os.path.join(projectFolder, photoPath)
 
         if path_absolute == None:
-            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.StandardButton.Ok)
             return None
 
         # Check path exists ...
         if os.path.isdir(path_absolute) == False:
             reply = QMessageBox.information(None, "Information", "PhotoPath folder " + str(
-                path_absolute) + " does not exist. Please check value.", QMessageBox.Ok)
+                path_absolute) + " does not exist. Please check value.", QMessageBox.StandardButton.Ok)
             return None
 
-        TOMsMessageLog.logMessage("In getPhotoPath. Returning {}".format(path_absolute), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getPhotoPath. Returning {}".format(path_absolute), level=Qgis.MessageLevel.Info)
         return path_absolute
 
     def getCameraResolution(self):
@@ -359,26 +359,26 @@ class TOMsCameraWidget(QWidget):
         frameWidth = TOMsConfigFileObject.getTOMsConfigElement('Camera', 'Width')
         frameHeight = TOMsConfigFileObject.getTOMsConfigElement('Camera', 'Height')
         if frameWidth is None or frameHeight is None:
-            res = QMessageBox.information(None, "Information", "Please set value for camera resolution.", QMessageBox.Ok)
+            res = QMessageBox.information(None, "Information", "Please set value for camera resolution.", QMessageBox.StandardButton.Ok)
             return 0, 0
         return int(frameWidth), int(frameHeight)
 
     @pyqtSlot(QPixmap)
     def displayPixmapUpdated(self, FIELD, pixmap):
-        TOMsMessageLog.logMessage("In utils::displayPixmapUpdated ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In utils::displayPixmapUpdated ... ", level=Qgis.MessageLevel.Info)
         FIELD.setPixmap(pixmap)
         FIELD.setScaledContents(True)
         QApplication.processEvents()  # processes the event queue - https://stackoverflow.com/questions/43094589/opencv-imshow-prevents-qt-python-crashing
 
     def displayImage(self, FIELD, pixmap):
-        TOMsMessageLog.logMessage("In utils::displayImage ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In utils::displayImage ... ", level=Qgis.MessageLevel.Info)
 
         try:
             FIELD.update_image(pixmap.scaled(FIELD.width(), FIELD.height(), QtCore.Qt.KeepAspectRatio,
                                                 transformMode=QtCore.Qt.SmoothTransformation))
         except Exception as e:
             TOMsMessageLog.logMessage('displayImage: error {}'.format(e),
-                                      level=Qgis.Warning)
+                                      level=Qgis.MessageLevel.Warning)
 
         QApplication.processEvents()  # processes the event queue - https://stackoverflow.com/questions/43094589/opencv-imshow-prevents-qt-python-crashing
 

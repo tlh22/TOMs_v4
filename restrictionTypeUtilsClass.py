@@ -172,7 +172,7 @@ class TOMsConfigFile(QObject):
         try:
             config_path = os.environ.get('TOMs_CONFIG_PATH')
         except None:
-            TOMsMessageLog.logMessage("In getTOMsConfigFile. TOMs_CONFIG_PATH not found ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In getTOMsConfigFile. TOMs_CONFIG_PATH not found ...", level=Qgis.MessageLevel.Info)
             # config_path = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('project_path')
 
         if config_path is None:
@@ -185,7 +185,7 @@ class TOMsConfigFile(QObject):
 
         if not os.path.isfile(config_file):
             reply = QMessageBox.information(None, "Information", "TOMs configuration file not found. Stopping ...",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             self.TOMsConfigFileNotFound.emit()
 
         # now read file
@@ -199,7 +199,7 @@ class TOMsConfigFile(QObject):
         except Exception as e:
             TOMsMessageLog.logMessage(
                 "In TOMsConfigFile.init. Error reading config file ... {}".format(e),
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
             self.TOMsConfigFileNotFound.emit()
 
     def getTOMsConfigElement(self, section, value):
@@ -207,7 +207,7 @@ class TOMsConfigFile(QObject):
         try:
             item = self.config[section][value]
         except KeyError:
-            TOMsMessageLog.logMessage("In getTOMsConfigElement. not able to find: {}:{}".format(section, value), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In getTOMsConfigElement. not able to find: {}:{}".format(section, value), level=Qgis.MessageLevel.Info)
 
         return item
 
@@ -222,7 +222,7 @@ class TOMsLayers(QObject):
 
         self.iface = iface
 
-        TOMsMessageLog.logMessage("In TOMSLayers.init ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMSLayers.init ...", level=Qgis.MessageLevel.Info)
 
         self.TOMsLayerDict = {}
 
@@ -251,7 +251,7 @@ class TOMsLayers(QObject):
 
     def getLayers(self, configFileObject):
 
-        TOMsMessageLog.logMessage("In TOMSLayers.getLayers ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMSLayers.getLayers ...", level=Qgis.MessageLevel.Info)
         found = True
 
         # Check for project being open
@@ -270,7 +270,7 @@ class TOMsLayers(QObject):
 
             self.formPath = self.getTOMsFormPathFromConfigFile(configFileObject)
             TOMsMessageLog.logMessage("In TOMsLayers:getLayers. formPath is {} ...".format(self.formPath),
-                                      level=Qgis.Info)
+                                      level=Qgis.MessageLevel.Info)
 
             # check that path exists
             if not os.path.isdir(self.formPath):
@@ -286,17 +286,17 @@ class TOMsLayers(QObject):
                     layerEditFormConfig = self.TOMsLayerDict[layer].editFormConfig()
                     ui_path = layerEditFormConfig.uiForm()
                     TOMsMessageLog.logMessage("In TOMsLayers:getLayers. ui_path for layer {} is {} ...".format(layer, ui_path),
-                                              level=Qgis.Info)
+                                              level=Qgis.MessageLevel.Info)
                     if len(self.formPath)>0 and len(ui_path)>0:
                         # try to get basename - doesn't seem to work on Linux
                         #base_ui_path = os.path.basename(ui_path)
                         path_absolute = os.path.abspath(os.path.join(self.formPath, os.path.basename(ui_path)))
                         if not os.path.isfile(path_absolute):
                             TOMsMessageLog.logMessage("In TOMsLayers:getLayers.form path not found for layer {} ...".format(layer),
-                                                      level=Qgis.Warning)
+                                                      level=Qgis.MessageLevel.Warning)
                         else:
                             TOMsMessageLog.logMessage("In TOMsLayers:getLayers.setting new path for form {} ...".format(path_absolute),
-                                                      level=Qgis.Info)
+                                                      level=Qgis.MessageLevel.Info)
                             layerEditFormConfig.setUiForm(path_absolute)
                             self.TOMsLayerDict[layer].setEditFormConfig(layerEditFormConfig)
 
@@ -320,7 +320,7 @@ class TOMsLayers(QObject):
 
     def removePathFromLayerForms(self):
 
-        TOMsMessageLog.logMessage("In TOMSLayers.removePathFromLayerForms ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMSLayers.removePathFromLayerForms ...", level=Qgis.MessageLevel.Info)
         found = True
 
         # Check for project being open
@@ -339,7 +339,7 @@ class TOMsLayers(QObject):
                     layerEditFormConfig = self.TOMsLayerDict[layer].editFormConfig()
                     ui_path = layerEditFormConfig.uiForm()
                     TOMsMessageLog.logMessage("In TOMsLayers:removePathFromLayerForms. ui_path for layer {} is {} ...".format(layer, ui_path),
-                                              level=Qgis.Info)
+                                              level=Qgis.MessageLevel.Info)
                     if len(self.formPath)>0 and len(ui_path)>0:
                         # try to get basename - doesn't seem to work on Linux
                         #base_ui_path = os.path.basename(ui_path)
@@ -377,9 +377,9 @@ class originalFeature(object):
 
     def printFeature(self):
         TOMsMessageLog.logMessage("In originalFeature - attributes (fid:" + str(self.savedFeature.id()) + "): " + str(self.savedFeature.attributes()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         TOMsMessageLog.logMessage("In originalFeature - attributes: " + str(self.savedFeature.geometry().asWkt()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
 class RestrictionTypeUtilsMixin():
     #def __init__(self):
@@ -403,7 +403,7 @@ class RestrictionTypeUtilsMixin():
 
     def restrictionInProposal(self, currRestrictionID, currRestrictionLayerID, proposalID):
         # returns True if resstriction is in Proposal
-        TOMsMessageLog.logMessage("In restrictionInProposal.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In restrictionInProposal.", level=Qgis.MessageLevel.Info)
 
         RestrictionsInProposalsLayer = QgsProject.instance().mapLayersByName("RestrictionsInProposals")[0]
 
@@ -418,13 +418,13 @@ class RestrictionTypeUtilsMixin():
                         restrictionFound = True
 
         TOMsMessageLog.logMessage("In restrictionInProposal. restrictionFound: " + str(restrictionFound),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         return restrictionFound
 
     def addRestrictionToProposal(self, restrictionID, restrictionLayerTableID, proposalID, proposedAction):
         # adds restriction to the "RestrictionsInProposals" layer
-        TOMsMessageLog.logMessage("In addRestrictionToProposal.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In addRestrictionToProposal.", level=Qgis.MessageLevel.Info)
 
         RestrictionsInProposalsLayer = QgsProject.instance().mapLayersByName("RestrictionsInProposals")[0]
 
@@ -446,7 +446,7 @@ class RestrictionTypeUtilsMixin():
 
         TOMsMessageLog.logMessage(
             "In addRestrictionToProposal. Before record create. RestrictionID: " + str(restrictionID),
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
         attrs = newRestrictionsInProposal.attributes()
 
@@ -458,7 +458,7 @@ class RestrictionTypeUtilsMixin():
 
     def getRestrictionsLayer(self, currRestrictionTableRecord):
         # return the layer given the row in "RestrictionLayers"
-        TOMsMessageLog.logMessage("In getRestrictionLayer.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestrictionLayer.", level=Qgis.MessageLevel.Info)
 
         RestrictionsLayers = QgsProject.instance().mapLayersByName("RestrictionLayers")[0]
 
@@ -472,7 +472,7 @@ class RestrictionTypeUtilsMixin():
 
     def getRestrictionsLayerFromID(self, currRestrictionTableID):
         # return the layer given the row in "RestrictionLayers"
-        TOMsMessageLog.logMessage("In getRestrictionsLayerFromID.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestrictionsLayerFromID.", level=Qgis.MessageLevel.Info)
 
         RestrictionsLayers = QgsProject.instance().mapLayersByName("RestrictionLayers")[0]
 
@@ -488,7 +488,7 @@ class RestrictionTypeUtilsMixin():
         return restrictionLayer
 
     def getRestrictionLayerTableID(self, currRestLayer):
-        TOMsMessageLog.logMessage("In getRestrictionLayerTableID.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestrictionLayerTableID.", level=Qgis.MessageLevel.Info)
         # find the ID for the layer within the table "
 
         RestrictionsLayers = QgsProject.instance().mapLayersByName("RestrictionLayers")[0]
@@ -502,30 +502,30 @@ class RestrictionTypeUtilsMixin():
                 layersTableID = layer.attribute("Code")
 
         TOMsMessageLog.logMessage("In getRestrictionLayerTableID. layersTableID: " + str(layersTableID),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         return layersTableID
 
     def getRestrictionBasedOnRestrictionID(self, currRestrictionID, currRestrictionLayer):
         # return the layer given the row in "RestrictionLayers"
-        TOMsMessageLog.logMessage("In getRestriction.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestriction.", level=Qgis.MessageLevel.Info)
 
         #query2 = '"RestrictionID" = \'{restrictionid}\''.format(restrictionid=currRestrictionID)
 
         queryString = "\"RestrictionID\" = \'" + currRestrictionID + "\'"
 
-        TOMsMessageLog.logMessage("In getRestriction: queryString: " + str(queryString), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestriction: queryString: " + str(queryString), level=Qgis.MessageLevel.Info)
 
         expr = QgsExpression(queryString)
 
         for feature in currRestrictionLayer.getFeatures(QgsFeatureRequest(expr)):
             return feature
 
-        TOMsMessageLog.logMessage("In getRestriction: Restriction not found", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getRestriction: Restriction not found", level=Qgis.MessageLevel.Info)
         return None
 
     def deleteRestrictionInProposal(self, currRestrictionID, currRestrictionLayerID, proposalID):
-        TOMsMessageLog.logMessage("In deleteRestrictionInProposal: " + str(currRestrictionID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In deleteRestrictionInProposal: " + str(currRestrictionID), level=Qgis.MessageLevel.Info)
 
         returnStatus = False
 
@@ -538,7 +538,7 @@ class RestrictionTypeUtilsMixin():
                 if restrictionInProposal.attribute("RestrictionTableID") == currRestrictionLayerID:
                     if restrictionInProposal.attribute("ProposalID") == proposalID:
                         TOMsMessageLog.logMessage("In deleteRestrictionInProposal - deleting ",
-                                                 level=Qgis.Info)
+                                                 level=Qgis.MessageLevel.Info)
 
                         attrs = restrictionInProposal.attributes()
 
@@ -551,7 +551,7 @@ class RestrictionTypeUtilsMixin():
         return returnStatus
 
     def onSaveRestrictionDetails(self, currRestriction, currRestrictionLayer, dialog, restrictionTransaction):
-        TOMsMessageLog.logMessage("In onSaveRestrictionDetails: " + str(currRestriction.attribute("GeometryID")), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onSaveRestrictionDetails: " + str(currRestriction.attribute("GeometryID")), level=Qgis.MessageLevel.Info)
 
         #currRestrictionLayer.startEditing()
 
@@ -568,7 +568,7 @@ class RestrictionTypeUtilsMixin():
                 # restriction already is part of the current proposal
                 # simply make changes to the current restriction in the current layer
                 TOMsMessageLog.logMessage("In onSaveRestrictionDetails. Saving details straight from form." + str(currRestriction.attribute("GeometryID")),
-                                         level=Qgis.Info)
+                                         level=Qgis.MessageLevel.Info)
 
                 #res = dialog.save()
                 status = currRestrictionLayer.updateFeature(currRestriction)
@@ -600,7 +600,7 @@ class RestrictionTypeUtilsMixin():
                 TOMsMessageLog.logMessage(
                     "In onSaveRestrictionDetails. Adding new restriction (1). ID: " + str(
                         newRestrictionID),
-                    level=Qgis.Info)
+                    level=Qgis.MessageLevel.Info)
 
                 if currRestriction[idxOpenDate] is None:
                     # This is a feature that has just been created, i.e., it is not currently part of the proposal and did not previously exist
@@ -613,7 +613,7 @@ class RestrictionTypeUtilsMixin():
 
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Adding new restriction. ID: " + str(currRestriction[idxRestrictionID]),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     status = self.addRestrictionToProposal(str(currRestriction[idxRestrictionID]), currRestrictionLayerTableID,
                                              currProposalID, RestrictionAction.OPEN)  # Open = 1
@@ -621,7 +621,7 @@ class RestrictionTypeUtilsMixin():
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Transaction Status 1: " + str(
                             restrictionTransaction.currTransactionGroup.modified()),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     """ attributeForm saves to the layer. Has the feature been added to the layer?"""
 
@@ -631,7 +631,7 @@ class RestrictionTypeUtilsMixin():
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Transaction Status 2: " + str(
                             restrictionTransaction.currTransactionGroup.modified()),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
                     #currRestrictionLayer.updateFeature(currRestriction)  # TH (added for v3)
                     currRestrictionLayer.addFeature(currRestriction)  # TH (added for v3)
 
@@ -647,7 +647,7 @@ class RestrictionTypeUtilsMixin():
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Closing existing restriction. ID: " + str(
                             currRestriction[idxRestrictionID]),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     status = self.addRestrictionToProposal(currRestriction[idxRestrictionID], currRestrictionLayerTableID,
                                              currProposalID, RestrictionAction.CLOSE)  # Open = 1; Close = 2
@@ -665,13 +665,13 @@ class RestrictionTypeUtilsMixin():
 
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Clone restriction. New ID: " + str(newRestriction[idxRestrictionID]),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     attrs2 = newRestriction.attributes()
                     TOMsMessageLog.logMessage("In onSaveRestrictionDetails: clone Restriction: " + str(attrs2),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
                     TOMsMessageLog.logMessage("In onSaveRestrictionDetails. Clone: {}".format(newRestriction.geometry().asWkt()),
-                                             level=Qgis.Info)
+                                             level=Qgis.MessageLevel.Info)
 
                     status = self.addRestrictionToProposal(newRestriction[idxRestrictionID], currRestrictionLayerTableID,
                                              currProposalID, RestrictionAction.OPEN)  # Open = 1; Close = 2
@@ -679,7 +679,7 @@ class RestrictionTypeUtilsMixin():
                     TOMsMessageLog.logMessage(
                         "In onSaveRestrictionDetails. Opening clone. ID: " + str(
                             newRestriction[idxRestrictionID]),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
 
                     dialog.attributeForm().close()
                     currRestriction = self.origFeature.getFeature()
@@ -702,10 +702,10 @@ class RestrictionTypeUtilsMixin():
 
             attrs1 = currRestriction.attributes()
             TOMsMessageLog.logMessage("In onSaveRestrictionDetails: currRestriction: " + str(attrs1),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             TOMsMessageLog.logMessage(
                 "In onSaveRestrictionDetails. curr: {}".format(currRestriction.geometry().asWkt()),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
 
             # Make sure that the saving will not be executed immediately, but
             # only when the event loop runs into the next iteration to avoid
@@ -714,14 +714,14 @@ class RestrictionTypeUtilsMixin():
             TOMsMessageLog.logMessage(
                 "In onSaveRestrictionDetails. Transaction Status 3: " + str(
                     restrictionTransaction.currTransactionGroup.modified()),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
 
             commitStatus = restrictionTransaction.commitTransactionGroup(currRestrictionLayer)
             #restrictionTransaction.deleteTransactionGroup()
             TOMsMessageLog.logMessage(
                 "In onSaveRestrictionDetails. Transaction Status 4: " + str(
                     restrictionTransaction.currTransactionGroup.modified()),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             # Trying to unset map tool to force updates ...
             #self.iface.mapCanvas().unsetMapTool(self.iface.mapCanvas().mapTool())
             #dialog.accept()
@@ -748,7 +748,7 @@ class RestrictionTypeUtilsMixin():
 
         TOMsMessageLog.logMessage(
         "In onSaveRestrictionDetails. Finished",
-        level=Qgis.Info)
+        level=Qgis.MessageLevel.Info)
 
         status = dialog.close()
         currRestrictionLayer.removeSelection()
@@ -758,7 +758,7 @@ class RestrictionTypeUtilsMixin():
         self.setupPanelTabs(self.iface, self.proposalPanel)
 
     def setDefaultRestrictionDetails(self, currRestriction, currRestrictionLayer, currDate):
-        TOMsMessageLog.logMessage("In setDefaultRestrictionDetails: ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In setDefaultRestrictionDetails: ", level=Qgis.MessageLevel.Info)
 
         generateGeometryUtils.setRoadName(currRestriction)
         if currRestrictionLayer.geometryType() == 1:  # Line or Bay
@@ -808,7 +808,7 @@ class RestrictionTypeUtilsMixin():
                                                                                     payParkingAreasLayer)
                 currRestriction.setAttribute("PayParkingAreaID", currPayParkingArea.attribute("Code"))
             except Exception as e:
-                TOMsMessageLog.logMessage("In setDefaultRestrictionDetails:payParkingArea: error: {}".format(e), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In setDefaultRestrictionDetails:payParkingArea: error: {}".format(e), level=Qgis.MessageLevel.Info)
 
         elif currRestrictionLayer.name() == "Signs":
             #currRestriction.setAttribute("SignType_1", 28)  # 28 = Permit Holders Only (Signs)
@@ -824,16 +824,16 @@ class RestrictionTypeUtilsMixin():
 
     def storeLastUsedDetails(self, layer, field, value):
         entry = '{layer}/{field}'.format(layer=layer, field=field)
-        TOMsMessageLog.logMessage("In storeLastUsedDetails: " + str(entry) + " (" + str(value) + ")", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In storeLastUsedDetails: " + str(entry) + " (" + str(value) + ")", level=Qgis.MessageLevel.Info)
         self.settings.setValue(entry, value)
 
     def readLastUsedDetails(self, layer, field, default):
         entry = '{layer}/{field}'.format(layer=layer, field=field)
-        TOMsMessageLog.logMessage("In readLastUsedDetails: " + str(entry) + " (" + str(default) + ")", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In readLastUsedDetails: " + str(entry) + " (" + str(default) + ")", level=Qgis.MessageLevel.Info)
         return self.settings.value(entry, default)
 
     def updateDefaultRestrictionDetails(self, currRestriction, currRestrictionLayer, currDate):
-        TOMsMessageLog.logMessage("In updateDefaultRestrictionDetails. currLayer: " + currRestrictionLayer.name(), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In updateDefaultRestrictionDetails. currLayer: " + currRestrictionLayer.name(), level=Qgis.MessageLevel.Info)
 
         generateGeometryUtils.setRoadName(currRestriction)
         if currRestrictionLayer.geometryType() == 1:  # Line or Bay
@@ -867,14 +867,14 @@ class RestrictionTypeUtilsMixin():
         if restrictionDialog is None:
             TOMsMessageLog.logMessage(
                 "In setupRestrictionDialog. dialog not found",
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
 
         button_box = restrictionDialog.findChild(QDialogButtonBox, "button_box")
 
         if button_box is None:
             TOMsMessageLog.logMessage(
                 "In setupRestrictionDialog. button box not found",
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
 
         button_box.accepted.connect(functools.partial(self.onSaveRestrictionDetails, currRestriction,
                                       currRestrictionLayer, restrictionDialog, restrictionTransaction))
@@ -886,7 +886,7 @@ class RestrictionTypeUtilsMixin():
         self.photoDetails(restrictionDialog, currRestrictionLayer, currRestriction)
 
     def onRejectRestrictionDetailsFromForm(self, restrictionDialog, restrictionTransaction):
-        TOMsMessageLog.logMessage("In onRejectRestrictionDetailsFromForm", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onRejectRestrictionDetailsFromForm", level=Qgis.MessageLevel.Info)
         restrictionDialog.reject()
         
         restrictionTransaction.rollBackTransactionGroup()
@@ -897,7 +897,7 @@ class RestrictionTypeUtilsMixin():
 
     def onAttributeChangedClass2(self, currFeature, layer, fieldName, value):
         TOMsMessageLog.logMessage(
-            "In FormOpen:onAttributeChangedClass 2 - layer: " + str(layer.name()) + " (" + fieldName + "): " + str(value), level=Qgis.Info)
+            "In FormOpen:onAttributeChangedClass 2 - layer: " + str(layer.name()) + " (" + fieldName + "): " + str(value), level=Qgis.MessageLevel.Info)
 
         try:
 
@@ -908,7 +908,7 @@ class RestrictionTypeUtilsMixin():
 
             reply = QMessageBox.information(None, "Error",
                                                 "onAttributeChangedClass2. Update failed for: {}({}): {}; {}".format(layer.name(), fieldName, value, e),
-                                                QMessageBox.Ok)  # rollback all changes
+                                                QMessageBox.StandardButton.Ok)  # rollback all changes
 
         self.storeLastUsedDetails(layer.name(), fieldName, value)
 
@@ -918,7 +918,7 @@ class RestrictionTypeUtilsMixin():
 
         # Function to deal with photo fields
 
-        TOMsMessageLog.logMessage("In photoDetails", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In photoDetails", level=Qgis.MessageLevel.Info)
 
         FIELD1 = dialog.findChild(QLabel, "Photo_Widget_01")
         FIELD2 = dialog.findChild(QLabel, "Photo_Widget_02")
@@ -927,7 +927,7 @@ class RestrictionTypeUtilsMixin():
         # sort out path for Photos
         photoPath = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('PhotoPath')
         if photoPath == None:
-            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.StandardButton.Ok)
             return
 
         if os.path.isabs(photoPath):
@@ -936,10 +936,10 @@ class RestrictionTypeUtilsMixin():
             projectPath = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('project_path')
             path_absolute = os.path.abspath(os.path.join(projectPath, photoPath))
 
-        TOMsMessageLog.logMessage("In photoDetails. path_absolute: {}".format(path_absolute), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In photoDetails. path_absolute: {}".format(path_absolute), level=Qgis.MessageLevel.Info)
         # check that the path exists
         if not os.path.isdir(path_absolute):
-            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.Ok)
+            reply = QMessageBox.information(None, "Information", "Please set value for PhotoPath.", QMessageBox.StandardButton.Ok)
             return
 
         idx1 = currRestLayer.fields().indexFromName("Photos_01")
@@ -947,22 +947,22 @@ class RestrictionTypeUtilsMixin():
         idx3 = currRestLayer.fields().indexFromName("Photos_03")
 
         TOMsMessageLog.logMessage("In photoDetails. idx1: " + str(idx1) + "; " + str(idx2) + "; " + str(idx3),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         if FIELD1:
             TOMsMessageLog.logMessage("In photoDetails. FIELD 1 exisits",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             if currRestrictionFeature[idx1]:
                 newPhotoFileName1 = os.path.join(path_absolute, currRestrictionFeature[idx1])
             else:
                 newPhotoFileName1 = None
 
-            TOMsMessageLog.logMessage("In photoDetails. A. Photo1: " + str(newPhotoFileName1), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In photoDetails. A. Photo1: " + str(newPhotoFileName1), level=Qgis.MessageLevel.Info)
             pixmap1 = QPixmap(newPhotoFileName1)
             if not pixmap1.isNull():
                 FIELD1.setPixmap(pixmap1)
                 FIELD1.setScaledContents(True)
-                TOMsMessageLog.logMessage("In photoDetails. Photo1: " + str(newPhotoFileName1), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In photoDetails. Photo1: " + str(newPhotoFileName1), level=Qgis.MessageLevel.Info)
 
             if cv2_available:
                 try:
@@ -975,22 +975,22 @@ class RestrictionTypeUtilsMixin():
 
                     self.camera1.notifyPhotoTaken.connect(functools.partial(self.savePhotoTaken, idx1))
                 except Exception as e:
-                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.Info)
+                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.MessageLevel.Info)
 
         if FIELD2:
             TOMsMessageLog.logMessage("In photoDetails. FIELD 2 exisits",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             if currRestrictionFeature[idx2]:
                 newPhotoFileName2 = os.path.join(path_absolute, currRestrictionFeature[idx2])
             else:
                 newPhotoFileName2 = None
 
-            TOMsMessageLog.logMessage("In photoDetails. A. Photo2: " + str(newPhotoFileName2), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In photoDetails. A. Photo2: " + str(newPhotoFileName2), level=Qgis.MessageLevel.Info)
             pixmap2 = QPixmap(newPhotoFileName2)
             if not pixmap2.isNull():
                 FIELD2.setPixmap(pixmap2)
                 FIELD2.setScaledContents(True)
-                TOMsMessageLog.logMessage("In photoDetails. Photo2: " + str(newPhotoFileName2), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In photoDetails. Photo2: " + str(newPhotoFileName2), level=Qgis.MessageLevel.Info)
 
             if cv2_available:
                 try:
@@ -1003,11 +1003,11 @@ class RestrictionTypeUtilsMixin():
 
                     self.camera2.notifyPhotoTaken.connect(functools.partial(self.savePhotoTaken, idx2))
                 except Exception as e:
-                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.Info)
+                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.MessageLevel.Info)
 
         if FIELD3:
             TOMsMessageLog.logMessage("In photoDetails. FIELD 3 exisits",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             if currRestrictionFeature[idx3]:
                 newPhotoFileName3 = os.path.join(path_absolute, currRestrictionFeature[idx3])
             else:
@@ -1017,7 +1017,7 @@ class RestrictionTypeUtilsMixin():
             if not pixmap3.isNull():
                 FIELD3.setPixmap(pixmap3)
                 FIELD3.setScaledContents(True)
-                TOMsMessageLog.logMessage("In photoDetails. Photo3: " + str(newPhotoFileName3), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In photoDetails. Photo3: " + str(newPhotoFileName3), level=Qgis.MessageLevel.Info)
 
             if cv2_available:
                 try:
@@ -1030,7 +1030,7 @@ class RestrictionTypeUtilsMixin():
 
                     self.camera3.notifyPhotoTaken.connect(functools.partial(self.savePhotoTaken, idx3))
                 except Exception as e:
-                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.Info)
+                    TOMsMessageLog.logMessage('photoDetails: issue for photo form {}'.format(e), level=Qgis.MessageLevel.Info)
 
     def photoDetails_camera(self, restrictionDialog, currRestrictionLayer, currRestriction):
 
@@ -1038,17 +1038,17 @@ class RestrictionTypeUtilsMixin():
         try:
             self.cameraNr = int(QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('CameraNr'))
         except Exception as e:
-            TOMsMessageLog.logMessage("In photoDetails_camera: cameraNr issue: {}".format(e), level=Qgis.Warning)
+            TOMsMessageLog.logMessage("In photoDetails_camera: cameraNr issue: {}".format(e), level=Qgis.MessageLevel.Warning)
             if cv2_available:
-                self.cameraNr = QMessageBox.information(None, "Information", "Please set value for CameraNr.", QMessageBox.Ok)
+                self.cameraNr = QMessageBox.information(None, "Information", "Please set value for CameraNr.", QMessageBox.StandardButton.Ok)
             self.cameraNr = None
 
-        TOMsMessageLog.logMessage("In photoDetails_field: cameraNr is: {}".format(self.cameraNr), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In photoDetails_field: cameraNr is: {}".format(self.cameraNr), level=Qgis.MessageLevel.Info)
 
         self.photoDetails(restrictionDialog, currRestrictionLayer, currRestriction)
 
     def onSaveProposalFormDetails(self, currProposalRecord, currProposalObject, proposalsLayer, proposalsDialog, proposalTransaction):
-        TOMsMessageLog.logMessage("In onSaveProposalFormDetails.", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onSaveProposalFormDetails.", level=Qgis.MessageLevel.Info)
 
         self.Proposals = proposalsLayer
 
@@ -1066,7 +1066,7 @@ class RestrictionTypeUtilsMixin():
 
         newProposalStatusID = currProposalRecord[idxProposalStatusID]
         newProposalOpenDate = currProposalRecord[idxProposalOpenDate]
-        TOMsMessageLog.logMessage("In onSaveProposalFormDetails. currProposalStatus = " + str(currProposalStatusID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onSaveProposalFormDetails. currProposalStatus = " + str(currProposalStatusID), level=Qgis.MessageLevel.Info)
 
         newProposal = False
         proposalAcceptedRejected = False
@@ -1077,8 +1077,8 @@ class RestrictionTypeUtilsMixin():
             reply = QMessageBox.question(None, 'Confirm changes to Proposal',
                                          # How do you access the main window to make the popup ???
                                          'Do you want to ACCEPT this proposal?. Accepting will make all the proposed changes permanent.',
-                                         QMessageBox.Yes, QMessageBox.No)
-            if reply == QMessageBox.Yes:
+                                         QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No)
+            if reply == QMessageBox.StandardButton.Yes:
 
                 currProposalObject.setProposalOpenDate(newProposalOpenDate)
 
@@ -1086,9 +1086,9 @@ class RestrictionTypeUtilsMixin():
                     proposalTransaction.rollBackTransactionGroup()
                     proposalsDialog.reject()
                     reply = QMessageBox.information(None, "Error", "Error in accepting proposal ...",
-                                                    QMessageBox.Ok)
+                                                    QMessageBox.StandardButton.Ok)
                     TOMsMessageLog.logMessage(
-                        "In onSaveProposalFormDetails. Error in transaction", level=Qgis.Info)
+                        "In onSaveProposalFormDetails. Error in transaction", level=Qgis.MessageLevel.Info)
                     return
 
                 updateStatus = proposalsDialog.attributeForm().save()
@@ -1103,14 +1103,14 @@ class RestrictionTypeUtilsMixin():
             reply = QMessageBox.question(None, 'Confirm changes to Proposal',
                                          # How do you access the main window to make the popup ???
                                          'Do you want to REJECT this proposal?. This will remove it from the Proposal list (although it will remain in the system).',
-                                         QMessageBox.Yes, QMessageBox.No)
-            if reply == QMessageBox.Yes:
+                                         QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No)
+            if reply == QMessageBox.StandardButton.Yes:
 
                 if not currProposalObject.rejectProposal():
                     proposalTransaction.rollBackTransactionGroup()
                     proposalsDialog.reject()
                     TOMsMessageLog.logMessage(
-                        "In onSaveProposalFormDetails. Error in transaction", level=Qgis.Info)
+                        "In onSaveProposalFormDetails. Error in transaction", level=Qgis.MessageLevel.Info)
                     return
 
                 updateStatus = proposalsDialog.attributeForm().save()
@@ -1124,7 +1124,7 @@ class RestrictionTypeUtilsMixin():
 
             TOMsMessageLog.logMessage(
                 "In onSaveProposalFormDetails. currProposalID = " + str(currProposalID),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             updateStatus = proposalsDialog.attributeForm().save()
 
             # anything else can be saved.
@@ -1134,7 +1134,7 @@ class RestrictionTypeUtilsMixin():
 
                 newProposal = True
                 TOMsMessageLog.logMessage(
-                    "In onSaveProposalFormDetails. New Proposal ... ", level=Qgis.Info)
+                    "In onSaveProposalFormDetails. New Proposal ... ", level=Qgis.MessageLevel.Info)
 
             else:
                 pass
@@ -1145,9 +1145,9 @@ class RestrictionTypeUtilsMixin():
             TOMsMessageLog.logMessage(
                 "In onSaveProposalFormDetails. ProposalTransaction modified Status: " + str(
                     proposalTransaction.currTransactionGroup.modified()),
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
-        TOMsMessageLog.logMessage("In onSaveProposalFormDetails. Before save. " + str(currProposalTitle) + " Status: " + str(currProposalStatusID), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onSaveProposalFormDetails. Before save. " + str(currProposalTitle) + " Status: " + str(currProposalStatusID), level=Qgis.MessageLevel.Info)
 
         # Trying to unset map tool to force updates ...
         #self.iface.mapCanvas().unsetMapTool(self.iface.mapCanvas().mapTool())
@@ -1159,12 +1159,12 @@ class RestrictionTypeUtilsMixin():
         # For some reason the committedFeaturesAdded signal for layer "Proposals" is not firing at this point and so the cbProposals is not refreshing ...
 
         if newProposal == True:
-            TOMsMessageLog.logMessage("In onSaveProposalFormDetails. newProposalID = " + str(currProposalID), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In onSaveProposalFormDetails. newProposalID = " + str(currProposalID), level=Qgis.MessageLevel.Info)
 
             for proposal in self.Proposals.getFeatures():
                 if proposal[idxProposalTitle] == currProposalTitle:
                     TOMsMessageLog.logMessage("In onSaveProposalFormDetails. newProposalID = " + str(proposal.id()),
-                                             level=Qgis.Info)
+                                             level=Qgis.MessageLevel.Info)
                     newProposalID = proposal[idxProposalID]
 
             self.proposalsManager.newProposalCreated.emit(newProposalID)
@@ -1243,7 +1243,7 @@ class RestrictionTypeUtilsMixin():
     def prepareRestrictionForEdit(self, currRestriction, currRestrictionLayer):
 
         TOMsMessageLog.logMessage("In prepareRestrictionForEdit",
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         # if required, clone the current restriction and enter details into "RestrictionsInProposals" table
 
@@ -1252,7 +1252,7 @@ class RestrictionTypeUtilsMixin():
         idxRestrictionID = currRestrictionLayer.fields().indexFromName("RestrictionID")
 
         if not self.restrictionInProposal(currRestriction[idxRestrictionID], self.getRestrictionLayerTableID(currRestrictionLayer), self.proposalsManager.currentProposal()):
-            TOMsMessageLog.logMessage("In prepareRestrictionForEdit - adding details to RestrictionsInProposal", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In prepareRestrictionForEdit - adding details to RestrictionsInProposal", level=Qgis.MessageLevel.Info)
             #  This one is not in the current Proposal, so now we need to:
             #  - generate a new ID and assign it to the feature for which the geometry has changed
             #  - switch the geometries arround so that the original feature has the original geometry and the new feature has the new geometry
@@ -1261,7 +1261,7 @@ class RestrictionTypeUtilsMixin():
             newFeature = self.cloneRestriction(currRestriction, currRestrictionLayer)
 
             # Check to see if the feature is added
-            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature exists in layer - " + newFeature.attribute("RestrictionID"), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature exists in layer - " + newFeature.attribute("RestrictionID"), level=Qgis.MessageLevel.Info)
 
             # Add details to "RestrictionsInProposals"
 
@@ -1269,17 +1269,17 @@ class RestrictionTypeUtilsMixin():
                                           self.getRestrictionLayerTableID(currRestrictionLayer),
                                           self.proposalsManager.currentProposal(),
                                           RestrictionAction.OPEN)  # close the original feature
-            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature closed.", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature closed.", level=Qgis.MessageLevel.Info)
 
             self.addRestrictionToProposal(newFeature[idxRestrictionID], self.getRestrictionLayerTableID(currRestrictionLayer),
                                           self.proposalsManager.currentProposal(),
                                           RestrictionAction.OPEN)  # open the new one
-            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature opened.", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - feature opened.", level=Qgis.MessageLevel.Info)
 
 
         else:
 
-            TOMsMessageLog.logMessage("In TOMsNodeTool:init - restriction exists in RestrictionsInProposal", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsNodeTool:init - restriction exists in RestrictionsInProposal", level=Qgis.MessageLevel.Info)
             #newFeature = currRestriction
 
         # test to see if the geometry is correct
@@ -1289,13 +1289,13 @@ class RestrictionTypeUtilsMixin():
 
     def onFeatureAdded(self, fid):
         TOMsMessageLog.logMessage("In onFeatureAdded - newFid: " + str(fid),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         self.newFid = fid
 
     def cloneRestriction(self, originalFeature, restrictionLayer):
 
         TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction",
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         #  This one is not in the current Proposal, so now we need to:
         #  - generate a new ID and assign it to the feature for which the geometry has changed
         #  - switch the geometries arround so that the original feature has the original geometry and the new feature has the new geometry
@@ -1334,13 +1334,13 @@ class RestrictionTypeUtilsMixin():
         restrictionLayer.updateFields()
 
         TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - addStatus: " + str(addStatus) + " featureID: " + str(self.newFid), #+ " geomStatus: " + str(geomStatus),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - attributes: (fid=" + str(newFeature.id()) + ") " + str(newFeature.attributes()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         TOMsMessageLog.logMessage("In TOMsNodeTool:cloneRestriction - newGeom: " + newFeature.geometry().asWkt(),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         # test to see that feature has been added ...
         feat = restrictionLayer.getFeatures(
@@ -1360,7 +1360,7 @@ class RestrictionTypeUtilsMixin():
             primaryLayerName = currLayerName[:pointLocation]
             TOMsMessageLog.logMessage(
                 "In getPrimaryLabelLayer: layer: {}".format(primaryLayerName),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
             return QgsProject.instance().mapLayersByName(primaryLayerName)[0]
 
 class TOMsLabelLayerNames(QObject):
@@ -1369,7 +1369,7 @@ class TOMsLabelLayerNames(QObject):
         QObject.__init__(self)
         self.iface = iface
 
-        TOMsMessageLog.logMessage("In TOMsLabelLayerName:initialising .... {}".format(currRestrictionLayer), level=Qgis.Warning)
+        TOMsMessageLog.logMessage("In TOMsLabelLayerName:initialising .... {}".format(currRestrictionLayer), level=Qgis.MessageLevel.Warning)
 
         self.label_layers_names = self.setCurrLabelLayerNames(currRestrictionLayer)
         self.label_leader_layers_names = self.setCurrLabelLeaderLayerNames(currRestrictionLayer)
@@ -1379,7 +1379,7 @@ class TOMsLabelLayerNames(QObject):
         # get the corresponding label layer
 
         def alert_box(text):
-            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.Ok )
+            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.StandardButton.Ok )
 
         if currRestrictionLayer.name() == 'Bays':
             label_layers_names = ['Bays.label_pos']
@@ -1411,7 +1411,7 @@ class TOMsLabelLayerNames(QObject):
         # get the corresponding label layer
 
         def alert_box(text):
-            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.Ok )
+            QMessageBox.information( self.iface.mainWindow(), "Information", text, QMessageBox.StandardButton.Ok )
 
         if currRestrictionLayer.name() == 'Bays':
             label_leader_layers_names = ['Bays.label_ldr']

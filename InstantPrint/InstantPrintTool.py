@@ -8,15 +8,15 @@
 #    copyright            : (C) 2014-2015 by Sandro Mani / Sourcepole AG
 #    email                : smani@sourcepole.ch
 
-from PyQt5.QtCore import (
+from qgis.PyQt.QtCore import (
     Qt, QSettings, QPointF, QRectF, QRect, QUrl, pyqtSignal, QLocale, QMetaObject
     )
-from PyQt5.QtGui import (
+from qgis.PyQt.QtGui import (
     QColor, QDesktopServices, QIcon)
-from PyQt5.QtWidgets import (
+from qgis.PyQt.QtWidgets import (
     QDialog, QDialogButtonBox, QMessageBox, QFileDialog, QListWidgetItem, QListWidget, QCheckBox
     )
-from PyQt5.QtPrintSupport import (
+from qgis.PyQt.QtPrintSupport import (
     QPrintDialog, QPrinter
     )
 from TOMs.core.TOMsMessageLog import TOMsMessageLog
@@ -52,7 +52,7 @@ class InstantPrintDialog(QDialog):
         self.hidden.emit()
 
     def keyPressEvent(self, e):
-        if e.key() == Qt.Key_Escape:
+        if e.key() == Qt.Key.Key_Escape:
             self.hidden.emit()
 
 class InstantPrintTool(QgsMapTool, InstantPrintDialog):
@@ -77,7 +77,7 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         self.dialogui.addScale.setIcon(QIcon(":/images/themes/default/mActionAdd.svg"))
         self.dialogui.deleteScale.setIcon(QIcon(":/images/themes/default/symbologyRemove.svg"))
         self.dialog.hidden.connect(self.__onDialogHidden)
-        self.exportButton = self.dialogui.buttonBox.addButton(self.tr("Export"), QDialogButtonBox.ActionRole)
+        self.exportButton = self.dialogui.buttonBox.addButton(self.tr("Export"), QDialogButtonBox.ButtonRole.ActionRole)
         #self.printButton = self.dialogui.buttonBox.addButton(self.tr("Print"), QDialogButtonBox.ActionRole)
         #self.helpButton = self.dialogui.buttonBox.addButton(self.tr("Help"), QDialogButtonBox.HelpRole)
         self.dialogui.comboBox_fileformat.addItem("PDF", self.tr("PDF Document (*.pdf);;"))
@@ -93,11 +93,11 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         self.exportButton.clicked.connect(self.__export)
         #self.printButton.clicked.connect(self.__print)
         #self.helpButton.clicked.connect(self.__help)
-        self.dialogui.buttonBox.button(QDialogButtonBox.Close).clicked.connect(lambda: self.dialog.hide())
+        self.dialogui.buttonBox.button(QDialogButtonBox.StandardButton.Close).clicked.connect(lambda: self.dialog.hide())
         self.dialogui.addScale.clicked.connect(self.add_new_scale)
         self.dialogui.deleteScale.clicked.connect(self.remove_scale)
         self.deactivated.connect(self.__cleanup)
-        self.setCursor(Qt.OpenHandCursor)
+        self.setCursor(Qt.CursorShape.OpenHandCursor)
 
         settings = QSettings()
         if settings.value("instantprint/geometry") is not None:
@@ -196,7 +196,7 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         self.corner = QPointF(center.x() - 0.5 * extent.width(), center.y() - 0.5 * extent.height())
         self.rect = QRectF(self.corner.x(), self.corner.y(), extent.width(), extent.height())
         self.mapitem.setExtent(QgsRectangle(self.rect))
-        self.rubberband = QgsRubberBand(self.iface.mapCanvas(), QgsWkbTypes.PolygonGeometry)
+        self.rubberband = QgsRubberBand(self.iface.mapCanvas(), QgsWkbTypes.GeometryType.PolygonGeometry)
         self.rubberband.setToCanvasRectangle(self.__canvasRect(self.rect))
         self.rubberband.setColor(QColor(127, 127, 255, 127))
 
@@ -215,13 +215,13 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         if not self.rubberband:
             return
         r = self.__canvasRect(self.rect)
-        if e.button() == Qt.LeftButton and self.__canvasRect(self.rect).contains(e.pos()):
+        if e.button() == Qt.MouseButton.LeftButton and self.__canvasRect(self.rect).contains(e.pos()):
             self.oldrect = QRectF(self.rect)
-            self.oldrubberband = QgsRubberBand(self.iface.mapCanvas(), QgsWkbTypes.PolygonGeometry)
+            self.oldrubberband = QgsRubberBand(self.iface.mapCanvas(), QgsWkbTypes.GeometryType.PolygonGeometry)
             self.oldrubberband.setToCanvasRectangle(self.__canvasRect(self.oldrect))
             self.oldrubberband.setColor(QColor(127, 127, 255, 31))
             self.pressPos = (e.x(), e.y())
-            self.iface.mapCanvas().setCursor(Qt.ClosedHandCursor)
+            self.iface.mapCanvas().setCursor(Qt.CursorShape.ClosedHandCursor)
 
     def canvasMoveEvent(self, e):
         if not self.pressPos:
@@ -259,10 +259,10 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         self.rubberband.setToCanvasRectangle(self.__canvasRect(self.rect))
 
     def canvasReleaseEvent(self, e):
-        if e.button() == Qt.LeftButton and self.pressPos:
+        if e.button() == Qt.MouseButton.LeftButton and self.pressPos:
             self.corner = QPointF(self.rect.x(), self.rect.y())
             self.pressPos = None
-            self.iface.mapCanvas().setCursor(Qt.OpenHandCursor)
+            self.iface.mapCanvas().setCursor(Qt.CursorShape.OpenHandCursor)
             self.iface.mapCanvas().scene().removeItem(self.oldrubberband)
             self.oldrect = None
             self.oldrubberband = None
@@ -314,7 +314,7 @@ class InstantPrintTool(QgsMapTool, InstantPrintDialog):
         actual_printer = QgsLayoutExporter(layout_item)
 
         printdialog = QPrintDialog(self.printer)
-        if printdialog.exec_() != QDialog.Accepted:
+        if printdialog.exec() != QDialog.DialogCode.Accepted:
             return
 
         success = actual_printer.print(self.printer, QgsLayoutExporter.PrintExportSettings())

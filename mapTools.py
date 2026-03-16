@@ -144,7 +144,7 @@ class MapToolMixin:
 
         request = QgsFeatureRequest()
         request.setFilterRect(searchRect)
-        request.setFlags(QgsFeatureRequest.ExactIntersect)
+        request.setFlags(QgsFeatureRequest.Flag.ExactIntersect)
 
         '''for feature in self.layer.getFeatures(request):
             if excludeFeature != None:
@@ -169,7 +169,7 @@ class MapToolMixin:
                 allowZoneEditing = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('AllowZoneEditing')
                 if allowZoneEditing != 'True':
                     continue
-                TOMsMessageLog.logMessage("In findNearestFeatureAt: Zone editing enabled: ", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In findNearestFeatureAt: Zone editing enabled: ", level=Qgis.MessageLevel.Info)
 
             self.currLayer = RestrictionTypeUtilsMixin.getRestrictionsLayer (layerDetails)
 
@@ -186,7 +186,7 @@ class MapToolMixin:
                     closestLayer = self.currLayer
 
         #TOMsMessageLog.logMessage("In findNearestFeatureAt: shortestDistance: " + str(shortestDistance), level=Qgis.Info)
-        TOMsMessageLog.logMessage("In findNearestFeatureAt: nrFeatures: " + str(len(featureList)), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In findNearestFeatureAt: nrFeatures: " + str(len(featureList)), level=Qgis.MessageLevel.Info)
 
         if shortestDistance < float("inf"):
             return closestFeature, closestLayer
@@ -276,7 +276,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
     def canvasReleaseEvent(self, event):
         # Return point under cursor
 
-        TOMsMessageLog.logMessage(("In Info - canvasReleaseEvent."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In Info - canvasReleaseEvent."), level=Qgis.MessageLevel.Info)
 
         self.restrictionList = self.getRestrictionsUnderPoint(self.canvas.mouseLastXY())
         featureList = self.getFeatureList(self.restrictionList)
@@ -284,7 +284,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
 
     def canvasMoveEvent(self, event):
 
-        TOMsMessageLog.logMessage(("In Info - canvasMoveEvent."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In Info - canvasMoveEvent."), level=Qgis.MessageLevel.Info)
 
         # https://gis.stackexchange.com/questions/245280/display-raster-value-as-a-tooltip
 
@@ -305,11 +305,11 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
 
     @pyqtSlot(QAction)
     def onRestrictionSelectMenuClicked(self, action):
-        TOMsMessageLog.logMessage("In onRestrictionSelectMenuClicked. Action: " + action.text(), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onRestrictionSelectMenuClicked. Action: " + action.text(), level=Qgis.MessageLevel.Info)
 
         selectedGeometryID = action.text()[action.text().find('[')+1:action.text().find(']')]
 
-        TOMsMessageLog.logMessage("In onRestrictionSelectMenuClicked. geomID: " + selectedGeometryID, level=Qgis.Info)
+        TOMsMessageLog.logMessage("In onRestrictionSelectMenuClicked. geomID: " + selectedGeometryID, level=Qgis.MessageLevel.Info)
 
         # Really should rollback (or save) any current transactions
 
@@ -317,7 +317,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
 
     def doSelectFeature(self, selectedGeometryID):
 
-        TOMsMessageLog.logMessage("In doSelectFeature ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doSelectFeature ... ", level=Qgis.MessageLevel.Info)
 
         for (feature, layerType, layer) in self.restrictionList:
 
@@ -331,7 +331,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
                     TOMsMessageLog.logMessage(
                         "In Info - canvasReleaseEvent. Feature selected from layer: " + layer.name() + " id: " + str(
                             currGeometryID),
-                        level=Qgis.Info)
+                        level=Qgis.MessageLevel.Info)
                     break
 
 
@@ -350,7 +350,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
         """
         mapPt = self.transformCoordinates(pos)
         TOMsMessageLog.logMessage("In getRestrictionsUnderPoint:  mapPt ********: " + mapPt.asWkt(),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         #tolerance = self.calcTolerance(pos)
         tolerance = 0.5
         searchRectA = QgsRectangle(mapPt.x() - tolerance,
@@ -372,7 +372,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
                 allowZoneEditing = QgsExpressionContextUtils.projectScope(QgsProject.instance()).variable('AllowZoneEditing')
                 if allowZoneEditing != 'True':
                     continue
-                TOMsMessageLog.logMessage("In getRestrictionsUnderPoint: Zone editing enabled: ", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In getRestrictionsUnderPoint: Zone editing enabled: ", level=Qgis.MessageLevel.Info)
 
             if layerDetails.attribute("Code") == RestrictionLayers.BAYS:  # Bays
                 tolerance = 2.0
@@ -386,7 +386,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
 
             request = QgsFeatureRequest()
             request.setFilterRect(searchRect)
-            request.setFlags(QgsFeatureRequest.ExactIntersect)
+            request.setFlags(QgsFeatureRequest.Flag.ExactIntersect)
             self.currLayer = self.getRestrictionsLayer (layerDetails)
 
             context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(self.currLayer))
@@ -402,7 +402,7 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
 
                     shapeGeom = expression1.evaluate(context)
                     TOMsMessageLog.logMessage("In findNearestFeatureAtC:  shapeGeom ********: " + shapeGeom.asWkt(),
-                                             level=Qgis.Info)
+                                             level=Qgis.MessageLevel.Info)
                     if shapeGeom.intersects(searchRectA):
                         # Add any features that are found should be added to a list
                         restrictionList.append((f,layerDetails.attribute("Code"), self.currLayer))
@@ -410,13 +410,13 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
                 else:
                     restrictionList.append((f, layerDetails.attribute("Code"), self.currLayer))
 
-        TOMsMessageLog.logMessage("In findNearestFeatureAt: nrFeatures: " + str(len(restrictionList)), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In findNearestFeatureAt: nrFeatures: " + str(len(restrictionList)), level=Qgis.MessageLevel.Info)
 
         return restrictionList
 
     def getFeatureList(self, restrictionList):
         # Creates a formatted list of the restrictions
-        TOMsMessageLog.logMessage("In getFeatureList: nrFeatures: " + str(len(restrictionList)), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getFeatureList: nrFeatures: " + str(len(restrictionList)), level=Qgis.MessageLevel.Info)
         featureList = []
 
         for (feature, layerType, layer) in restrictionList:
@@ -454,13 +454,13 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
         return featureList
 
     def setupFeatureMenu(self, featureTitleList):
-        TOMsMessageLog.logMessage("In getFeatureDetails", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getFeatureDetails", level=Qgis.MessageLevel.Info)
 
         # self.featureList = restrictionList
         # self.layerList = layerList
 
         # Creates the context menu and returns the selected feature and layer
-        TOMsMessageLog.logMessage("In getFeatureDetails: nrFeatures: " + str(len(featureTitleList)), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getFeatureDetails: nrFeatures: " + str(len(featureTitleList)), level=Qgis.MessageLevel.Info)
 
         #actions = dict()
         self.actions = []
@@ -469,17 +469,17 @@ class GeometryInfoMapTool(MapToolMixin, RestrictionTypeUtilsMixin, QgsMapToolIde
         # for _, feature in filtered_features.iteritems():
         for (title) in featureTitleList:
 
-            TOMsMessageLog.logMessage("In featureContextMenu: adding: " + str(title), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In featureContextMenu: adding: " + str(title), level=Qgis.MessageLevel.Info)
             action = QAction(title, self.restrictionSelectMenu)
             self.actions.append(action)
 
             self.restrictionSelectMenu.addAction(action)
             self.restrictionSelectMenu.triggered.connect(self.onRestrictionSelectMenuClicked)
 
-        TOMsMessageLog.logMessage("In getFeatureDetails: showing menu?", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In getFeatureDetails: showing menu?", level=Qgis.MessageLevel.Info)
 
-        clicked_action = self.restrictionSelectMenu.exec_(self.canvas.mapToGlobal(self.canvas.mouseLastXY()))
-        TOMsMessageLog.logMessage(("In getFeatureDetails:clicked_action: " + str(clicked_action)), level=Qgis.Info)
+        clicked_action = self.restrictionSelectMenu.exec(self.canvas.mapToGlobal(self.canvas.mouseLastXY()))
+        TOMsMessageLog.logMessage(("In getFeatureDetails:clicked_action: " + str(clicked_action)), level=Qgis.MessageLevel.Info)
 
 #############################################################################
 
@@ -487,7 +487,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
     # helpful link - http://apprize.info/python/qgis/7.html ??
     def __init__(self, iface, layer, proposalsManager, currTransaction):
 
-        TOMsMessageLog.logMessage(("In CreateRestrictionTool - init."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In CreateRestrictionTool - init."), level=Qgis.MessageLevel.Info)
 
         if layer.geometryType() == 0: # PointGeometry:
             captureMode = (CreateRestrictionTool.CapturePoint)
@@ -496,7 +496,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         elif layer.geometryType() == 2: # PolygonGeometry:
             captureMode = (CreateRestrictionTool.CapturePolygon)
         else:
-            TOMsMessageLog.logMessage(("In CreateRestrictionTool - No geometry type found. EXITING ...."), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In CreateRestrictionTool - No geometry type found. EXITING ...."), level=Qgis.MessageLevel.Info)
             return
 
         QgsMapToolCapture.__init__(self, iface.mapCanvas(), iface.cadDockWidget(), captureMode)
@@ -541,9 +541,9 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         # I guess at this point, it is possible to set things like capture mode, snapping preferences, ... (not sure of all the elements that are required)
         # capture mode (... not sure if this has already been set? - or how to set it)
 
-        TOMsMessageLog.logMessage("In CreateRestrictionTool - geometryType for " + str(self.layer.name()) + ": " + str(self.layer.geometryType()), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In CreateRestrictionTool - geometryType for " + str(self.layer.name()) + ": " + str(self.layer.geometryType()), level=Qgis.MessageLevel.Info)
 
-        TOMsMessageLog.logMessage(("In CreateRestrictionTool - mode set."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In CreateRestrictionTool - mode set."), level=Qgis.MessageLevel.Info)
 
         # Point list used later to create geometry (filled when capture finishes)
         # self.sketchPoints = self.points()
@@ -551,11 +551,11 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         # Set up rubber band. In current implementation, it is not showing feeback for "next" location
 
-        self.rb = self.createRubberBand(QgsWkbTypes.LineGeometry)  # what about a polygon ??
+        self.rb = self.createRubberBand(QgsWkbTypes.GeometryType.LineGeometry)  # what about a polygon ??
 
         self.currLayer = self.currentVectorLayer()
 
-        TOMsMessageLog.logMessage(("In CreateRestrictionTool - init. Curr layer is " + str(self.currLayer.name()) + "Incoming: " + str(self.layer)), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In CreateRestrictionTool - init. Curr layer is " + str(self.currLayer.name()) + "Incoming: " + str(self.layer)), level=Qgis.MessageLevel.Info)
 
         # set up snapping configuration   *******************
         """
@@ -575,7 +575,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         #####self.snappingUtils.setLayers([snapping_layer1, snapping_layer2, snapping_layer3])
 
-        self.snappingConfig.setMode(QgsSnappingConfig.AdvancedConfiguration)
+        self.snappingConfig.setMode(QgsSnappingConfig.SnappingMode.AdvancedConfiguration)
 
         # set up tracing configuration
         self.TOMsTracer = QgsTracer()
@@ -599,26 +599,26 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         # set up function to be called when capture is complete
         #self.onCreateRestriction = onCreateRestriction
 
-        TOMsMessageLog.logMessage(("In CreateRestrictionTool. Finished init."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In CreateRestrictionTool. Finished init."), level=Qgis.MessageLevel.Info)
 
     def cadCanvasReleaseEvent(self, event):
         # Right-click: handle ourselves first so we read points before parent clears them.
         # Parent's cadCanvasReleaseEvent treats right-click as "finish" and clears the capture list.
-        if event.button() == Qt.RightButton:
-            TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (right-click)"), level=Qgis.Info)
+        if event.button() == Qt.MouseButton.RightButton:
+            TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (right-click)"), level=Qgis.MessageLevel.Info)
             self.getPointsCaptured()
             return
 
 
         QgsMapToolCapture.cadCanvasReleaseEvent(self, event)
-        TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent"), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent"), level=Qgis.MessageLevel.Info)
 
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             if not self.isCapturing():
                 self.startCapturing()
             #self.result = self.addVertex(self.toMapCoordinates(event.pos()))
             checkSnapping = event.isSnapped
-            TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: checkSnapping = " + str(checkSnapping), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: checkSnapping = " + str(checkSnapping), level=Qgis.MessageLevel.Info)
 
             """tolerance_nearby = 0.5
             tolerance = tolerance_nearby
@@ -638,72 +638,72 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
             nrPoints = self.size()
             res = None
-            TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: current rubber band size before branch: " + str(nrPoints), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: current rubber band size before branch: " + str(nrPoints), level=Qgis.MessageLevel.Info)
 
             if not self.lastPoint:
                 # Parent already added currPoint; remove it so we add exactly once
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: first point, calling undo() to remove parent-added vertex", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: first point, calling undo() to remove parent-added vertex", level=Qgis.MessageLevel.Info)
                 self.undo()
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (first point): " + str(self.size()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (first point): " + str(self.size()), level=Qgis.MessageLevel.Info)
                 self.result = self.addVertex(self.currPoint)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: adding vertex 0 " + str(self.result) + " at X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: adding vertex 0 " + str(self.result) + " at X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y()), level=Qgis.MessageLevel.Info)
 
             else:
                 # Parent already added currPoint; remove it so we control order (path from lastPoint to currPoint)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: subsequent point, calling undo() to remove parent-added vertex", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: subsequent point, calling undo() to remove parent-added vertex", level=Qgis.MessageLevel.Info)
                 self.undo()
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (subsequent point): " + str(self.size()), level=Qgis.Info)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: findShortestPath lastPoint: " + str(self.lastPoint) + " currPoint: " + str(self.currPoint), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: size() after undo (subsequent point): " + str(self.size()), level=Qgis.MessageLevel.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: findShortestPath lastPoint: " + str(self.lastPoint) + " currPoint: " + str(self.currPoint), level=Qgis.MessageLevel.Info)
                 resVectorList = self.TOMsTracer.findShortestPath(self.lastPoint, self.currPoint)
 
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList " + str(resVectorList), level=Qgis.Info)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList[1] " + str(resVectorList[1]), level=Qgis.Info)
-                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList before adding points resVectorList[0] (count=" + str(len(resVectorList[0])) + "): " + str(resVectorList[0]), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList " + str(resVectorList), level=Qgis.MessageLevel.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList resVectorList[1] " + str(resVectorList[1]), level=Qgis.MessageLevel.Info)
+                TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent: traceList before adding points resVectorList[0] (count=" + str(len(resVectorList[0])) + "): " + str(resVectorList[0]), level=Qgis.MessageLevel.Info)
                 if resVectorList[1] == 0:
-                    TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (found path) ", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (found path) ", level=Qgis.MessageLevel.Info)
                     initialPoint = True
                     idx = 0
                     for point in resVectorList[0]:
                         if not initialPoint:
                             TOMsMessageLog.logMessage("In CreateRestrictionTool - cadCanvasReleaseEvent (adding path point idx=" + str(idx) + ") X:" + str(
-                                point.x()) + " Y: " + str(point.y()), level=Qgis.Info)
+                                point.x()) + " Y: " + str(point.y()), level=Qgis.MessageLevel.Info)
                             self.result = self.addVertex(point)
                         else:
                             TOMsMessageLog.logMessage("In CreateRestrictionTool - cadCanvasReleaseEvent (skipping initial path point idx=0, assumed equal to lastPoint) X:" + str(
-                                point.x()) + " Y: " + str(point.y()), level=Qgis.Info)
+                                point.x()) + " Y: " + str(point.y()), level=Qgis.MessageLevel.Info)
                         initialPoint = False
                         idx += 1
-                    TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (added shortest path); total added points (excluding first) = " + str(max(0, idx - 1)), level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In Create - cadCanvasReleaseEvent (added shortest path); total added points (excluding first) = " + str(max(0, idx - 1)), level=Qgis.MessageLevel.Info)
                 else:
                     self.result = self.addVertex(self.currPoint)
-                    TOMsMessageLog.logMessage(("In CreateRestrictionTool Last Else part - (adding curr point without path) X:" + str(self.currPoint.x()) + " Y: " + str(self.currPoint.y())), level=Qgis.Info)
+                    TOMsMessageLog.logMessage(("In CreateRestrictionTool Last Else part - (adding curr point without path) X:" + str(self.currPoint.x()) + " Y: " + str(self.currPoint.y())), level=Qgis.MessageLevel.Info)
 
             self.lastPoint = self.currPoint
 
-            TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (AddVertex/Line) Result: " + str(self.result) + " X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y())), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In Create - cadCanvasReleaseEvent (AddVertex/Line) Result: " + str(self.result) + " X:" + str(self.currPoint.x()) + " Y:" + str(self.currPoint.y())), level=Qgis.MessageLevel.Info)
         pass
 
     def keyPressEvent(self, event):
-        if (event.key() == Qt.Key_Backspace) or (event.key() == Qt.Key_Delete) or (event.key() == Qt.Key_Escape):
+        if (event.key() == Qt.Key.Key_Backspace) or (event.key() == Qt.Key.Key_Delete) or (event.key() == Qt.Key.Key_Escape):
             self.undo()
             pass
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+        if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
             pass
             # Need to think about the default action here if none of these buttons/keys are pressed. 
 
     def getPointsCaptured(self):
-        TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured"), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured"), level=Qgis.MessageLevel.Info)
 
         # Check the number of points (read before stopCapturing())
         self.nrPoints = self.size()
 
         TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured; Stopping: " + str(self.nrPoints)),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         # Use pointsZM() (points() is deprecated); convert to QgsPointXY for geometry APIs
         self.sketchPoints = [QgsPointXY(p.x(), p.y()) for p in self.pointsZM()]
         raw_count = len(self.sketchPoints)
-        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured raw pointsZM() count: " + str(raw_count), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured raw pointsZM() count: " + str(raw_count), level=Qgis.MessageLevel.Info)
 
         # Remove consecutive duplicate points so the line has no zero-length segments
         _tol = 1e-6
@@ -712,11 +712,11 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
             if not deduped or abs(deduped[-1].x() - p.x()) > _tol or abs(deduped[-1].y() - p.y()) > _tol:
                 deduped.append(p)
         self.sketchPoints = deduped
-        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured deduped points count: " + str(len(self.sketchPoints)), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured deduped points count: " + str(len(self.sketchPoints)), level=Qgis.MessageLevel.Info)
 
         idx = 0
         for point in self.sketchPoints:
-            TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured idx:" + str(idx) + " X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In CreateRestrictionTool - getPointsCaptured idx:" + str(idx) + " X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.MessageLevel.Info)
             idx += 1
 
         # stop capture activity
@@ -730,7 +730,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
             feature = QgsFeature()
             feature.setFields(fields)
 
-            TOMsMessageLog.logMessage(("In CreateRestrictionTool. getPointsCaptured, layerType: " + str(self.layer.geometryType())), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In CreateRestrictionTool. getPointsCaptured, layerType: " + str(self.layer.geometryType())), level=Qgis.MessageLevel.Info)
 
             if self.layer.geometryType() == 0:  # Point
                 feature.setGeometry(QgsGeometry.fromPointXY(self.sketchPoints[0]))
@@ -740,7 +740,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                 feature.setGeometry(QgsGeometry.fromPolygonXY([self.sketchPoints]))
                 #feature.setGeometry(QgsGeometry.fromPolygonXY(self.sketchPoints))
             else:
-                TOMsMessageLog.logMessage(("In CreateRestrictionTool - no geometry type found"), level=Qgis.Info)
+                TOMsMessageLog.logMessage(("In CreateRestrictionTool - no geometry type found"), level=Qgis.MessageLevel.Info)
                 return
 
             # Currently geometry is not being created correct. Might be worth checking co-ord values ...
@@ -748,7 +748,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
             #self.valid = feature.isValid()
 
             TOMsMessageLog.logMessage(("In Create - getPointsCaptured; geometry prepared; " + str(feature.geometry().asWkt())),
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
 
             if self.layer.name() == "ConstructionLines":
                 self.layer.addFeature(feature)
@@ -768,7 +768,7 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                 #currForm.disconnectButtonBox()
 
                 TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured. currRestrictionLayer: " + str(self.layer.name()),
-                                         level=Qgis.Info)
+                                         level=Qgis.MessageLevel.Info)
 
                 #button_box = currForm.findChild(QDialogButtonBox, "button_box")
                 #button_box.accepted.disconnect(currForm.accept)
@@ -783,10 +783,10 @@ class CreateRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                 #currForm.attributeChanged.connect(functools.partial(self.onAttributeChanged, feature))
                 # Can we now implement the logic from the form code ???
                 feature[self.layer.fields().indexFromName("RestrictionID")] = newRestrictionID
-                TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.MessageLevel.Info)
                 #self.layer.addFeature(feature)  # TH (added for v3)
 
-                TOMsMessageLog.logMessage("after adding feature to layer CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.Info)
+                TOMsMessageLog.logMessage("after adding feature to layer CreateRestrictionTool - getPointsCaptured. Adding new restriction. ID: " + str(newRestrictionID), level=Qgis.MessageLevel.Info)
                 
                 dialog = self.iface.getFeatureForm(self.layer, feature)
 
@@ -809,7 +809,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
     def __init__(self, iface, layer, proposalsManager, restrictionTransaction):
 
-        TOMsMessageLog.logMessage(("In SplitRestrictionTool - init."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In SplitRestrictionTool - init."), level=Qgis.MessageLevel.Info)
         RestrictionTypeUtilsMixin.__init__(self, iface)
 
         if layer.geometryType() == 0: # PointGeometry:
@@ -819,7 +819,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         elif layer.geometryType() == 2: # PolygonGeometry:
             captureMode = (CreateRestrictionTool.CapturePolygon)
         else:
-            TOMsMessageLog.logMessage(("In CreateRestrictionTool - No geometry type found. EXITING ...."), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In CreateRestrictionTool - No geometry type found. EXITING ...."), level=Qgis.MessageLevel.Info)
             return
 
         QgsMapToolCapture.__init__(self, iface.mapCanvas(), iface.cadDockWidget(), captureMode)
@@ -832,13 +832,13 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         #self.blade = QgsMapToolEdit.createRubberBand(canvas)
 
-        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - geometryType: " + str(self.layer.geometryType())), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - geometryType: " + str(self.layer.geometryType())), level=Qgis.MessageLevel.Info)
 
         #self.setMode(CreateRestrictionTool.CaptureLine)
         self.setAdvancedDigitizingAllowed(True)
         self. setAutoSnapEnabled(True)
 
-        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - mode set."), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - mode set."), level=Qgis.MessageLevel.Info)
 
         # Point list used when capture finishes
         # self.sketchPoints = self.points()
@@ -846,7 +846,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         # get details of the selected feature
         self.selectedRestriction = self.iface.activeLayer().selectedFeatures()[0]
-        TOMsMessageLog.logMessage("In TOMsNodeTool:initialising ... saving original feature + " + self.selectedRestriction.attribute("GeometryID"), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsNodeTool:initialising ... saving original feature + " + self.selectedRestriction.attribute("GeometryID"), level=Qgis.MessageLevel.Info)
 
         # store the current restriction
         self.origFeature = originalFeature()
@@ -858,9 +858,9 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
     def cadCanvasReleaseEvent(self, event):
         QgsMapToolCapture.cadCanvasReleaseEvent(self, event)
-        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - cadCanvasReleaseEvent"), level=Qgis.Info)
+        TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - cadCanvasReleaseEvent"), level=Qgis.MessageLevel.Info)
 
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             if not self.isCapturing():
                 self.startCapturing()
 
@@ -870,10 +870,10 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
             # add point to rubber band
             self.result = self.addVertex(self.currPoint)
 
-            TOMsMessageLog.logMessage("In TOMsSplitRestrictionTool - added pt: " + str(self.size()) + " X: " +str(self.currPoint.x()) + " Y: " + str(self.currPoint.y()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In TOMsSplitRestrictionTool - added pt: " + str(self.size()) + " X: " +str(self.currPoint.x()) + " Y: " + str(self.currPoint.y()), level=Qgis.MessageLevel.Info)
             #QgsMapToolCapture.addVertex(self.toMapCoordinates(event.pos()))
 
-        elif (event.button() == Qt.RightButton):
+        elif (event.button() == Qt.MouseButton.RightButton):
             # Stop capture when right button or escape key is pressed
             # points = self.getCapturedPoints()
 
@@ -885,14 +885,14 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         # Check the number of points
         self.nrPoints = self.size()
         TOMsMessageLog.logMessage(("In TOMsSplitRestrictionTool - getPointsCaptured; Stopping: " + str(self.nrPoints)),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
         # Use pointsZM() (points() is deprecated); convert to QgsPointXY
         self.sketchPoints = [QgsPointXY(p.x(), p.y()) for p in self.pointsZM()]
         # self.sketchPoints = self.points()
 
         for point in self.sketchPoints:
-            TOMsMessageLog.logMessage(("In SplitRestrictionTool - getPointsCaptured X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.Info)
+            TOMsMessageLog.logMessage(("In SplitRestrictionTool - getPointsCaptured X:" + str(point.x()) + " Y: " + str(point.y())), level=Qgis.MessageLevel.Info)
 
         # stop capture activity
         self.stopCapturing()
@@ -900,7 +900,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         if self.nrPoints <= 0:
             reply = QMessageBox.information(None, "Error",
                                             "No cutting line created",
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             return
             # take points from the rubber band and create a geometry
 
@@ -923,7 +923,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
     def doSplitFeature(self, currRestriction, cutPointsList):
 
-        TOMsMessageLog.logMessage("In SplitRestrictionTool. doSplitFeature ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In SplitRestrictionTool. doSplitFeature ...", level=Qgis.MessageLevel.Info)
 
         # now split the restriction.
         originalGeometry = currRestriction.geometry()  # this will be amended ...
@@ -933,7 +933,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         if result != QgsGeometry.OperationResult.Success:
             reply = QMessageBox.information(None, "Error",
                                             "Issue splitting feature. Status: " + str(result),
-                                            QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok)
             return
 
         extraGeometriesList.append(originalGeometry)
@@ -965,7 +965,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
     def createNewSplitRestriction(self, currRestriction, newGeometry):
 
-        TOMsMessageLog.logMessage("In SplitRestrictionTool. addNewSplitfeature ... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In SplitRestrictionTool. addNewSplitfeature ... ", level=Qgis.MessageLevel.Info)
 
         # Now remove "GeometryID", "Opendate" and give the restriction a new "RestrictionID" - and add it to the proposal.
         keyFields = ['RestrictionID', 'GeometryID', 'OpenDate', 'CloseDate']   # TODO: can we put this somewhere else
@@ -975,17 +975,17 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         # set the attributes
         for field in currFields:
             if field.name() not in keyFields:
-                TOMsMessageLog.logMessage("In SplitRestrictionTool. addNewSplitfeature ... field: {}".format(field.name()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In SplitRestrictionTool. addNewSplitfeature ... field: {}".format(field.name()), level=Qgis.MessageLevel.Info)
                 try:
                     result = newRestriction.setAttribute(field.name(), currRestriction.attribute(field.name()))
                     if result == False:
-                        TOMsMessageLog.logMessage("In SplitRestrictionTool:createNewSplitRestriction: problem setting value for {}".format(field), level=Qgis.Warning)
+                        TOMsMessageLog.logMessage("In SplitRestrictionTool:createNewSplitRestriction: problem setting value for {}".format(field), level=Qgis.MessageLevel.Warning)
                         return None
                 except Exception:
                     exc_type, exc_value, exc_traceback = sys.exc_info()
                     reply = QMessageBox.information(None, "Error",
                                                     "SplitRestrictionTool:createNewSplitRestriction: Issue creating new feature after split. Status: " + str(repr(traceback.extract_tb(exc_traceback))),
-                                                    QMessageBox.Ok)
+                                                    QMessageBox.StandardButton.Ok)
                     return None
 
         newRestrictionID = str(uuid.uuid4())
@@ -1008,7 +1008,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
         TOMsMessageLog.logMessage(
             "In SplitRestrictionTool:updateOriginalSplitRestriction ... ",
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
         """
         # need to clone the original restriction and swap around the ids
@@ -1036,7 +1036,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         """
         TOMsMessageLog.logMessage(
             "In SplitRestrictionTool:updateOriginalSplitRestriction. currProposal: " + str(self.proposalsManager.currentProposal()),
-            level=Qgis.Info)
+            level=Qgis.MessageLevel.Info)
 
         # When a geometry is changed; we need to check whether or not the feature is part of the current proposal
 
@@ -1044,7 +1044,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                                           self.getRestrictionLayerTableID(self.origLayer),
                                           self.proposalsManager.currentProposal()):
             TOMsMessageLog.logMessage("In SplitRestrictionTool:onGeometryChanged - adding details to RestrictionsInProposal",
-                                     level=Qgis.Info)
+                                     level=Qgis.MessageLevel.Info)
             #  This one is not in the current Proposal, so now we need to:
             #  - add the original details to RestrictionsInProposal
 
@@ -1052,7 +1052,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
                                           self.getRestrictionLayerTableID(self.origLayer),
                                           self.proposalsManager.currentProposal(),
                                           RestrictionAction.CLOSE)  # close the original feature
-            TOMsMessageLog.logMessage("In SplitRestrictionTool:onGeometryChanged - orignal feature CLOSED. {}".format(changedRestriction.attribute('RestrictionID')), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In SplitRestrictionTool:onGeometryChanged - orignal feature CLOSED. {}".format(changedRestriction.attribute('RestrictionID')), level=Qgis.MessageLevel.Info)
 
         else:
             result = self.deleteRestrictionInProposal(changedRestriction.attribute('RestrictionID'),
@@ -1061,7 +1061,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
             TOMsMessageLog.logMessage(
                 "In SplitRestrictionTool:onGeometryChanged - changed feature already in RestrictionsInProposal. Now removed {}".format(changedRestriction.attribute('RestrictionID')),
-                level=Qgis.Info)
+                level=Qgis.MessageLevel.Info)
 
         return result
 
@@ -1123,10 +1123,10 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
         """
 
     def keyPressEvent(self, event):
-        if (event.key() == Qt.Key_Backspace) or (event.key() == Qt.Key_Delete) or (event.key() == Qt.Key_Escape):
+        if (event.key() == Qt.Key.Key_Backspace) or (event.key() == Qt.Key.Key_Delete) or (event.key() == Qt.Key.Key_Escape):
             self.undo()
             pass
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+        if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
             pass
         """
         def splitGeometryChanged(self):
@@ -1267,7 +1267,7 @@ class TOMsSplitRestrictionTool(RestrictionTypeUtilsMixin, QgsMapToolCapture):
 
     def shutDownSplitTool(self):
 
-        TOMsMessageLog.logMessage("In TOMsNodeTool:shutDownSplitTool .... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In TOMsNodeTool:shutDownSplitTool .... ", level=Qgis.MessageLevel.Info)
 
         # TODO: May need to disconnect geometryChange and featureDeleted signals
         #self.origLayer.geometryChanged.disconnect(self.on_cached_geometry_changed)
@@ -1302,9 +1302,9 @@ class originalFeature(object):  # TODO: duplicated ...
 
     def printFeature(self):
         TOMsMessageLog.logMessage("In TOMsNodeTool:originalFeature - attributes (fid:" + str(self.savedFeature.id()) + "): " + str(self.savedFeature.attributes()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         TOMsMessageLog.logMessage("In TOMsNodeTool:originalFeature - attributes: " + str(self.savedFeature.geometry().asWkt()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
 
 class EditRestrictionTool(QgsMapTool, MapToolMixin):
     def __init__(self, canvas, layer, onTrackEdited):
@@ -1314,7 +1314,7 @@ class EditRestrictionTool(QgsMapTool, MapToolMixin):
         self.feature       = None
         self.vertex        = None
         self.setLayer(layer)
-        self.setCursor(Qt.CrossCursor)
+        self.setCursor(Qt.CursorShape.CrossCursor)
 
 
     def canvasPressEvent(self, event):
@@ -1327,14 +1327,14 @@ class EditRestrictionTool(QgsMapTool, MapToolMixin):
         vertex = self.findVertexAt(feature, event.pos())
         if vertex == None: return
 
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
             # Left click -> move vertex.
             self.dragging = True
             self.feature  = feature
             self.vertex   = vertex
             self.moveVertexTo(event.pos())
             self.canvas().refresh()
-        elif event.button() == Qt.RightButton:
+        elif event.button() == Qt.MouseButton.RightButton:
             # Right click -> delete vertex.
             self.deleteVertex(feature, vertex)
             self.canvas().refresh()

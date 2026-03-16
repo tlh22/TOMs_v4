@@ -51,7 +51,7 @@ class searchBar():
 
     def __init__(self, iface, TOMsSearchBar):
 
-        TOMsMessageLog.logMessage("In searchBar", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In searchBar", level=Qgis.MessageLevel.Info)
         # Save reference to the QGIS interface
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
@@ -66,7 +66,7 @@ class searchBar():
         # https: // gis.stackexchange.com / questions / 244584 / adding - textbox - to - qgis - plugin - toolbar
 
     def initSearchBar(self):
-        TOMsMessageLog.logMessage("In initSearchBox:", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In initSearchBox:", level=Qgis.MessageLevel.Info)
 
         self.initialPass = True
         self.gazetteerStringList = []
@@ -101,14 +101,14 @@ class searchBar():
         #self.iface.mapCanvas().mapToolSet.connect(self.__onPrintToolSet)
 
     def enableSearchBar(self):
-        TOMsMessageLog.logMessage("In enableSearchBar", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In enableSearchBar", level=Qgis.MessageLevel.Info)
 
         self.actionGoToItem.setEnabled(True)
         #self.toolButton.setEnabled(True)
         self.searchTextbox.textChanged.connect(self.doLookupItem)
 
     def disableSearchBar(self):
-        TOMsMessageLog.logMessage("In disableSearchBar", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In disableSearchBar", level=Qgis.MessageLevel.Info)
 
         self.initialPass = True
         self.actionGoToItem.setEnabled(False)
@@ -119,11 +119,11 @@ class searchBar():
             TOMsMessageLog.logMessage(
                 "In searchBar.disableSearchBar. Issue with disconnects {}".format(
                     e),
-                level=Qgis.Warning)
+                level=Qgis.MessageLevel.Warning)
 
     def doLookupItem(self):
 
-        TOMsMessageLog.logMessage("In doLookupItem:", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doLookupItem:", level=Qgis.MessageLevel.Info)
 
         # TODO: Check whether or not a project has been opened
 
@@ -134,7 +134,7 @@ class searchBar():
             self.initialPass = False
 
         searchText = self.searchTextbox.text()
-        TOMsMessageLog.logMessage("In doLookupItem: searchText " + str(searchText), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doLookupItem: searchText " + str(searchText), level=Qgis.MessageLevel.Info)
 
         #search_in = txt
         #query = "SELECT myfield1, myfield2 FROM my_table WHERE '%s' LIKE '%' || search_field || '%';" % (search_in)
@@ -145,7 +145,7 @@ class searchBar():
     def setupCompleter(self):
         # set up string list for completer
 
-        TOMsMessageLog.logMessage("In setupCompleter:", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In setupCompleter:", level=Qgis.MessageLevel.Info)
         lookupStringSet = set()
         # https://gis.stackexchange.com/questions/155805/qstringlist-error-in-plugin-of-qgis-2-10
 
@@ -159,13 +159,13 @@ class searchBar():
                 nameString = nameString + ", " + locality
 
             if nameString:
-                TOMsMessageLog.logMessage("In setupCompleter: nameString: " + nameString, level=Qgis.Info)
+                TOMsMessageLog.logMessage("In setupCompleter: nameString: " + nameString, level=Qgis.MessageLevel.Info)
                 lookupStringSet.add(nameString)
                 # self.gazetteerStringList.append((nameString))
 
         completer = QCompleter()
-        completer.setCaseSensitivity(Qt.CaseInsensitive)
-        completer.setFilterMode(Qt.MatchContains)
+        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(Qt.MatchFlag.MatchContains)
         self.searchTextbox.setCompleter(completer)
         model = QStringListModel()
         completer.setModel(model)
@@ -174,10 +174,10 @@ class searchBar():
 
     def doGoToItem(self):
 
-        TOMsMessageLog.logMessage("In doGoToItem:", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doGoToItem:", level=Qgis.MessageLevel.Info)
 
         searchText = self.searchTextbox.text()
-        TOMsMessageLog.logMessage("In doGoToItem: searchText " + str(searchText), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doGoToItem: searchText " + str(searchText), level=Qgis.MessageLevel.Info)
 
         # Split out the components of the text
 
@@ -185,13 +185,13 @@ class searchBar():
             RoadName, localityName = searchText.split(',')
         except Exception as e:
             TOMsMessageLog.logMessage('In doGoToItem: error spliting searchText: {}'.format(e),
-                                      level=Qgis.Warning)
+                                      level=Qgis.MessageLevel.Warning)
             RoadName = searchText
             localityName = ''
 
         #amendedRoadName = RoadName.replace("'", "\'\'")
         #amendedLocalityName = localityName.replace("'", "\'\'")
-        TOMsMessageLog.logMessage("In doGoToItem: RoadName: " + str(RoadName.replace("'", "\'\'")) + " locality: + " + str(localityName.replace("'", "\'\'")), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doGoToItem: RoadName: " + str(RoadName.replace("'", "\'\'")) + " locality: + " + str(localityName.replace("'", "\'\'")), level=Qgis.MessageLevel.Info)
 
         # Now search for the street
 
@@ -199,9 +199,9 @@ class searchBar():
         if len(localityName) > 0:
             queryString = queryString + " AND \"Locality\" = \'" + localityName.replace("'", "\'\'").lstrip() + "\'"
 
-        TOMsMessageLog.logMessage("In doGoToItem: queryString: " + str(queryString), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In doGoToItem: queryString: " + str(queryString), level=Qgis.MessageLevel.Info)
 
-        it = self.GazetteerLayer.selectByExpression(queryString, QgsVectorLayer.SetSelection)
+        it = self.GazetteerLayer.selectByExpression(queryString, QgsVectorLayer.SelectBehavior.SetSelection)
 
         self.canvas.zoomToSelected(self.GazetteerLayer)
 

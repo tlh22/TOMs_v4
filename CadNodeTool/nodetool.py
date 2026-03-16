@@ -79,10 +79,10 @@ class OneFeatureFilter(QgsPointLocator.MatchFilter):
         self.layer = layer
         self.fid = fid
         TOMsMessageLog.logMessage("In nodetool:OneFeatureFilter: Layer " + layer.name() + " | " + str(fid),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
     def acceptMatch(self, match):
         TOMsMessageLog.logMessage("In nodetool:OneFeatureFilter: matchLayer " + match.layer().name() + " | " + str(match.featureId()),
-                                 level=Qgis.Info)
+                                 level=Qgis.MessageLevel.Info)
         return match.layer() == self.layer and match.featureId() == self.fid
 
 
@@ -101,7 +101,7 @@ def _is_circular_vertex(geom, vertex_index):
     """Find out whether geom (QgsGeometry) has a circular vertex on the given index"""
     if geom is None:
         return False
-    if geom.type() != QgsWkbTypes.LineGeometry and geom.type() != QgsWkbTypes.PolygonGeometry:
+    if geom.type() != QgsWkbTypes.GeometryType.LineGeometry and geom.type() != QgsWkbTypes.GeometryType.PolygonGeometry:
         return False
     v_id = QgsVertexId()
     res, v_id = geom.vertexIdFromVertexNr(vertex_index)  # seems to have been a change in signature
@@ -119,7 +119,7 @@ def _is_circular_vertex(geom, vertex_index):
     res, v_type = g.pointAt(v_id.vertex, p)
     if not res:
         return False
-    return v_type == QgsVertexId.CurveVertex
+    return v_type == QgsVertexId.VertexType.CurveVertex
 
 
 
@@ -130,22 +130,22 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         QgsMapToolAdvancedDigitizing.__init__(self, canvas, cadDock)
 
         self.snap_marker = QgsVertexMarker(canvas)
-        self.snap_marker.setIconType(QgsVertexMarker.ICON_CROSS)
-        self.snap_marker.setColor(Qt.magenta)
+        self.snap_marker.setIconType(QgsVertexMarker.IconType.ICON_CROSS)
+        self.snap_marker.setColor(Qt.GlobalColor.magenta)
         self.snap_marker.setPenWidth(3)
         self.snap_marker.setVisible(False)
 
         self.edge_center_marker = QgsVertexMarker(canvas)
-        self.edge_center_marker.setIconType(QgsVertexMarker.ICON_BOX)
-        self.edge_center_marker.setColor(Qt.red)
+        self.edge_center_marker.setIconType(QgsVertexMarker.IconType.ICON_BOX)
+        self.edge_center_marker.setColor(Qt.GlobalColor.red)
         self.edge_center_marker.setPenWidth(1)
         self.edge_center_marker.setVisible(False)
 
         # used only for moving standalone points
         # (there are no adjacent vertices so self.drag_bands is empty in that case)
         self.drag_point_marker = QgsVertexMarker(canvas)
-        self.drag_point_marker.setIconType(QgsVertexMarker.ICON_X)
-        self.drag_point_marker.setColor(Qt.red)
+        self.drag_point_marker.setIconType(QgsVertexMarker.IconType.ICON_X)
+        self.drag_point_marker.setColor(Qt.GlobalColor.red)
         self.drag_point_marker.setPenWidth(3)
         self.drag_point_marker.setVisible(False)
 
@@ -159,7 +159,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         self.feature_band_source = None   # tuple (layer, fid) or None depending on what is being shown
 
         self.vertex_band = QgsRubberBand(self.canvas())
-        self.vertex_band.setIcon(QgsRubberBand.ICON_CIRCLE)
+        self.vertex_band.setIcon(QgsRubberBand.IconType.ICON_CIRCLE)
         self.vertex_band.setColor(color)
         self.vertex_band.setIconSize(10)
         self.vertex_band.setVisible(False)
@@ -188,8 +188,8 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         self.mouse_at_endpoint = None   # Vertex instance or None
         self.endpoint_marker_center = None  # QgsPoint or None (can't get center from QgsVertexMarker)
         self.endpoint_marker = QgsVertexMarker(canvas)
-        self.endpoint_marker.setIconType(QgsVertexMarker.ICON_BOX)
-        self.endpoint_marker.setColor(Qt.red)
+        self.endpoint_marker.setIconType(QgsVertexMarker.IconType.ICON_BOX)
+        self.endpoint_marker.setColor(Qt.GlobalColor.red)
         self.endpoint_marker.setPenWidth(1)
         self.endpoint_marker.setVisible(False)
 
@@ -219,7 +219,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         self.endpoint_marker = None
 
     def deactivate(self):
-        TOMsMessageLog.logMessage("In nodeTool:deactivate .... ", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In nodeTool:deactivate .... ", level=Qgis.MessageLevel.Info)
         self.set_highlighted_nodes([])
         self.remove_temporary_rubber_bands()
         QgsMapToolAdvancedDigitizing.deactivate(self)
@@ -230,10 +230,10 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         layer = self.canvas().currentLayer()
         # layer = self.iface.activeLayer()
 
-        TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer.  layer is " + str(layer.name()), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer.  layer is " + str(layer.name()), level=Qgis.MessageLevel.Info)
 
         if not layer:
-            TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer - no active layer!", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer - no active layer!", level=Qgis.MessageLevel.Info)
             print ("no active layer!")
             return False
 
@@ -245,7 +245,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
             print ("layer not editable!")
             return False
 
-        TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer - using current layer", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:can_use_current_layer - using current layer", level=Qgis.MessageLevel.Info)
 
         return True
 
@@ -273,22 +273,22 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def cadCanvasPressEvent(self, e):
 
-        TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent", level=Qgis.MessageLevel.Info)
 
         if not self.can_use_current_layer():
-            TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent - NOT using current layer ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent - NOT using current layer ...", level=Qgis.MessageLevel.Info)
             return
 
-        TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent - can use layer ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:cadCanvasPressEvent - can use layer ...", level=Qgis.MessageLevel.Info)
 
         # We now have a valid layer ...
 
         self.set_highlighted_nodes([])   # reset selection
 
-        if e.button() == Qt.LeftButton:
+        if e.button() == Qt.MouseButton.LeftButton:
 
             # Ctrl+Click to highlight nodes without entering editing mode
-            if e.modifiers() & Qt.ControlModifier:
+            if e.modifiers() & Qt.KeyboardModifier.ControlModifier:
                 m = self.snap_to_editable_layer(e)
                 if m.hasVertex():
                     node = Vertex(m.layer(), m.featureId(), m.vertexIndex())
@@ -301,7 +301,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def cadCanvasReleaseEvent(self, e):
 
-        TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent", level=Qgis.MessageLevel.Info)
 
         if not self.can_use_current_layer():
             return
@@ -345,22 +345,22 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         # Check to see that changes have been made
 
         else:  # selection rect is not being dragged
-            if e.button() == Qt.LeftButton:
+            if e.button() == Qt.MouseButton.LeftButton:
                 # accepting action
-                TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging ...", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging ...", level=Qgis.MessageLevel.Info)
                 if self.dragging:
-                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging vertex ...", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging vertex ...", level=Qgis.MessageLevel.Info)
                     self.move_vertex(e.mapPoint(), e.mapPointMatch())
                 elif self.dragging_edge:
-                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging edge ...", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging edge ...", level=Qgis.MessageLevel.Info)
                     map_point = self.toMapCoordinates(e.pos())  # do not use e.mapPoint() as it may be snapped
                     self.move_edge(map_point)
                 else:
-                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging something ...", level=Qgis.Info)
+                    TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Dragging something ...", level=Qgis.MessageLevel.Info)
                     self.start_dragging(e)
-            elif e.button() == Qt.RightButton:
+            elif e.button() == Qt.MouseButton.RightButton:
                 # cancelling action
-                TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Stop dragging.", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In NodeTool:cadCanvasReleaseEvent. Stop dragging.", level=Qgis.MessageLevel.Info)
                 self.stop_dragging()
 
         self.dragging_rect_start_pos = None
@@ -480,14 +480,14 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
         map_point = self.toMapCoordinates(e.pos())
         tol = QgsTolerance.vertexSearchRadius(self.canvas().mapSettings())
-        snap_type = QgsPointLocator.Type(QgsPointLocator.Vertex|QgsPointLocator.Edge)
+        snap_type = QgsPointLocator.Type(QgsPointLocator.Type.Vertex|QgsPointLocator.Type.Edge)
 
         snap_layers = []
         for layer in self.canvas().layers():
             if not isinstance(layer, QgsVectorLayer) or not layer.isEditable():
                 continue
             snap_layers.append(QgsSnappingUtils.LayerConfig(
-                layer, snap_type, tol, QgsTolerance.ProjectUnits))
+                layer, snap_type, tol, QgsTolerance.UnitType.ProjectUnits))
 
         snap_util = self.canvas().snappingUtils()
         old_layers = snap_util.layers()
@@ -532,7 +532,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
     def is_match_at_endpoint(self, match):
         geom = self.cached_geometry(match.layer(), match.featureId())
 
-        if geom.type() != QgsWkbTypes.LineGeometry:
+        if geom.type() != QgsWkbTypes.GeometryType.LineGeometry:
             return False
 
         return is_endpoint_at_vertex_index(geom, match.vertexIndex())
@@ -552,14 +552,14 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def mouse_move_not_dragging(self, e):
 
-        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_dragging", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_dragging", level=Qgis.MessageLevel.Info)
 
         if self.mouse_at_endpoint is not None:
             # check if we are still at the endpoint, i.e. whether to keep showing
             # the endpoint indicator - or go back to snapping to editable layers
             map_point = self.toMapCoordinates(e.pos())
             if self.is_near_endpoint_marker(map_point):
-                self.endpoint_marker.setColor(Qt.red)
+                self.endpoint_marker.setColor(Qt.GlobalColor.red)
                 self.endpoint_marker.update()
                 # make it clear this would add endpoint, not move the vertex
                 self.vertex_band.setVisible(False)
@@ -568,12 +568,12 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         # do not use snap from mouse event, use our own with any editable layer
         m = self.snap_to_editable_layer(e)
 
-        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: snap point " + str(m.type()) +";" + str(m.isValid()) + "; " + self.toMapCoordinates(e.pos()).asWkt(), level=Qgis.Info)
-        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: vertex " + str(m.hasVertex()) +"; edge" + str(m.hasEdge()) + "; area " + str(m.hasArea()), level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: snap point " + str(m.type()) +";" + str(m.isValid()) + "; " + self.toMapCoordinates(e.pos()).asWkt(), level=Qgis.MessageLevel.Info)
+        TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: vertex " + str(m.hasVertex()) +"; edge" + str(m.hasEdge()) + "; area " + str(m.hasArea()), level=Qgis.MessageLevel.Info)
 
         # possibility to move a node
-        if m.type() == QgsPointLocator.Vertex:
-            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: vertex ...", level=Qgis.Info)
+        if m.type() == QgsPointLocator.Type.Vertex:
+            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: vertex ...", level=Qgis.MessageLevel.Info)
             self.vertex_band.setToGeometry(QgsGeometry.fromPointXY(m.point()), None)
             self.vertex_band.setVisible(True)
             is_circular_vertex = False
@@ -581,14 +581,14 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
                 geom = self.cached_geometry(m.layer(), m.featureId())
                 is_circular_vertex = _is_circular_vertex(geom, m.vertexIndex())
 
-            self.vertex_band.setIcon(QgsRubberBand.ICON_FULL_BOX if is_circular_vertex else QgsRubberBand.ICON_CIRCLE)
+            self.vertex_band.setIcon(QgsRubberBand.IconType.ICON_FULL_BOX if is_circular_vertex else QgsRubberBand.IconType.ICON_CIRCLE)
             # if we are at an endpoint, let's show also the endpoint indicator
             # so user can possibly add a new vertex at the end
             if self.is_match_at_endpoint(m):
                 self.mouse_at_endpoint = Vertex(m.layer(), m.featureId(), m.vertexIndex())
                 self.endpoint_marker_center = self.position_for_endpoint_marker(m)
                 self.endpoint_marker.setCenter(self.endpoint_marker_center)
-                self.endpoint_marker.setColor(Qt.gray)
+                self.endpoint_marker.setColor(Qt.GlobalColor.gray)
                 self.endpoint_marker.setVisible(True)
                 self.endpoint_marker.update()
             else:
@@ -602,12 +602,12 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
             self.endpoint_marker.setVisible(False)
 
         # possibility to create new node here - or to move the edge
-        if m.type() == QgsPointLocator.Edge:
-            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: edge ...", level=Qgis.Info)
+        if m.type() == QgsPointLocator.Type.Edge:
+            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_draggin: edge ...", level=Qgis.MessageLevel.Info)
             map_point = self.toMapCoordinates(e.pos())
             edge_center, is_near_center = self._match_edge_center_test(m, map_point)
             self.edge_center_marker.setCenter(QgsPointXY(edge_center))
-            self.edge_center_marker.setColor(Qt.red if is_near_center else Qt.gray)
+            self.edge_center_marker.setColor(Qt.GlobalColor.red if is_near_center else Qt.GlobalColor.gray)
             self.edge_center_marker.setVisible(True)
             self.edge_center_marker.update()
 
@@ -620,14 +620,14 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
         # highlight feature
         if m.isValid() and m.layer():
-            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_dragging: highlighting feature ...", level=Qgis.Info)
+            TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_dragging: highlighting feature ...", level=Qgis.MessageLevel.Info)
             if self.feature_band_source == (m.layer(), m.featureId()):
                 return  # skip regeneration of rubber band if not needed
             geom = self.cached_geometry(m.layer(), m.featureId())
             if QgsWkbTypes.isCurvedType(geom.get().wkbType()):
                 geom = QgsGeometry(geom.get().segmentize())
                 TOMsMessageLog.logMessage("In NodeTool:mouse_move_not_dragging: showing feature ...",
-                                         level=Qgis.Info)
+                                         level=Qgis.MessageLevel.Info)
             self.feature_band.setToGeometry(geom, m.layer())
             self.feature_band.setVisible(True)
             self.feature_band_source = (m.layer(), m.featureId())
@@ -637,20 +637,20 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def keyPressEvent(self, e):
 
-        TOMsMessageLog.logMessage("In NodeTool:keyPressEvent", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:keyPressEvent", level=Qgis.MessageLevel.Info)
 
         if not self.dragging and len(self.selected_nodes) == 0:
             return
 
-        if e.key() == Qt.Key_Delete:
+        if e.key() == Qt.Key.Key_Delete:
             e.ignore()  # Override default shortcut management
             self.delete_vertex()
-        elif e.key() == Qt.Key_Escape:
+        elif e.key() == Qt.Key.Key_Escape:
             if self.dragging:
                 self.stop_dragging()
-        elif e.key() == Qt.Key_Comma:
+        elif e.key() == Qt.Key.Key_Comma:
             self.highlight_adjacent_vertex(-1)
-        elif e.key() == Qt.Key_Period:
+        elif e.key() == Qt.Key.Key_Period:
             self.highlight_adjacent_vertex(+1)
 
     # ------------
@@ -680,7 +680,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def on_cached_geometry_changed(self, fid, geom):
         """ update geometry of our feature """
-        TOMsMessageLog.logMessage("In NodeTool:on_cached_geometry_changed", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In NodeTool:on_cached_geometry_changed", level=Qgis.MessageLevel.Info)
         layer = self.sender()
         assert layer in self.cache
         if fid in self.cache[layer]:
@@ -695,7 +695,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def start_dragging(self, e):
 
-        TOMsMessageLog.logMessage("In start_dragging", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In start_dragging", level=Qgis.MessageLevel.Info)
 
         map_point = self.toMapCoordinates(e.pos())
         if self.is_near_endpoint_marker(map_point):
@@ -729,7 +729,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
         assert m.hasVertex()
 
-        TOMsMessageLog.logMessage("In start_dragging_move_vertex ...", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In start_dragging_move_vertex ...", level=Qgis.MessageLevel.Info)
 
         geom = self.cached_geometry(m.layer(), m.featureId())
 
@@ -768,14 +768,14 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
             if not isinstance(layer, QgsVectorLayer) or not layer.isEditable():
                 continue
 
-            TOMsMessageLog.logMessage("In start_dragging_move_vertex. Considering " + str(layer.name()), level=Qgis.Info)
+            TOMsMessageLog.logMessage("In start_dragging_move_vertex. Considering " + str(layer.name()), level=Qgis.MessageLevel.Info)
 
             for other_m in self.layer_vertices_snapped_to_point(layer, map_point):
-                TOMsMessageLog.logMessage("In start_dragging_move_vertex. Looking for match on " + str(layer.name()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In start_dragging_move_vertex. Looking for match on " + str(layer.name()), level=Qgis.MessageLevel.Info)
 
                 if other_m == m: continue
 
-                TOMsMessageLog.logMessage("In start_dragging_move_vertex. Found locator for " + str(layer.name()), level=Qgis.Info)
+                TOMsMessageLog.logMessage("In start_dragging_move_vertex. Found locator for " + str(layer.name()), level=Qgis.MessageLevel.Info)
 
                 other_g = self.cached_geometry(other_m.layer(), other_m.featureId())
 
@@ -815,7 +815,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
                 pt = QgsPoint()
                 vNr = 0
 
-                TOMsMessageLog.logMessage("In layer_vertices_snapped_to_point.acceptMatch", level=Qgis.Info)
+                TOMsMessageLog.logMessage("In layer_vertices_snapped_to_point.acceptMatch", level=Qgis.MessageLevel.Info)
 
                 # while match_geom.get().nextVertex(vid, pt):
                 geomIter = match_geom.vertices()
@@ -834,7 +834,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
                 return True
 
-        TOMsMessageLog.logMessage("In layer_vertices_snapped_to_point", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In layer_vertices_snapped_to_point", level=Qgis.MessageLevel.Info)
 
         myfilter = MyFilter(self)
         loc = self.canvas().snappingUtils().locatorForLayer(layer)
@@ -843,7 +843,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def start_dragging_add_vertex(self, m):
 
-        TOMsMessageLog.logMessage("In start_dragging_add_vertex", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In start_dragging_add_vertex", level=Qgis.MessageLevel.Info)
         assert m.hasEdge()
 
         # activate advanced digitizing dock
@@ -874,7 +874,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def start_dragging_add_vertex_at_endpoint(self, map_point):
 
-        TOMsMessageLog.logMessage("In start_dragging_add_vertex_at_endpoint", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In start_dragging_add_vertex_at_endpoint", level=Qgis.MessageLevel.Info)
         assert self.mouse_at_endpoint is not None
 
         # activate advanced digitizing dock
@@ -899,7 +899,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def start_dragging_edge(self, m, map_point):
 
-        TOMsMessageLog.logMessage("In start_dragging_edge", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In start_dragging_edge", level=Qgis.MessageLevel.Info)
         assert m.hasEdge()
 
         # activate advanced digitizing
@@ -941,7 +941,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
 
     def stop_dragging(self):
 
-        TOMsMessageLog.logMessage("In stop_dragging", level=Qgis.Info)
+        TOMsMessageLog.logMessage("In stop_dragging", level=Qgis.MessageLevel.Info)
         # deactivate advanced digitizing
         # self.setMode(self.CaptureNone)
         self. setAutoSnapEnabled(False)  # v3
@@ -1040,7 +1040,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
             drag_part, drag_ring, drag_vertex = vertex_index_to_tuple(geom, drag_vertex_id)
             if adding_at_endpoint and drag_vertex != 0:  # appending?
                 drag_vertex += 1
-            vid = QgsVertexId(drag_part, drag_ring, drag_vertex, QgsVertexId.SegmentVertex)
+            vid = QgsVertexId(drag_part, drag_ring, drag_vertex, QgsVertexId.VertexType.SegmentVertex)
             geom_tmp = geom.get().clone()
             if not geom_tmp.insertVertex(vid, QgsPoint(layer_point)):
                 print ("append vertex failed!")
@@ -1113,11 +1113,11 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
             success = True
 
             for fid, vertex_ids in features_dict.items():
-                res = QgsVectorLayer.Success
+                res = QgsVectorLayer.EditResult.Success
                 for vertex_id in sorted(vertex_ids, reverse=True):
-                    if res != QgsVectorLayer.EmptyGeometry:
+                    if res != QgsVectorLayer.EditResult.EmptyGeometry:
                         res = layer.deleteVertex(fid, vertex_id)
-                    if res != QgsVectorLayer.EmptyGeometry and res != QgsVectorLayer.Success:
+                    if res != QgsVectorLayer.EditResult.EmptyGeometry and res != QgsVectorLayer.EditResult.Success:
                         print ("failed to delete vertex!", layer.name(), fid, vertex_id, vertex_ids)
                         success = False
 
@@ -1149,10 +1149,10 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         for node in list_nodes:
             geom = self.cached_geometry_for_vertex(node)
             marker = QgsVertexMarker(self.canvas())
-            marker.setIconType(QgsVertexMarker.ICON_CIRCLE)
+            marker.setIconType(QgsVertexMarker.IconType.ICON_CIRCLE)
             #marker.setIconSize(5)
             #marker.setPenWidth(2)
-            marker.setColor(Qt.blue)
+            marker.setColor(Qt.GlobalColor.blue)
             marker.setCenter(QgsPointXY(geom.vertexAt(node.vertex_id)))
             self.selected_nodes_markers.append(marker)
         self.selected_nodes = list_nodes
@@ -1177,7 +1177,7 @@ class NodeTool(QgsMapToolAdvancedDigitizing):
         assert self.selection_rect is None
         self.selection_rect = QRect()
         self.selection_rect.setTopLeft(point0)
-        self.selection_rect_item = QRubberBand(QRubberBand.Rectangle, self.canvas())
+        self.selection_rect_item = QRubberBand(QRubberBand.Shape.Rectangle, self.canvas())
 
     def update_selection_rect(self, point1):
         """Update bottom-right corner of the existing selection rectangle.

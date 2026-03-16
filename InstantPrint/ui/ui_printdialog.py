@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from qgis.PyQt import QtCore, QtGui, QtWidgets
 
 class Ui_InstantPrintDialog(object):
     def setupUi(self, InstantPrintDialog):
@@ -33,8 +33,10 @@ class Ui_InstantPrintDialog(object):
         self.comboBox_fileformat.setObjectName("comboBox_fileformat")
         self.gridLayout.addWidget(self.comboBox_fileformat, 2, 1, 1, 1)
         self.buttonBox = QtWidgets.QDialogButtonBox(InstantPrintDialog)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Close)
+        # Qt5: Qt.Horizontal; Qt6: Qt.Orientation.Horizontal
+        self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
+        # Qt5: QDialogButtonBox.Close; Qt6: QDialogButtonBox.StandardButton.Close
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Close)
         self.buttonBox.setObjectName("buttonBox")
         self.gridLayout.addWidget(self.buttonBox, 3, 0, 1, 2)
         self.widget = QtWidgets.QWidget(InstantPrintDialog)
@@ -44,7 +46,11 @@ class Ui_InstantPrintDialog(object):
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.comboBox_scale = QgsScaleComboBox(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        # Qt5: QSizePolicy.Expanding / Fixed; Qt6: QSizePolicy.Policy.Expanding / Fixed
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Expanding,
+            QtWidgets.QSizePolicy.Policy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox_scale.sizePolicy().hasHeightForWidth())
