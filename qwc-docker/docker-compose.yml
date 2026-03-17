@@ -1,0 +1,456 @@
+
+
+# ============================================================
+# PRODUCTION-READY QWC Docker Compose
+# ============================================================
+# Prerequisites:
+#   Create a .env file alongside this file with at minimum:
+#     POSTGRES_PASSWORD=<strong-password>
+#     JWT_SECRET_KEY=<long-random-string>  (min 32 chars recommended)
+#
+# Generate a strong JWT secret:
+#   openssl rand -hex 32
+# ============================================================
+
+x-qwc-service-variables: &qwc-service-variables
+  # SECURITY: Never commit a real secret. Set JWT_SECRET_KEY in your .env file.
+  JWT_SECRET_KEY: "${JWT_SECRET_KEY}"
+  JWT_COOKIE_CSRF_PROTECT: 'True'
+  JWT_COOKIE_SAMESITE: 'Strict'
+  # Production: cookies only sent over HTTPS
+  JWT_COOKIE_SECURE: 'True'
+  SERVICE_UID: 1000
+  SERVICE_GID: 1000
+  TENANT_HEADER: Tenant
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+
+  # ─── Database ───────────────────────────────────────────────
+  qwc-postgis:
+    image: sourcepole/qwc-base-db:18
+    container_name: qwc-postgis
+    restart: unless-stopped
+    environment:
+      # SECURITY: Set POSTGRES_PASSWORD in your .env file
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/docker
+      # NOTE: Remove the line below if you don't need the demo data
+      - ./volumes/demo-data/setup-demo-data.sh:/docker-entrypoint-initdb.d/2_setup-demo-data.sh
+    ports:
+      - "127.0.0.1:5439:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging: *default-logging
+
+  # ─── DB Migration ───────────────────────────────────────────
+  qwc-config-db-migrate:
+    image: sourcepole/qwc-base-db-migrate:latest-2026-lts
+    container_name: qwc-config-db-migrate
+    restart: on-failure
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    volumes:
+      - ./pg_service.conf:/tmp/pg_service.conf:ro
+      # NOTE: Remove the line below if you don't need the demo data
+      - ./volumes/demo-data/setup-demo-data-permissions.sh:/tmp/extra-init.d/setup-demo-data-permissions.sh
+    logging: *default-logging
+
+  # ─── QGIS Server ────────────────────────────────────────────
+  qwc-qgis-server:
+    image: sourcepole/qwc-qgis-server:3.40
+    container_name: qwc-qgis-server
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      FCGID_EXTRA_ENV: 'PRINT_LAYOUT_DIR'
+      PRINT_LAYOUT_DIR: '/layouts'
+    volumes:
+      - ./volumes/qgs-resources:/data:ro
+      - ./pg_service.conf:/etc/postgresql-common/pg_service.conf:ro
+      - ./volumes/qgis-server-plugins/print_templates:/usr/share/qgis/python/plugins/print_templates:ro
+      - ./volumes/qgis-server-plugins/split_categorized:/usr/share/qgis/python/plugins/split_categorized:ro
+      - ./volumes/qgis-server-plugins/filter_geom:/usr/share/qgis/python/plugins/filter_geom:ro
+      - ./volumes/qgis-server-plugins/clear_capabilities:/usr/share/qgis/python/plugins/clear_capabilities:ro
+      - ./volumes/print-layouts:/layouts:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf 'http://localhost/ows/toms_test?SERVICE=WMS&REQUEST=GetCapabilities' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    logging: *default-logging
+
+  # ─── Config Service ─────────────────────────────────────────
+  qwc-config-service:
+    image: sourcepole/qwc-config-generator:latest-2026-lts
+    container_name: qwc-config-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      INPUT_CONFIG_PATH: '/srv/qwc_service/config-in'
+      OUTPUT_CONFIG_PATH: '/srv/qwc_service/config-out'
+      GENERATE_DYNAMIC_KVRELS: 1
+    volumes:
+      - ./volumes/config-in:/srv/qwc_service/config-in:ro
+      - ./volumes/config:/srv/qwc_service/config-out
+      - ./volumes/qwc2:/qwc2
+      - ./volumes/qgs-resources:/data
+      - ./volumes/print-layouts:/layouts:ro
+      - ./volumes/reports:/reports
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9090/ready || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging: *default-logging
+
+  # ─── Admin GUI ───────────────────────────────────────────────
+  qwc-admin-gui:
+    image: sourcepole/qwc-admin-gui:latest-2026-lts
+    container_name: qwc-admin-gui
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      # Admin GUI uses Flask-WTF CSRF — JWT CSRF must be disabled here
+      JWT_COOKIE_CSRF_PROTECT: 'False'
+      GROUP_REGISTRATION_ENABLED: 'True'
+      DEFAULT_LOCALE: 'en'
+      # SECURITY: Configure a real mail server in production — suppress is dev-only
+      MAIL_SUPPRESS_SEND: 'True'
+      MAIL_DEFAULT_SENDER: 'from@example.com'
+      # Uncomment and configure for production mail:
+      # MAIL_SUPPRESS_SEND: 'False'
+      # MAIL_DEFAULT_SENDER: 'admin@example.com'
+      # MAIL_SERVER: 'mail.example.com'
+      # MAIL_PORT: '465'
+      # MAIL_USERNAME: 'admin@example.com'
+      # MAIL_PASSWORD: '${MAIL_PASSWORD}'
+      # MAIL_USE_SSL: 'True'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Auth Service ────────────────────────────────────────────
+  qwc-auth-service:
+    image: sourcepole/qwc-db-auth:latest-2026-lts
+    container_name: qwc-auth-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/auth'
+      # SECURITY: Enable TOTP for 2FA in production
+      # TOTP_ENABLED: 'True'
+      # TOTP_ISSUER_NAME: 'QWC Services'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Data Service ────────────────────────────────────────────
+  qwc-data-service:
+    image: sourcepole/qwc-data-service:latest-2026-lts
+    container_name: qwc-data-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/data'
+      ATTACHMENTS_BASE_DIR: '/attachments'
+      MAX_ATTACHMENT_FILE_SIZE: 1048576
+    volumes:
+      - ./volumes/config:/srv/qwc_service/config:ro
+      - ./volumes/attachments:/attachments
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      # NOTE: Use a separate pg_service-write.conf with R/W DB users
+      # for better principle-of-least-privilege separation:
+      # - ./pg_service-write.conf:/srv/pg_service.conf:ro
+    logging: *default-logging
+
+  # ─── Document Service ────────────────────────────────────────
+  qwc-document-service:
+    image: sourcepole/qwc-document-service:latest-2026-lts
+    container_name: qwc-document-service
+    restart: unless-stopped
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/document'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/reports:/reports
+      - ./volumes/reports/fonts:/srv/qwc_service/fonts
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Elevation Service ───────────────────────────────────────
+  qwc-elevation-service:
+    image: sourcepole/qwc-elevation-service:latest-2026-lts
+    container_name: qwc-elevation-service
+    restart: unless-stopped
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/elevation'
+    volumes:
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Feature Info Service ────────────────────────────────────
+  qwc-feature-info-service:
+    image: sourcepole/qwc-feature-info-service:latest-2026-lts
+    container_name: qwc-feature-info-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/featureinfo'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+      - ./volumes/info-templates:/info_templates:ro
+    logging: *default-logging
+
+  # ─── Fulltext Search Service ─────────────────────────────────
+  qwc-fulltext-search-service:
+    image: sourcepole/qwc-fulltext-search-service:latest-2026-lts
+    container_name: qwc-fulltext-search-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+      qwc-solr:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v2/search'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Solr ────────────────────────────────────────────────────
+  qwc-solr:
+    image: solr:8.11-slim
+    container_name: qwc-solr
+    restart: unless-stopped
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - gdi
+      - /gdi_conf
+    ports:
+      - "127.0.0.1:8983:8983"
+    volumes:
+      - ./volumes/solr/configsets/gdi:/gdi_conf:ro
+      # NOTE: Run `sudo chown 8983:8983 volumes/solr/data` once before starting
+      - ./volumes/solr/data:/var/solr/data
+      # SECURITY: Enable Solr Basic Auth in production:
+      # Change "#credentials" → "credentials" in security.json to add user 'solr' / 'SolrRocks'
+      # - ./volumes/solr/security.json:/var/solr/data/security.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8983/solr/gdi/admin/ping || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging: *default-logging
+
+  # ─── Legend Service ──────────────────────────────────────────
+  qwc-legend-service:
+    image: sourcepole/qwc-legend-service:latest-2026-lts
+    container_name: qwc-legend-service
+    restart: unless-stopped
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/legend'
+    volumes:
+      - ./volumes/config:/srv/qwc_service/config:ro
+      - ./volumes/legends:/legends
+    logging: *default-logging
+
+  # ─── Map Info Service ────────────────────────────────────────
+  qwc-mapinfo-service:
+    image: sourcepole/qwc-mapinfo-service:latest-2026-lts
+    container_name: qwc-mapinfo-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/mapinfo'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Map Viewer ──────────────────────────────────────────────
+  qwc-map-viewer:
+    image: sourcepole/qwc-map-viewer:latest-2026-lts
+    # For a custom viewer build, swap to:
+    # image: sourcepole/qwc-map-viewer-base:latest-2026-lts
+    container_name: qwc-map-viewer
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+      # Stock viewer assets:
+      - ./volumes/qwc2/assets:/qwc2/assets:ro
+      # Custom viewer build (uncomment when using qwc-map-viewer-base):
+      # - ./volumes/qwc2:/qwc2:ro
+    logging: *default-logging
+
+  # ─── OGC Service ─────────────────────────────────────────────
+  qwc-ogc-service:
+    image: sourcepole/qwc-ogc-service:latest-2026-lts
+    container_name: qwc-ogc-service
+    restart: unless-stopped
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/ows'
+    volumes:
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Permalink Service ───────────────────────────────────────
+  qwc-permalink-service:
+    image: sourcepole/qwc-permalink-service:latest-2026-lts
+    container_name: qwc-permalink-service
+    restart: unless-stopped
+    depends_on:
+      qwc-postgis:
+        condition: service_healthy
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/permalink'
+    volumes:
+      - ./pg_service.conf:/srv/pg_service.conf:ro
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── Print Service ───────────────────────────────────────────
+  qwc-print-service:
+    image: sourcepole/qwc-print-service:latest-2026-lts
+    container_name: qwc-print-service
+    restart: unless-stopped
+    environment:
+      <<: *qwc-service-variables
+      SERVICE_MOUNTPOINT: '/api/v1/print'
+    volumes:
+      - ./volumes/config:/srv/qwc_service/config:ro
+    logging: *default-logging
+
+  # ─── API Gateway (nginx) ──────────────────────────────────────
+  qwc-api-gateway:
+    image: nginx:1.29
+    container_name: qwc-api-gateway
+    restart: unless-stopped
+    ports:
+      # SECURITY: Bind to 127.0.0.1 and put a TLS-terminating reverse proxy
+      # (e.g. Caddy or Certbot+nginx) in front of this for public HTTPS access.
+      - "127.0.0.1:8088:80"
+    volumes:
+      - ./api-gateway/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - qwc-postgis
+      - qwc-qgis-server
+      - qwc-config-service
+      - qwc-admin-gui
+      - qwc-auth-service
+      - qwc-data-service
+      - qwc-document-service
+      - qwc-elevation-service
+      - qwc-feature-info-service
+      - qwc-fulltext-search-service
+      - qwc-legend-service
+      - qwc-map-viewer
+      - qwc-mapinfo-service
+      - qwc-ogc-service
+      - qwc-permalink-service
+      - qwc-print-service
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost/healthz || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    logging: *default-logging
+
+  # ─── Optional / Uncomment to enable ─────────────────────────
+  # qwc-3d-tile-info-service:
+  #   image: docker.io/sourcepole/qwc-3d-tile-info-service:latest-2026-lts
+  #   container_name: qwc-3d-tile-info-service
+  #   restart: unless-stopped
+  #   environment:
+  #     <<: *qwc-service-variables
+  #     SERVICE_MOUNTPOINT: '/api/v1/tileinfo'
+  #   volumes:
+  #     - ./pg_service.conf:/srv/pg_service.conf:ro
+  #     - ./volumes/config:/srv/qwc_service/config:ro
+  #     - ./volumes/qgs-resources:/data:ro
+  #   logging: *default-logging
+
+  # qwc-oblique-imagery-service:
+  #   image: docker.io/sourcepole/qwc-oblique-imagery-service:latest-2026-lts
+  #   container_name: qwc-oblique-imagery-service
+  #   restart: unless-stopped
+  #   environment:
+  #     <<: *qwc-service-variables
+  #     SERVICE_MOUNTPOINT: '/api/v1/oblique-imagery'
+  #   volumes:
+  #     - ./volumes/config:/srv/qwc_service/config:ro
+  #     - ./volumes/oblique-images:/images:ro
+  #   logging: *default-logging
+
+  # qwc-registration-gui:
+  #   image: sourcepole/qwc-registration-gui:latest-2026-lts
+  #   container_name: qwc-registration-gui
+  #   restart: unless-stopped
+  #   environment:
+  #     <<: *qwc-service-variables
+  #     SERVICE_MOUNTPOINT: '/registration'
+  #     DEFAULT_LOCALE: 'en'
+  #     ADMIN_RECIPIENTS: 'admin@example.com'
+  #     MAIL_SUPPRESS_SEND: 'False'
+  #     MAIL_DEFAULT_SENDER: 'from@example.com'
+  #   volumes:
+  #     - ./pg_service.conf:/srv/pg_service.conf:ro
+  #   logging: *default-logging
+
+networks:
+  default:
+    name: toms_net
+    external: true

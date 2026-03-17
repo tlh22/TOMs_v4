@@ -1,0 +1,408 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<WMS_Capabilities xmlns="http://www.opengis.net/wms" xmlns:qgs="http://www.qgis.org/wms" xmlns:sld="http://www.opengis.net/sld" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wms http://schemas.opengis.net/wms/1.3.0/capabilities_1_3_0.xsd http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/sld_capabilities.xsd http://www.qgis.org/wms http://qwc-qgis-server/ows/scan/natural-earth-countries?SERVICE=WMS&amp;REQUEST=GetSchemaExtension" version="1.3.0">
+ <Service>
+  <Name>WMS</Name>
+  <Title>Natural Earth Countries</Title>
+  <KeywordList>
+   <Keyword vocabulary="ISO">infoMapAccessService</Keyword>
+  </KeywordList>
+  <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries" />
+  <Fees>conditions unknown</Fees>
+  <AccessConstraints>None</AccessConstraints>
+ </Service>
+ <Capability>
+  <Request>
+   <GetCapabilities>
+    <Format>text/xml</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </GetCapabilities>
+   <GetMap>
+    <Format>image/jpeg</Format>
+    <Format>image/png</Format>
+    <Format>image/png; mode=16bit</Format>
+    <Format>image/png; mode=8bit</Format>
+    <Format>image/png; mode=1bit</Format>
+    <Format>application/dxf</Format>
+    <Format>application/pdf</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </GetMap>
+   <GetFeatureInfo>
+    <Format>text/plain</Format>
+    <Format>text/html</Format>
+    <Format>text/xml</Format>
+    <Format>application/vnd.ogc.gml</Format>
+    <Format>application/vnd.ogc.gml/3.1.1</Format>
+    <Format>application/json</Format>
+    <Format>application/geo+json</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </GetFeatureInfo>
+   <sld:GetLegendGraphic>
+    <Format>image/jpeg</Format>
+    <Format>image/png</Format>
+    <Format>application/json</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </sld:GetLegendGraphic>
+   <sld:DescribeLayer>
+    <Format>text/xml</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </sld:DescribeLayer>
+   <qgs:GetStyles>
+    <Format>text/xml</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </qgs:GetStyles>
+   <GetPrint>
+    <Format>svg</Format>
+    <Format>png</Format>
+    <Format>pdf</Format>
+    <DCPType>
+     <HTTP>
+      <Get>
+       <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?" />
+      </Get>
+     </HTTP>
+    </DCPType>
+   </GetPrint>
+  </Request>
+  <Exception>
+   <Format>XML</Format>
+  </Exception>
+  <sld:UserDefinedSymbolization RemoteWFS="0" UserStyle="1" RemoteWCS="0" SupportSLD="1" UserLayer="0" InlineFeature="0" />
+  <Layer queryable="1">
+   <Name>qwc_demo</Name>
+   <Title>Natural Earth Countries</Title>
+   <KeywordList>
+    <Keyword vocabulary="ISO">infoMapAccessService</Keyword>
+   </KeywordList>
+   <CRS>CRS:84</CRS>
+   <CRS>EPSG:4326</CRS>
+   <CRS>EPSG:3857</CRS>
+   <EX_GeographicBoundingBox>
+    <westBoundLongitude>-179.999996</westBoundLongitude>
+    <eastBoundLongitude>179.999996</eastBoundLongitude>
+    <southBoundLatitude>-89</southBoundLatitude>
+    <northBoundLatitude>89</northBoundLatitude>
+   </EX_GeographicBoundingBox>
+   <BoundingBox maxx="20037507.843" CRS="EPSG:3857" maxy="30240971.459" miny="-30240971.459" minx="-20037507.843" />
+   <BoundingBox maxx="89" CRS="EPSG:4326" maxy="179.999996" miny="-179.999996" minx="-89" />
+   <TreeName>Natural Earth Countries</TreeName>
+   <Layer geometryType="MultiLineString" visibilityChecked="1" queryable="1" visible="1" opacity="1" displayField="name" expanded="1">
+    <Name>geographic_lines</Name>
+    <Title>Geographic lines</Title>
+    <CRS>CRS:84</CRS>
+    <CRS>EPSG:4326</CRS>
+    <CRS>EPSG:3857</CRS>
+    <EX_GeographicBoundingBox>
+     <westBoundLongitude>-180</westBoundLongitude>
+     <eastBoundLongitude>179.999997</eastBoundLongitude>
+     <southBoundLatitude>-66.549927</southBoundLatitude>
+     <northBoundLatitude>66.549986</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox maxx="20037507.921" CRS="EPSG:3857" maxy="10029019.734" miny="-10029003.188" minx="-20037508.343" />
+    <BoundingBox maxx="66.549986" CRS="EPSG:4326" maxy="179.999997" miny="-180" minx="-66.549927" />
+    <Style>
+     <Name>default</Name>
+     <Title>default</Title>
+     <LegendURL>
+      <Format>image/png</Format>
+      <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetLegendGraphic&amp;LAYER=geographic_lines&amp;FORMAT=image/png&amp;STYLE=default&amp;SLD_VERSION=1.1.0" />
+     </LegendURL>
+    </Style>
+    <TreeName>Geographic lines</TreeName>
+    <PrimaryKey>
+     <PrimaryKeyAttribute>ogc_fid</PrimaryKeyAttribute>
+    </PrimaryKey>
+    <Attributes>
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="ogc_fid" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="scalerank" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_long" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="abbrev" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="note" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="featurecla" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="min_zoom" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="wikidataid" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ar" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_bn" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_de" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_en" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_es" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_fr" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_el" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_hi" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_hu" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_id" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_it" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ja" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ko" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_nl" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_pl" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_pt" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ru" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_sv" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_tr" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_vi" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_zh" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="wdid_score" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="ne_id" comment="" />
+    </Attributes>
+   </Layer>
+   <Layer geometryType="Point" visibilityChecked="1" queryable="1" visible="1" opacity="1" displayField="z_name" expanded="1">
+    <Name>country_names</Name>
+    <Title>Country names</Title>
+    <CRS>CRS:84</CRS>
+    <CRS>EPSG:4326</CRS>
+    <CRS>EPSG:3857</CRS>
+    <EX_GeographicBoundingBox>
+     <westBoundLongitude>-177.22902</westBoundLongitude>
+     <eastBoundLongitude>178.519895</eastBoundLongitude>
+     <southBoundLatitude>-80.516568</southBoundLatitude>
+     <northBoundLatitude>73.34887</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox maxx="19872743.797" CRS="EPSG:3857" maxy="12257650.088" miny="-15878634.349" minx="-19729044.152" />
+    <BoundingBox maxx="73.34887" CRS="EPSG:4326" maxy="178.519895" miny="-177.22902" minx="-80.516568" />
+    <Style>
+     <Name>default</Name>
+     <Title>default</Title>
+     <LegendURL>
+      <Format>image/png</Format>
+      <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetLegendGraphic&amp;LAYER=country_names&amp;FORMAT=image/png&amp;STYLE=default&amp;SLD_VERSION=1.1.0" />
+     </LegendURL>
+    </Style>
+    <MinScaleDenominator>0</MinScaleDenominator>
+    <MaxScaleDenominator>10000000</MaxScaleDenominator>
+    <TreeName>Country names</TreeName>
+    <PrimaryKey>
+     <PrimaryKeyAttribute>ogc_fid</PrimaryKeyAttribute>
+    </PrimaryKey>
+    <Attributes>
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="ogc_fid" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="scalerank" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="labelrank" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="z_postal" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="z_abbrev" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="z_name" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="z_admin" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="30" name="featurecla" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="32" name="sovereignt" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="3" name="sov_a3" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="adm0_dif" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="level" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="17" name="type" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="36" name="admin" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="3" name="adm0_a3" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="geou_dif" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="26" name="name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="13" name="abbrev" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="4" name="postal" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="53" name="name_forma" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="32" name="terr_" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="43" name="name_sort" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="map_color" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="pop_est" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="gdp_md_est" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="fips_10_" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="3" name="iso_a2" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="3" name="iso_a3" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="iso_n3" comment="" />
+    </Attributes>
+   </Layer>
+   <Layer geometryType="MultiLineString" visibilityChecked="1" queryable="1" visible="1" opacity="1" displayField="name" expanded="1">
+    <Name>states_provinces</Name>
+    <Title>States and Provinces</Title>
+    <CRS>CRS:84</CRS>
+    <CRS>EPSG:4326</CRS>
+    <CRS>EPSG:3857</CRS>
+    <EX_GeographicBoundingBox>
+     <westBoundLongitude>-178.137086</westBoundLongitude>
+     <eastBoundLongitude>178.448623</eastBoundLongitude>
+     <southBoundLatitude>-49.250871</southBoundLatitude>
+     <northBoundLatitude>81.128532</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox maxx="19864809.764" CRS="EPSG:3857" maxy="16305918.535" miny="-6317536.49" minx="-19830129.665" />
+    <BoundingBox maxx="81.128532" CRS="EPSG:4326" maxy="178.448623" miny="-178.137086" minx="-49.250871" />
+    <Style>
+     <Name>default</Name>
+     <Title>default</Title>
+     <LegendURL>
+      <Format>image/png</Format>
+      <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetLegendGraphic&amp;LAYER=states_provinces&amp;FORMAT=image/png&amp;STYLE=default&amp;SLD_VERSION=1.1.0" />
+     </LegendURL>
+    </Style>
+    <MinScaleDenominator>0</MinScaleDenominator>
+    <MaxScaleDenominator>5000000</MaxScaleDenominator>
+    <TreeName>States and Provinces</TreeName>
+    <PrimaryKey>
+     <PrimaryKeyAttribute>ogc_fid</PrimaryKeyAttribute>
+    </PrimaryKey>
+    <Attributes>
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="featurecla" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="adm0_a3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="adm0_name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="sov_a3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_l" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_r" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_alt_l" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_alt_r" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_loc_l" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_loc_r" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="name_len_l" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="name_len_r" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="note" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="type" comment="" />
+    </Attributes>
+   </Layer>
+   <Layer geometryType="MultiPolygon" visibilityChecked="1" queryable="1" visible="1" opacity="1" displayField="name" expanded="0">
+    <Name>countries</Name>
+    <Title>Countries</Title>
+    <CRS>CRS:84</CRS>
+    <CRS>EPSG:4326</CRS>
+    <CRS>EPSG:3857</CRS>
+    <EX_GeographicBoundingBox>
+     <westBoundLongitude>-180</westBoundLongitude>
+     <eastBoundLongitude>180</eastBoundLongitude>
+     <southBoundLatitude>-89.501386</southBoundLatitude>
+     <northBoundLatitude>83.634101</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox maxx="20037508.343" CRS="EPSG:3857" maxy="18428920.013" miny="-34679773.786" minx="-20037508.343" />
+    <BoundingBox maxx="83.634101" CRS="EPSG:4326" maxy="180" miny="-180" minx="-89.501386" />
+    <Style>
+     <Name>default</Name>
+     <Title>default</Title>
+     <LegendURL>
+      <Format>image/png</Format>
+      <OnlineResource xlink:type="simple" xlink:href="http://qwc-qgis-server/ows/scan/natural-earth-countries?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetLegendGraphic&amp;LAYER=countries&amp;FORMAT=image/png&amp;STYLE=default&amp;SLD_VERSION=1.1.0" />
+     </LegendURL>
+    </Style>
+    <TreeName>Countries</TreeName>
+    <PrimaryKey>
+     <PrimaryKeyAttribute>ogc_fid</PrimaryKeyAttribute>
+    </PrimaryKey>
+    <Attributes>
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="featurecla" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="sovereignt" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="sov_a3" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="adm0_dif" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="level" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="type" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="admin" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="adm0_a3" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="geou_dif" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="geounit" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="gu_a3" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="su_dif" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="subunit" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="su_a3" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="brk_diff" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_long" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="brk_a3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="brk_name" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="brk_group" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="abbrev" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="postal" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="formal_en" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="formal_fr" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ciawf" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="note_adm0" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="note_brk" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_sort" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_alt" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="pop_est" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="pop_rank" comment="" />
+     <Attribute type="double" precision="0" typeName="float8" editType="TextEdit" length="-1" name="gdp_md_est" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="pop_year" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="lastcensus" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="gdp_year" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="economy" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="income_grp" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="wikipedia" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="fips_10_" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="iso_a2" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="iso_a3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="iso_a3_eh" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="iso_n3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="un_a3" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="wb_a2" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="wb_a3" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="woe_id" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="woe_id_eh" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="woe_note" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="adm0_a3_is" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="adm0_a3_us" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="adm0_a3_un" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="adm0_a3_wb" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="continent" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="region_un" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="subregion" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="region_wb" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="name_len" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="long_len" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="abbrev_len" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="tiny" comment="" />
+     <Attribute type="int" precision="0" typeName="int4" editType="TextEdit" length="-1" name="homepart" comment="" />
+     <Attribute type="qlonglong" precision="0" typeName="int8" editType="TextEdit" length="-1" name="ne_id" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="wikidataid" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ar" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_bn" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_de" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_en" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_es" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_fr" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_el" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_hi" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_hu" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_id" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_it" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ja" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ko" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_nl" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_pl" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_pt" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_ru" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_sv" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_tr" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_vi" comment="" />
+     <Attribute type="QString" precision="0" typeName="varchar" editType="TextEdit" length="-1" name="name_zh" comment="" />
+    </Attributes>
+   </Layer>
+  </Layer>
+  <LayerDrawingOrder>countries,states_provinces,country_names,geographic_lines</LayerDrawingOrder>
+ </Capability>
+</WMS_Capabilities>

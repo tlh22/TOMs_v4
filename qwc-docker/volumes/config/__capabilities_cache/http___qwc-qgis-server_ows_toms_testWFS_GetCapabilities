@@ -1,0 +1,250 @@
+<WFS_Capabilities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" xmlns="http://www.opengis.net/wfs" updateSequence="0" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:ows="http://www.opengis.net/ows">
+ <ows:ServiceIdentification>
+  <ows:Title>TOMs_Test</ows:Title>
+  <ows:ServiceType>WFS</ows:ServiceType>
+  <ows:ServiceTypeVersion>1.1.0</ows:ServiceTypeVersion>
+  <ows:Fees>conditions unknown</ows:Fees>
+  <ows:AccessConstraints>None</ows:AccessConstraints>
+ </ows:ServiceIdentification>
+ <ows:ServiceProvider>
+  <ows:ProviderName>MHTC Ltd</ows:ProviderName>
+  <ows:ServiceContact>
+   <ows:IndividualName>Tim Hancock</ows:IndividualName>
+   <ows:Role>PointOfContact</ows:Role>
+  </ows:ServiceContact>
+ </ows:ServiceProvider>
+ <ows:OperationsMetadata>
+  <ows:Operation name="GetCapabilities">
+   <ows:DCP>
+    <ows:HTTP>
+     <ows:Get xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+     <ows:Post xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+    </ows:HTTP>
+   </ows:DCP>
+   <ows:Parameter name="service">
+    <ows:Value>WFS</ows:Value>
+   </ows:Parameter>
+   <ows:Parameter name="AcceptVersions">
+    <ows:Value>1.1.0</ows:Value>
+    <ows:Value>1.0.0</ows:Value>
+   </ows:Parameter>
+   <ows:Parameter name="AcceptFormats">
+    <ows:Value>text/xml</ows:Value>
+   </ows:Parameter>
+  </ows:Operation>
+  <ows:Operation name="DescribeFeatureType">
+   <ows:DCP>
+    <ows:HTTP>
+     <ows:Get xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+     <ows:Post xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+    </ows:HTTP>
+   </ows:DCP>
+   <ows:Parameter name="outputFormat">
+    <ows:Value>XMLSCHEMA</ows:Value>
+    <ows:Value>text/xml; subtype=gml/2.1.2</ows:Value>
+    <ows:Value>text/xml; subtype=gml/3.1.1</ows:Value>
+   </ows:Parameter>
+  </ows:Operation>
+  <ows:Operation name="GetFeature">
+   <ows:DCP>
+    <ows:HTTP>
+     <ows:Get xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+     <ows:Post xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+    </ows:HTTP>
+   </ows:DCP>
+   <ows:Parameter name="outputFormat">
+    <ows:Value>text/xml; subtype=gml/2.1.2</ows:Value>
+    <ows:Value>text/xml; subtype=gml/3.1.1</ows:Value>
+    <ows:Value>application/vnd.geo+json</ows:Value>
+   </ows:Parameter>
+   <ows:Parameter name="resultType">
+    <ows:Value>results</ows:Value>
+    <ows:Value>hits</ows:Value>
+   </ows:Parameter>
+  </ows:Operation>
+  <ows:Operation name="Transaction">
+   <ows:DCP>
+    <ows:HTTP>
+     <ows:Get xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+     <ows:Post xlink:href="http://qwc-qgis-server/ows/toms_test"/>
+    </ows:HTTP>
+   </ows:DCP>
+   <ows:Parameter name="inputFormat">
+    <ows:Value>text/xml; subtype=gml/2.1.2</ows:Value>
+    <ows:Value>text/xml; subtype=gml/3.1.1</ows:Value>
+    <ows:Value>application/vnd.geo+json</ows:Value>
+   </ows:Parameter>
+  </ows:Operation>
+ </ows:OperationsMetadata>
+ <FeatureTypeList>
+  <Operations>
+   <Operation>Query</Operation>
+  </Operations>
+  <FeatureType>
+   <Name>Bays</Name>
+   <Title>Bays</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.195851 55.951984</ows:LowerCorner>
+    <ows:UpperCorner>-3.195278 55.952065</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>CPZs</Name>
+   <Title>CPZs</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.198045 55.952059</ows:LowerCorner>
+    <ows:UpperCorner>-3.193367 55.955496</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>Lines</Name>
+   <Title>Lines</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.195678 55.951873</ows:LowerCorner>
+    <ows:UpperCorner>-3.195006 55.951969</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>MapGrid</Name>
+   <Title>MapGrid</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.201175 55.950021</ows:LowerCorner>
+    <ows:UpperCorner>-3.181755 55.956945</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>ParkingTariffAreas</Name>
+   <Title>ParkingTariffAreas</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.194965 55.953847</ows:LowerCorner>
+    <ows:UpperCorner>-3.194099 55.954119</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>RestrictionPolygons</Name>
+   <Title>RestrictionPolygons</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>0 0</ows:LowerCorner>
+    <ows:UpperCorner>0 0</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>Signs</Name>
+   <Title>Signs</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.194693 55.9549</ows:LowerCorner>
+    <ows:UpperCorner>-3.194692 55.954901</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>StreetGazetteerRecords</Name>
+   <Title>StreetGazetteerRecords</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.199646 55.951482</ows:LowerCorner>
+    <ows:UpperCorner>-3.191903 55.956006</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>RoadCentreLine</Name>
+   <Title>RoadCentreLine</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.199646 55.951482</ows:LowerCorner>
+    <ows:UpperCorner>-3.191903 55.956006</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+  <FeatureType>
+   <Name>RoadCasement</Name>
+   <Title>RoadCasement</Title>
+   <DefaultSRS>EPSG:27700</DefaultSRS>
+   <OtherSRS>EPSG:3857</OtherSRS>
+   <Operations>
+    <Operation>Query</Operation>
+   </Operations>
+   <ows:WGS84BoundingBox dimensions="2">
+    <ows:LowerCorner>-3.199711 55.951445</ows:LowerCorner>
+    <ows:UpperCorner>-3.191838 55.956043</ows:UpperCorner>
+   </ows:WGS84BoundingBox>
+  </FeatureType>
+ </FeatureTypeList>
+ <ogc:Filter_Capabilities>
+  <ogc:Spatial_Capabilities>
+   <ogc:GeometryOperands>
+    <ogc:GeometryOperand>gml:Point</ogc:GeometryOperand>
+    <ogc:GeometryOperand>gml:LineString</ogc:GeometryOperand>
+    <ogc:GeometryOperand>gml:Polygon</ogc:GeometryOperand>
+    <ogc:GeometryOperand>gml:Envelope</ogc:GeometryOperand>
+   </ogc:GeometryOperands>
+   <ogc:SpatialOperators>
+    <ogc:SpatialOperator name="Equals"/>
+    <ogc:SpatialOperator name="Disjoint"/>
+    <ogc:SpatialOperator name="Touches"/>
+    <ogc:SpatialOperator name="Within"/>
+    <ogc:SpatialOperator name="Overlaps"/>
+    <ogc:SpatialOperator name="Crosses"/>
+    <ogc:SpatialOperator name="Intersects"/>
+    <ogc:SpatialOperator name="Contains"/>
+    <ogc:SpatialOperator name="BBOX"/>
+   </ogc:SpatialOperators>
+  </ogc:Spatial_Capabilities>
+  <ogc:Scalar_Capabilities>
+   <ogc:LogicalOperators/>
+   <ogc:ComparisonOperators>
+    <ogc:ComparisonOperator>LessThan</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>GreaterThan</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>LessThanEqualTo</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>GreaterThanEqualTo</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>EqualTo</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>Like</ogc:ComparisonOperator>
+    <ogc:ComparisonOperator>Between</ogc:ComparisonOperator>
+   </ogc:ComparisonOperators>
+  </ogc:Scalar_Capabilities>
+  <ogc:Id_Capabilities>
+   <ogc:FID/>
+  </ogc:Id_Capabilities>
+ </ogc:Filter_Capabilities>
+</WFS_Capabilities>
