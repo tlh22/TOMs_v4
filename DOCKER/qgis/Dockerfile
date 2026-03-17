@@ -43,21 +43,48 @@ RUN set -e; \
 # screen and other QML UI pieces work (avoids 'QtQuick.Controls ... plugin not found').
 RUN MAJOR=$(echo "${QGIS_VERSION}" | cut -d'.' -f1) && \
     if [ "$MAJOR" = "3" ]; then \
-      VERSION_PKGS="libqt5gui5 libqt5widgets5 libqt5svg5 libasound2"; \
+  VERSION_PKGS=" \
+  libqt5gui5 \
+  libqt5widgets5 \
+  libqt5svg5 \
+  libasound2 \
+  libxcb-icccm4 \
+  libxcb-image0 \
+  libxcb-keysyms1 \
+  libxcb-render-util0 \
+  "; \
   EXTRA_PKGS=""; \
     else \
-      VERSION_PKGS="libqt6gui6 libqt6widgets6 libqt6svg6 libasound2t64"; \
-  EXTRA_PKGS="qml6-module-qtquick-controls qml6-module-qtquick-layouts qml6-module-qtquick-effects"; \
+  VERSION_PKGS=" \
+  libqt6gui6 \
+  libqt6widgets6 \
+  libqt6svg6 \
+  libasound2t64 \
+  libxcb-cursor0 \
+  libxcb-xinerama0 \
+  libxcb-xfixes0 \
+  libdrm2 \
+  libgbm1 \
+  "; \
+  EXTRA_PKGS=" \
+  qml6-module-qtquick-controls \
+  qml6-module-qtquick-layouts \
+  qml6-module-qtquick-effects \
+  "; \
     fi && \
     apt-get update && \
     apt-get install -y \
       qgis \
       python3-qgis \
+  postgresql-client \
       libpulse0 \
       libgl1 \
+  libglx-mesa0 \
+  libegl1 \
+  mesa-utils \
       libnss3 \
       libxkbcommon-x11-0 \
-      postgresql-client \
+  dbus-x11 \
       xvfb \
       x11vnc \
       novnc \
@@ -73,8 +100,9 @@ ARG GROUP_ID=1000
 RUN groupadd -g ${GROUP_ID} qgisgroup && \
     useradd -m -u ${USER_ID} -g qgisgroup -s /bin/bash qgisuser
 
-# Create required directories and ensure Xvfb can create the X11 socket (avoids "euid != 0" error)
+# Create required directories (including expressions) and ensure Xvfb can create the X11 socket
 RUN mkdir -p /home/qgisuser/qgis_data/profiles/default/python/plugins && \
+  mkdir -p /home/qgisuser/qgis_data/profiles/default/python/expressions && \
     mkdir -p /home/qgisuser/projects && \
     mkdir -p /home/qgisuser/log_files && \
     mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix && \

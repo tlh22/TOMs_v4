@@ -1,0 +1,74 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-legend-service/raw/master/schemas/qwc-legend-service.json",
+  "service": "legend",
+  "config": {
+    "legend_images_path": "/legends/",
+    "default_qgis_server_url": "http://qwc-qgis-server/ows/",
+    "qgis_server_url_tenant_suffix": ""
+  },
+  "resources": {
+    "wms_services": [
+      {
+        "name": "toms_test",
+        "root_layer": {
+          "name": "TOMs_Test",
+          "layers": [
+            {
+              "name": "Restrictions",
+              "layers": [
+                {
+                  "name": "Bays"
+                },
+                {
+                  "name": "Lines"
+                },
+                {
+                  "name": "RestrictionPolygons"
+                },
+                {
+                  "name": "Signs"
+                }
+              ]
+            },
+            {
+              "name": "Zones",
+              "layers": [
+                {
+                  "name": "CPZs"
+                },
+                {
+                  "name": "ParkingTariffAreas"
+                }
+              ]
+            },
+            {
+              "name": "Map Schedule Grids",
+              "layers": [
+                {
+                  "name": "MapGrid"
+                }
+              ]
+            },
+            {
+              "name": "Background Mapping",
+              "layers": [
+                {
+                  "name": "RoadCasement"
+                },
+                {
+                  "name": "StreetGazetteerRecords"
+                },
+                {
+                  "name": "RoadCentreLine"
+                },
+                {
+                  "name": "SiteArea"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

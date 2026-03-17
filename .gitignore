@@ -3,4 +3,3 @@
 *.orig
 /venv/
 *.cache-7
-.env

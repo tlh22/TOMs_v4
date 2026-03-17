@@ -1,0 +1,25 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-mapinfo-service/raw/master/schemas/qwc-mapinfo-service.json",
+  "service": "mapinfo",
+  "config": {
+    "queries": [
+      {
+        "db_url": "postgresql:///?service=TOMs_Test",
+        "info_table": "toms.\"ControlledParkingZones\"",
+        "info_geom_col": "geom",
+        "info_display_col": "RestrictionID",
+        "info_title": "Controlled Parking Zone",
+        "info_id": "toms_cpz"
+      },
+      {
+        "db_url": "postgresql:///?service=TOMs_Test",
+        "info_table": "toms.\"ParkingTariffAreas\"",
+        "info_geom_col": "geom",
+        "info_display_col": "RestrictionID",
+        "info_title": "Parking Tariff Area",
+        "info_id": "toms_parking_tariff"
+      }
+    ]
+  },
+  "resources": {}
+}
