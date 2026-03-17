@@ -10,14 +10,19 @@ services:
       args:
         - QGIS_VERSION=${QGIS_VERSION:-3.22}
         - BASE_IMAGE=${BASE_IMAGE:-debian:bookworm-slim}
+        - USER_ID=${UID}
+        - GROUP_ID=${GID}
     image: toms-qgis:${QGIS_VERSION:-3.22}
     container_name: toms-qgis-${QGIS_VERSION:-3.22}
-
+    user: "${UID}:${GID}"
     environment:
-      - DISPLAY=:99
+      - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - LIBGL_ALWAYS_INDIRECT=1
       - LIBGL_ALWAYS_SOFTWARE=1
+      - QT_QUICK_BACKEND=software
+      - QT_XCB_GL_INTEGRATION=none
+      - QTWEBENGINE_DISABLE_SANDBOX=1
       - PGSERVICEFILE=/home/qgisuser/.pg_service.conf
       - QGIS_CUSTOM_CONFIG_PATH=/home/qgisuser/qgis_data
       - TOMs_CONFIG_PATH=/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/QGIS
@@ -32,17 +37,12 @@ services:
       - "5900:5900"
 
     volumes:
-      # QGIS profile and settings persistence (must be first so plugin mount is visible under it)
-      - ./qgis_config:/home/qgisuser/qgis_data
-      # TOMs plugin source — repo root at plugin path (read-only)
+      - ./qgis_config/profiles/${QGIS_PROFILE}:/home/qgisuser/qgis_data
       - ../..:/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs:ro
-      # Writable logs dir (overrides ro plugin mount so TOMs can write logs if it uses ./logs)
-      - ./qgis_config/toms_plugin_logs:/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/logs
-      # QGIS project files (.qgz / .qgs)
+      - ./qgis_config/toms_plugin_logs/${QGIS_PROFILE}:/home/qgisuser/qgis_data/profiles/default/python/plugins/TOMs/logs
       - ../../projects:/home/qgisuser/projects
-      # Database connection — reuse existing file, do not copy
       - ../pg_service/.pg_service.conf:/home/qgisuser/.pg_service.conf:ro
-
+      - /tmp/.X11-unix:/tmp/.X11-unix
     restart: unless-stopped
 
 networks:
