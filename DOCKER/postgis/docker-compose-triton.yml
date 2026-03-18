@@ -5,7 +5,7 @@ version: "3.8"
 services:
 
   postgis:
-    image: "postgis/postgis:16-3.5"
+    image: "postgis/postgis:18-3.6"
     hostname: triton_postgis
     restart: always
     command: postgres -c config_file=/io/pg_config/postgresql.conf
