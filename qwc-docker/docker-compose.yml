@@ -44,7 +44,8 @@ services:
       # NOTE: Remove the line below if you don't need the demo data
       - ./volumes/demo-data/setup-demo-data.sh:/docker-entrypoint-initdb.d/2_setup-demo-data.sh
     ports:
-      - "127.0.0.1:5439:5432"
+       # Avoid conflict with TOMs PostGIS (DOCKER/postgis) which uses 5435
+       - 5437:5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -92,6 +93,9 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+    networks:
+      - default
+      - toms-net
     logging: *default-logging
 
   # ─── Config Service ─────────────────────────────────────────
@@ -451,6 +455,6 @@ services:
   #   logging: *default-logging
 
 networks:
-  default:
+  toms-net:
     name: toms_net
     external: true
