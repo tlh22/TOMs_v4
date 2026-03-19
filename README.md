@@ -113,8 +113,8 @@ Git revision : $Format:%H$
 Using Docker
 
 ```bash
-# Start a postgis database
-docker run --name toms_postgis -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgis/postgis:12-2.5
+# Start a PostGIS database (PostgreSQL 18 + PostGIS 3.6)
+docker run --name toms_postgis -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgis/postgis:18-3.6
 # Install the plpython extension
 docker exec toms_postgis bash -c 'apt-get update && apt-get install -y postgresql-plpython3-$PG_MAJOR'
 # Prepare roles
