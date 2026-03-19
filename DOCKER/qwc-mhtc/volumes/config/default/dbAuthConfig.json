@@ -1,0 +1,8 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-db-auth/raw/2024-lts/schemas/qwc-db-auth.json",
+  "service": "db-auth",
+  "config": {
+    "db_url": "postgresql:///?service=qwc_configdb",
+    "config_generator_service_url": "http://qwc-config-service:9090"
+  }
+}

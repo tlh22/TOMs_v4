@@ -1,0 +1,59 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-legend-service/raw/2024-lts/schemas/qwc-legend-service.json",
+  "service": "legend",
+  "config": {
+    "default_qgis_server_url": "http://qwc-qgis-server/ows/",
+    "legend_images_path": "/legends/"
+  },
+  "resources": {
+    "wms_services": [
+      {
+        "name": "trdc/scan/threerivers",
+        "root_layer": {
+          "name": "ThreeRivers",
+          "layers": [
+            {
+              "name": "Restrictions",
+              "layers": [
+                {
+                  "name": "Bays"
+                },
+                {
+                  "name": "Lines"
+                },
+                {
+                  "name": "RestrictionPolygons"
+                },
+                {
+                  "name": "CarParks"
+                }
+              ]
+            },
+            {
+              "name": "Map Schedule Grids",
+              "layers": [
+                {
+                  "name": "MapGrid"
+                }
+              ]
+            },
+            {
+              "name": "Background Mapping",
+              "layers": [
+                {
+                  "name": "StreetGazetteerRecords"
+                },
+                {
+                  "name": "TRDC"
+                },
+                {
+                  "name": "OS_Roads"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-fulltext-search-service/raw/2024-lts/schemas/qwc-search-service.json",
+  "service": "search",
+  "config": {
+    "solr_service_url": "http://qwc-solr:8983/solr/gdi/select",
+    "search_result_limit": 15,
+    "db_url": "postgresql:///?service=threerivers"
+  },
+  "resources": {
+    "facets": [
+      {
+        "name": "trdc_road_name",
+        "filter_word": "",
+        "table_name": "local_authority.StreetGazetteerRecords",
+        "geometry_column": "geom",
+        "search_id_col": "gid"
+      }
+    ]
+  }
+}

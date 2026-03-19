@@ -1,0 +1,92 @@
+{
+  "defaultScales": [100000, 50000, 25000, 10000, 7500, 5000, 2500, 1000, 500, 250, 100],
+  "defaultPrintGrid": [{"s": 10000000, "x": 1000000, "y": 1000000}, {"s": 1000000, "x": 100000, "y": 100000}, {"s": 100000, "x": 10000, "y": 10000}, {"s": 10000, "x": 1000, "y": 1000}, {"s": 1000, "x": 100, "y": 100}, {"s": 100, "x": 10, "y": 10}],
+  "defaultWMSVersion":"1.3.0",
+  "defaultBackgroundLayers": [],
+  "defaultSearchProviders": ["qgis"],
+  "defaultMapCrs": "EPSG:27700",
+  "defaultTheme": "threeRivers",
+  "searchThemes": true,
+  "searchThemeLayers": true,
+  "themes": {
+  "items": [
+      {
+      "id": "threeRivers",
+      "title": "Three Rivers District Council Traffic Orders",
+      "url": "/ows/trdc/scan/threerivers",
+      "legendUrl": "http://qwc-qgis-server/ows/trdc/threerivers?",
+      "featureInfoUrl": "http://qwc-qgis-server/ows/trdc/threerivers?",
+      "printUrl": "http://qwc-qgis-server/ows/trdc/threerivers?",
+      "editConfig": null,
+      "thumbnail": "threerivers.png",
+      "backgroundLayers": [
+          {
+          "name": "mapnik",
+          "printLayer": "osm_bg"
+          }
+      ],
+      "searchProviders": [
+        {
+          "provider": "qgis",
+          "params": {
+            "title": "trdc_qgis_search",
+            "expression": {
+              "StreetGazetteerRecords": "\"SITE_NAME\" ILIKE '%$ROAD$%' AND \"TOWN\" ILIKE '%$LOCALITY%'"
+            },
+            "fields": {
+              "ROAD": {
+                "label": "Road name",
+                "type": "text"
+              },
+              "LOCALITY": {
+                "label": "Locality",
+                "type": "text"
+              }
+            }
+          }
+        },
+        {
+          "provider":"solr",
+          "default":["trdc_road_name"]
+        }
+      ],
+      "mapCrs": "EPSG:27700",
+      "additionalMouseCrs": [],
+	  "bbox": {
+          "crs": "EPSG:4326",
+          "bounds": [
+            -1.01968,
+            51.586468,
+            0.122116,
+            51.750865
+          ]
+      },
+      "skipEmptyFeatureAttributes": true,
+      "printResolutions": [300],
+      "searchFilterRegions": [
+          {
+            "name": "trdc_search_region_group",
+            "items": [
+              {
+                "name": "trdc_search_region",
+                "crs": "EPSG:4326",
+                "coordinates": [ [-1.01968, 51.586468], [0.122116, 51.750865] ]
+              }
+            ]
+          }
+      ]
+      }
+  ],
+  "backgroundLayers": [
+      {
+      "name": "mapnik",
+      "title": "Open Street Map",
+      "type": "osm",
+      "source": "osm",
+      "attribution": "OpenStreetMap contributors",
+      "attributionUrl": "https://www.openstreetmap.org/copyright",
+      "thumbnail": "img/mapthumbs/mapnik.jpg"
+      }
+  ]
+  }
+}

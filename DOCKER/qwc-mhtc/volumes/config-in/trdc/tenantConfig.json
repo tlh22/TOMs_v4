@@ -1,0 +1,136 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-config-generator/raw/master/schemas/qwc-config-generator.json",
+  "service": "config-generator",
+  "config": {
+    "tenant": "trdc",
+    "default_qgis_server_url": "http://qwc-qgis-server/ows/",
+    "config_db_url": "postgresql:///?service=qwc_configdb",
+    "permissions_default_allow": true,
+    "validate_schema": true,
+    "qgis_projects_base_dir": "/data",
+    "qgis_projects_scan_base_dir": "/data/trdc/scan",
+    "qgis_projects_gen_base_dir": "/data/trdc/gen",
+    "qwc2_base_dir": "/qwc2",
+	"ows_prefix": "/ows",
+    "autogen_keyvaltable_datasets": false
+  },
+  "themesConfig": "./themesConfig.json",
+  "services": [
+    {
+      "name": "ogc",
+      "generator_config": {
+        "wms_services": {
+          "online_resources": {
+            "service": "/ows/",
+            "feature_info": "/api/v1/featureinfo/",
+            "legend": "/api/v1/legend/"
+          }
+        }
+      },
+      "config": {
+        "default_qgis_server_url": "http://qwc-qgis-server/ows/"
+      }
+    },
+    {
+      "name": "mapViewer",
+      "generator_config": {
+        "qwc2_config": {
+          "qwc2_config_file": "/srv/qwc_service/config-in/trdc/config.json",
+          "qwc2_index_file": "/srv/qwc_service/config-in/trdc/index.html"
+        }
+      },
+      "config": {
+        "qwc2_path": "/qwc2/",
+        "auth_service_url": "/trdc/auth/",
+        "data_service_url": "/trdc/api/v1/data/",
+        "#document_service_url": "/trdc/api/v1/document/",
+        "info_service_url": "/trdc/api/v1/featureinfo/",
+        "legend_service_url": "/trdc/api/v1/legend/",
+        "mapinfo_service_url": "/trdc/api/v1/mapinfo/",
+        "ogc_service_url": "/trdc/ows/",
+        "permalink_service_url": "/trdc/api/v1/permalink/",
+        "#print_service_url": "/trdc/api/v1/print/",
+        "search_service_url": "/trdc/api/v2/search/",
+        "search_data_service_url": "/trdc/api/v2/search/geom/"
+      }
+    },
+    {
+      "name": "featureInfo",
+      "config": {
+        "default_qgis_server_url": "http://qwc-qgis-server/ows/",
+        "skip_empty_attributes": false
+      }
+    },
+    {
+    "name": "search",
+    "config": {
+        "solr_service_url": "http://qwc-solr:8983/solr/gdi/select",
+        "search_result_limit": 15,
+        "db_url": "postgresql:///?service=threerivers"
+    },
+    "resources": {
+        "facets": [
+            {
+                "name": "trdc_road_name",
+                "filter_word": "",
+                "table_name": "local_authority.StreetGazetteerRecords",
+                "geometry_column": "geom",
+                "search_id_col": "gid"
+            }
+        ]
+    }
+    },
+    {
+      "name": "print",
+      "config": {
+        "ogc_service_url": "http://qwc-ogc-service:9090/",
+        "qgis_server_version": "3.16"
+      }
+    },
+    {
+      "name": "adminGui",
+      "config": {
+        "db_url": "postgresql:///?service=qwc_configdb",
+        "config_generator_service_url": "http://qwc-config-service:9090",
+        "totp_enabled": false,
+        "user_info_fields": [],
+        "proxy_url_whitelist": [],
+        "proxy_timeout": 60,
+        "plugins": ["themes"],
+        "input_config_path": "/src/qwc_service/config-in",
+        "qwc2_path": "/qwc2",
+        "qgs_resources_path": "/qgs-resources/trdc/",
+		"ows_prefix": "/ows",
+        "ows_service_url": "/ows"
+      }
+    },
+    {
+      "name": "dbAuth",
+      "config": {
+        "db_url": "postgresql:///?service=qwc_configdb",
+		"config_generator_service_url": "http://qwc-config-service:9090"
+      }
+    },
+    {
+      "name": "permalink",
+      "config": {
+        "db_url": "postgresql:///?service=qwc_configdb",
+        "permalinks_table": "qwc_config.permalinks",
+        "user_permalink_table": "qwc_config.user_permalinks"
+      }
+    },
+    {
+      "name": "data",
+      "config": {
+        "geometry_default_allow_null": false
+      }
+    },
+    {
+      "name": "legend",
+      "config": {
+        "default_qgis_server_url": "http://qwc-qgis-server/ows/",
+        "legend_images_path": "/legends/"
+      }
+    }
+  ]
+}

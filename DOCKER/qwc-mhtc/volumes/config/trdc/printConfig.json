@@ -1,0 +1,15 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-print-service/raw/2024-lts/schemas/qwc-print-service.json",
+  "service": "print",
+  "config": {
+    "ogc_service_url": "http://qwc-ogc-service:9090/",
+    "qgis_server_version": "3.16"
+  },
+  "resources": {
+    "print_templates": [
+      {
+        "template": "A4_Sketch"
+      }
+    ]
+  }
+}

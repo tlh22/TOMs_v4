@@ -1,0 +1,28 @@
+{
+  "$schema": "https://github.com/qwc-services/qwc-fulltext-search-service/raw/2024-lts/schemas/qwc-search-service.json",
+  "service": "search",
+  "config": {
+    "solr_service_url": "http://qwc-solr:8983/solr/gdi/select",
+    "search_result_limit": 50,
+    "db_url": "postgresql:///?service=qwc_geodb"
+  },
+  "resources": {
+    "facets": [
+      {
+        "name": "background",
+        "filter_word": "Background"
+      },
+      {
+        "name": "foreground",
+        "filter_word": "Map"
+      },
+      {
+        "name": "ne_10m_admin_0_countries",
+        "filter_word": "Country",
+        "table_name": "qwc_geodb.ne_10m_admin_0_countries",
+        "geometry_column": "wkb_geometry",
+        "search_id_col": "ogc_fid"
+      }
+    ]
+  }
+}
