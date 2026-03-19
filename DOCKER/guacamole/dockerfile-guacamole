@@ -1,2 +1,0 @@
-FROM guacamole/guacamole
-RUN mkdir /io
