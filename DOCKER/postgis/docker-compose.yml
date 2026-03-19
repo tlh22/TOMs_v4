@@ -26,7 +26,6 @@ services:
       toms-net:
         aliases:
           - toms_postgis
-        ipv4_address: 172.20.0.2
 
 networks:
   toms-net:
