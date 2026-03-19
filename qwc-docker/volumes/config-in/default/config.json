@@ -503,27 +503,7 @@
       {
         "name": "TopBar",
         "cfg": {
-          "toolbarItems": [
-            {
-              "key": "Measure",
-              "mode": "LineString",
-              "icon": "measure_line"
-            },
-            {
-              "key": "Measure",
-              "mode": "Polygon",
-              "icon": "measure_polygon"
-            },
-            {
-              "key": "Print",
-              "icon": "print"
-            },
-            {
-              "key": "Identify",
-              "mode": "Region",
-              "icon": "identify_region"
-            }
-          ]
+          "toolbarItems": []
         }
       },
       {
