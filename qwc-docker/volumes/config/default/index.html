@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <!-- Disable caching so CSS tweaks reflect immediately on refresh -->
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
         <title>QGIS Web Client</title>
         <link rel="stylesheet" type="text/css" href="assets/css/qwc2.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/colorschemes.css" />
@@ -54,11 +58,98 @@
         <script type="text/javascript">
         window.addEventListener("load", function(ev) {
             document.getElementById('splash').style.display = 'none';
+
+            var btn = document.getElementById('tomsAboutBtn');
+            var overlay = document.getElementById('tomsAboutOverlay');
+            var closeBtn = document.getElementById('tomsAboutClose');
+
+            function openAbout() {
+                overlay.style.display = 'block';
+            }
+            function closeAbout() {
+                overlay.style.display = 'none';
+            }
+
+            btn.addEventListener('click', openAbout);
+            closeBtn.addEventListener('click', closeAbout);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeAbout();
+            });
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeAbout();
+            });
+
+            // Mount the button into the real QWC2 navbar/header to avoid covering map/tools.
+            function findNavbarRoot() {
+                var container = document.getElementById('container');
+                if (!container) return null;
+                return container.querySelector('[role="banner"], header, nav, .ant-layout-header, [class*="TopBar"], [class*="topbar"], [class*="NavBar"], [class*="navbar"]');
+            }
+
+            function mountButton() {
+                var root = findNavbarRoot();
+                if (!root) return false;
+                if (btn.parentElement !== root) {
+                    root.appendChild(btn);
+                }
+                btn.classList.add('toms-in-navbar');
+                btn.style.display = '';
+                return true;
+            }
+
+            if (!mountButton()) {
+                var obs = new MutationObserver(function() {
+                    if (mountButton()) obs.disconnect();
+                });
+                obs.observe(document.body, { childList: true, subtree: true });
+                setTimeout(function() {
+                    if (!btn.classList.contains('toms-in-navbar')) {
+                        btn.style.display = 'none';
+                    }
+                    obs.disconnect();
+                }, 15000);
+            }
+
+            // Show the SAME About panel on first load (once per tab).
+            try {
+                if (!sessionStorage.getItem('tomsAboutShown')) {
+                    sessionStorage.setItem('tomsAboutShown', '1');
+                    openAbout();
+                }
+            } catch (e) {
+                // If storage is blocked, just show it once.
+                openAbout();
+            }
         }, false);
         </script>
     </head>
     <body>
         <div id="splash"><div class="lds-dual-ring"></div></div>
+        <button id="tomsAboutBtn" type="button" title="About" aria-label="About">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm0 4.6a1.35 1.35 0 1 1 0 2.7 1.35 1.35 0 0 1 0-2.7Zm2.2 12.2H9.8v-1.8h1.6v-4H9.8v-1.8h3.4v5.8h1v1.8Z"/>
+            </svg>
+            <span class="tomsSrOnly">About</span>
+        </button>
+        <div id="tomsAboutOverlay" role="dialog" aria-modal="true" aria-labelledby="tomsAboutTitle">
+            <div id="tomsAboutPanel">
+                <div id="tomsAboutHeader">
+                    <h3 id="tomsAboutTitle">About</h3>
+                    <button id="tomsAboutClose" type="button" aria-label="Close">×</button>
+                </div>
+                <div id="tomsAboutBody">
+                    <div class="tomsAboutSectionTitle">Information</div>
+                    <p>
+                        This is the TOMs/QWC2 web client. Use the <strong>About</strong> button in the navbar to view project information.
+                    </p>
+
+                    <div class="tomsAboutSectionTitle">Support</div>
+                    <p>
+                        If you have any queries, please contact your administrator.
+                    </p>
+                </div>
+            </div>
+        </div>
         <div id="container"></div>
         <script src="dist/QWC2App.js"></script>
     </body>
