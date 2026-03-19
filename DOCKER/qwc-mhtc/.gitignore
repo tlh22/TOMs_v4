@@ -1,4 +1,4 @@
-docker-compose.yml
-api-gateway/nginx.conf
+#docker-compose.yml
+#api-gateway/nginx.conf
 .env
-qwc-services
+#qwc-services
